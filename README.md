@@ -1,6 +1,6 @@
 
 # About This Repository 
-## This GitHub repository represents the **5th-year project** at the College of IT Engineering, Al-Baath University.
+## This GitHub repository represents the **5th-year project** (Graduation Project 🎓) at the College of IT Engineering, Al-Baath University.
 
 ###
 <div align="center">
