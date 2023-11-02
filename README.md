@@ -16,7 +16,7 @@
 ###
 <div align="center">
 
-| Supervised by: |
-|--|
-|- Dr. Suhel Alhammoud |
+| Supervised by: | |
+|--|--|
+|- Dr. Suhel Alhammoud |-Eng. Lana Nastah|
 </div>
