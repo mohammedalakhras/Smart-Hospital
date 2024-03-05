@@ -1,0 +1,9 @@
+.groupButton button {
+    background-color: white;
+    color:black;
+    margin: 5px;
+    padding: 8px 15px;
+}
+.groupButton button:first-child {
+    background-color: #f45d48;
+}
