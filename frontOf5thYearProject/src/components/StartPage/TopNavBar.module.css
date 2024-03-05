@@ -1,0 +1,16 @@
+.groupButton button {
+    background-color: white;
+    color:black;
+    margin: 5px;
+    padding: 8px 15px;
+}
+.groupButton button:last-child {
+    background-color: var(--secondary);
+}
+.Toolbar{
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    width:50px
+}
