@@ -1,0 +1,30 @@
+.container{
+    padding: 3% 10%;
+}
+.container >div{
+    margin: 70px 0px;
+}
+.containerOfAdviceSubSection > div:first-child , .containerOfNewDiscoverSubSection  > div:last-child{
+    padding: 30px;
+}
+.containerTypoSection hr{
+    width: 80%;
+    position: relative;
+    right: -10%;
+}
+.containerTypoSection h6{
+    margin-bottom: 30px;
+    color: #A29D9D;
+    font-size: 20px !important;
+}
+.containerTypoSection div > div:last-child{
+    text-align: center;
+}
+.containerTypoSection button{
+    background-color: var(--secondary);
+    color:#F3F2F2;
+    padding: 10px;
+}
+.containerTypoSection button:hover{
+    background-color: var(--secondary);
+}

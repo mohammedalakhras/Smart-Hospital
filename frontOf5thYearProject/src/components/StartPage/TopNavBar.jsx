@@ -1,27 +1,30 @@
 import { Box, AppBar, Toolbar, Button } from "@mui/material";
 import classes from "./TopNavBar.module.css";
+import logo from "../../assets/image/logo.png";
+import {Link} from 'react-router-dom'
 export default function TopNavBar() {
   return (
     <>
       <Box>
         <AppBar
           sx={{
-            background:'var(--primary)',
+            background: "var(--primary)",
           }}
         >
           <Toolbar className={classes.Toolbar}>
+            <img src={logo} alt="" className={classes.logo} />
             <Box className={classes.groupButton}>
-              <Button>تسجيل الدخول</Button>
-              <Button>من نحن</Button>
+              <Link to='/signup'>
+                <Button>أبدا</Button>
+              </Link>
               <Button>كيف يعمل</Button>
-              <Button>أبدا</Button>
+              <Button>من نحن</Button>
+              <Button>تسجيل الدخول</Button>
             </Box>
-
-            <img src="./Group 27.png" alt="" className={classes.logo}/>
           </Toolbar>
         </AppBar>
       </Box>
-      <Toolbar />
+      {/* <Toolbar /> */}
     </>
   );
 }
