@@ -1,0 +1,62 @@
+.mainContainer{
+    background-color: #F3F2F2;
+}
+.tittle{
+    text-align: center;
+    padding: 30px;
+}
+.sections{
+    width: 100%;
+    background-color: var(--primary);
+    text-align: center;
+    color: #F3F2F2;
+    padding: 10px 0px ;
+}
+.sections div{
+    margin: 20px 0;
+}
+.sections  div > h6{
+    margin-bottom: 20px;
+}
+.sections img{
+    width: 80%;
+}
+.sections > div > div:first-child{
+    border-left: #F3F2F2 solid 1px;
+}
+.sections > div > div:last-child{
+    border-right: #F3F2F2 solid 1px;
+}
+.typoSection{
+    padding :30px 80px;
+    text-align:center;
+}
+
+@media (max-width:800px) {
+    .typoSection{
+        padding :30px 20px;
+        font-size: 20px !important;
+    }
+    .typoSection img{
+        margin-top: 20px;
+        width: 50%;
+    }
+    .typoSection button{
+        display: block;
+        width: 50%;
+        margin: auto;
+    }
+}
+.typoSection button{
+    background-color: var(--secondary);
+    color: white;
+    padding : 10px;
+    margin-top:15px;
+}
+.typoSection button:hover{
+    background-color: var(--secondary);
+}
+.image{
+    width:50%;
+    margin-right: 20%;
+}

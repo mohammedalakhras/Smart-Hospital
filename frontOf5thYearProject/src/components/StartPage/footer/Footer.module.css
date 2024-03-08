@@ -1,0 +1,46 @@
+.container{
+    text-align: center;
+}
+.container svg{
+    margin: 5px;
+    transition: 0.1s;
+}
+.container > div:first-child svg:hover{
+    font-size: 30px;
+}
+.borderBoxForArrow{
+    border-left: solid 3px black;
+    padding: 0px;
+    text-align: left ;
+    /* margin-left: 30px;
+    margin-top: 10px; */
+}
+@media (max-width:800px) {
+    .borderBoxForArrow{
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+}
+.borderBoxForArrow svg{
+    padding: 0px;
+    margin: 20px 0px 0px -4px;
+    
+}
+.borderBoxForArrow > div svg{
+    position: relative;
+    top: 15px;
+}
+.borderBoxForArrow span{
+   position: relative;
+   top: 7px;
+   left: 5px;
+}
+.borderBoxForArrow > span{
+   position: relative;
+   top: 7px;
+   left: 5px;
+}
+/* .container > div:last-child > div > div:last-child span{
+    top: 40px;
+    left: 20px;
+} */

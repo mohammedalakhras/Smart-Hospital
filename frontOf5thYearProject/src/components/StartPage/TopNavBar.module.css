@@ -3,13 +3,31 @@
     color:black;
     margin: 5px;
     padding: 8px 15px;
+    width: 100px;
 }
-.groupButton button:last-child {
+@media (max-width:600px) {
+    .groupButton button {
+        margin: 2px;
+        padding: 4px 5px;
+        width: initial;
+    }
+}
+.groupButtonForMobile button{
+    background-color: white;
+    color:black;
+    margin: 5px;
+}
+.groupButton button:first-child {
     background-color: var(--secondary);
 }
 .Toolbar{
-    display: flex;
     justify-content: space-between;
+}
+@media (min-width : 800px) {
+    .Toolbar{
+        padding:4px 40px !important;
+        
+    }
 }
 .logo{
     width:50px
