@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+}
+
+.element {
+  padding: 0% 10% 3% 10%;
+ 
+}
+
+
+.field {
+  width: 90%;
+}
+.buttons {
+  text-align: center;
+  margin: 0% 10% 0% 12%;
+}
+
+
+

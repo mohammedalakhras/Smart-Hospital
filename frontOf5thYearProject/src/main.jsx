@@ -7,11 +7,18 @@ import store from "./stor/index.js";
 import { Provider } from "react-redux";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignUp from "./pages/SignUp.jsx";
+import Logging from "./pages/Logging.jsx";
+import SignUpInputs from "./components/Signup And Login/SignUpInputs.jsx";
+import LoginInputs from "./components/Signup And Login/LoginInputs.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
-  { path: "/signup", element: <SignUp /> },
+  { path: "/", element: <Logging /> , children:[
+    {path:"/signIn" , element:<LoginInputs />},
+    {path:"/signUp" , element:<SignUpInputs />}
+  ]},
+  // { path: "/login", element: <SignUp value={0} />  },
+  // { path: "/signup", element: <SignUp value={1} />  },
 
   { path:'/start' , element:<StartPage />}
   

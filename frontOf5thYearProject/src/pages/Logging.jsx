@@ -1,29 +1,42 @@
 import { Grid } from "@mui/material";
-import st from "./Signup.module.css";
+import st from "./Logging.module.css";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useState } from "react";
+import { Outlet , useNavigate } from "react-router-dom";
 
-export default function SignUp() {
-  const [value, setValue] = useState(0);
+export default function Logging(props) {
+
+  const navigate = useNavigate()
+  const [value, setValue] = useState(window.location.pathname==='/signin/'?0 :1);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  
+    if (newValue === 0) {
+      navigate("/signin");
+    } else {
+      navigate("/signup");
+    }
+
+
+   
+
+  
   };
 
   return (
     <div>
-      <div className={st.container}>
+      <div className={st.container} >
         <div className={`${st.circle} ${st.circleblue}`}></div>
         <div className={`${st.circle} ${st.circlewhite}`}></div>
 
         <div className={st.content}>
-          {" "}
+          
           <Grid container spacing={0}>
-            <Grid item xs={12} md={6} xl={6} className={`${st.sidecontent}`}>
+            <Grid item xs={12} md={6} xl={6} >
             <div
                 style={{
                   backgroundColor: "#2cacae",
@@ -42,20 +55,21 @@ export default function SignUp() {
                     <Tabs
                       value={value}
                       onChange={handleChange}
-                      aria-label="basic tabs example"
+                      aria-label="signup/signin"
                       centered
                     >
-                      <Tab label="تسجيل الدخول" />
+                      <Tab label="تسجيل الدخول"   />
                       <Tab label="انشاء حساب" />
                     </Tabs>
-                    {value === 0 && <div>صفحة تسجيل الدخول </div>}
-                    {value === 1 && <div>صفحة انشاء الحساب </div>}
+                    {/* {value === 0 && <LoginInputs />}
+                    {value === 1 && <SignUpInputs />} */}
+                    <Outlet />
                   </Box>
                 </div>
               </div>
             </Grid>
 
-            <Grid item xs={12} md={6} xl={6} className={st.contentcontainer}>
+            <Grid item xs={12} md={6} xl={6}  className={`${st.contentcontainer} ${st.sidecontent}`}>
               <div
                 style={{
                   backgroundColor: "#f2f6ff",
@@ -64,7 +78,10 @@ export default function SignUp() {
                   borderRadius: "30px",
                 }}
               >
-                <div className={st.sidebar}></div>
+                <div className={st.sidebar} style={{
+                    backgroundImage: `url(/public/${(value==0)?'Signin.svg':'Signup.svg'})`
+
+                }}> </div>
               </div>
             </Grid>
           </Grid>
