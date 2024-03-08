@@ -1,0 +1,78 @@
+.circle {
+  width: 150%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  position: absolute;
+  z-index: -1;
+}
+.circleblue {
+  background: #0a8080;
+  top: -50%;
+  left: -30%;
+}
+.circlewhite {
+  background: #f8f5f2;
+  left: 30%;
+  top: -3%;
+}
+.container {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+}
+
+.content {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 75vw;
+  height: 75vh;
+  margin: auto;
+  margin-top: 10vh;
+  background: #f2f6ff;
+  border: 1px solid #2cacae;
+  border-radius: 30px;
+  padding: 0px;
+}
+.sidebar {
+  width: 100%;
+  height: 100%;
+  background: #2cacae;
+  border: 1px solid #f2f6ff;
+  border-radius: 30px;
+
+  background-image: url('/public/Signup.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+
+}
+
+.controlers {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  background: #f2f6ff;
+  border: 1px solid #2cacae;
+  border-radius: 30px;
+}
+
+.img{
+  width: 80%;
+  margin: 10%;
+  margin-top: 30%;
+  
+
+}
+
+
+@media (max-width: 900px) {
+  .sidecontent {
+    display: none;
+  }
+}
+body{
+  direction: rtl;
+}
