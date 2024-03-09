@@ -1,9 +1,10 @@
 import { InputLabel, Select, TextField, MenuItem, Button } from "@mui/material";
 import st from "./SignUpInputs.module.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate  ,useOutletContext} from "react-router-dom";
 
-export default function SignUpInputs() {
+
+export default function SignUpInputs(props) {
   function HandleChange(e) {
     setPatorDoc(e.target.value);
   }
@@ -30,6 +31,8 @@ export default function SignUpInputs() {
   const [PatorDoc, setPatorDoc] = useState(0);//doctor or patient (Select)
 
   const navigate = useNavigate();
+  const [value,setValue] = useOutletContext();
+
 
   return (
     <div className={st.container}>
@@ -201,7 +204,9 @@ export default function SignUpInputs() {
             variant="standard"
             htmlFor="select"
             onClick={() => {
-              window.location.pathname = "/signin/";
+              navigate("/signin/");
+              setValue(0);
+
             }}
           >
             لدي حساب

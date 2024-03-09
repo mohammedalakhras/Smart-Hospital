@@ -58,7 +58,7 @@ export default function Logging(props) {
                     </Tabs>
                     {/* {value === 0 && <LoginInputs />}
                     {value === 1 && <SignUpInputs />} */}
-                    <Outlet />
+                    <Outlet context={[value,setValue]} />
                   </Box>
                 </div>
               </div>
