@@ -1,5 +1,5 @@
 import TopNavBar from "../components/StartPage/TopNavBar";
-import MainArea from "../components/StartPage/mainArea/MainArea";
+import MainArea from "../components/StartPage/mainArea/mainArea";
 import Footer from "../components/StartPage/footer/Footer";
 import {useMediaQuery} from '@mui/material'
 import {createContext } from 'react'
