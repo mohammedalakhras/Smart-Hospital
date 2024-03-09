@@ -5,39 +5,34 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useState } from "react";
-import { Outlet , useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function Logging(props) {
-
-  const navigate = useNavigate()
-  const [value, setValue] = useState(window.location.pathname==='/signin/'?0 :1);
+  const navigate = useNavigate();
+  const [value, setValue] = useState(
+    window.location.pathname === "/signin/" ? 0 : 1
+  );
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  
+
     if (newValue === 0) {
       navigate("/signin");
     } else {
       navigate("/signup");
     }
-
-
-   
-
-  
   };
 
   return (
     <div>
-      <div className={st.container} >
+      <div className={st.container}>
         <div className={`${st.circle} ${st.circleblue}`}></div>
         <div className={`${st.circle} ${st.circlewhite}`}></div>
 
         <div className={st.content}>
-          
           <Grid container spacing={0}>
-            <Grid item xs={12} md={6} xl={6} >
-            <div
+            <Grid item xs={12} md={6} xl={6}>
+              <div
                 style={{
                   backgroundColor: "#2cacae",
                   width: "100%",
@@ -58,7 +53,7 @@ export default function Logging(props) {
                       aria-label="signup/signin"
                       centered
                     >
-                      <Tab label="تسجيل الدخول"   />
+                      <Tab label="تسجيل الدخول" />
                       <Tab label="انشاء حساب" />
                     </Tabs>
                     {/* {value === 0 && <LoginInputs />}
@@ -69,7 +64,13 @@ export default function Logging(props) {
               </div>
             </Grid>
 
-            <Grid item xs={12} md={6} xl={6}  className={`${st.contentcontainer} ${st.sidecontent}`}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              xl={6}
+              className={`${st.contentcontainer} ${st.sidecontent}`}
+            >
               <div
                 style={{
                   backgroundColor: "#f2f6ff",
@@ -78,10 +79,16 @@ export default function Logging(props) {
                   borderRadius: "30px",
                 }}
               >
-                <div className={st.sidebar} style={{
-                    backgroundImage: `url(/public/${(value==0)?'Signin.svg':'Signup.svg'})`
-
-                }}> </div>
+                <div
+                  className={st.sidebar}
+                  style={{
+                    backgroundImage: `url(/public/${
+                      value == 0 ? "Signin.svg" : "Signup.svg"
+                    })`,
+                  }}
+                >
+                  {" "}
+                </div>
               </div>
             </Grid>
           </Grid>
