@@ -6,6 +6,9 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import SigninSVG from '../assets/image/Logging/Signin.svg'
+import SignupSVG from '../assets/image/Logging/Signup.svg'
+
 
 export default function Logging(props) {
   const navigate = useNavigate();
@@ -82,9 +85,10 @@ export default function Logging(props) {
                 <div
                   className={st.sidebar}
                   style={{
-                    backgroundImage: `url(/src/assets/image/Logging/${
-                      value == 0 ? 'Signin.svg' : 'Signup.svg'
-                    })`,
+                    // backgroundImage: `url(/src/assets/image/Logging/${
+                    //   value == 0 ? 'Signin.svg' : 'Signup.svg'
+                    // })`,
+                    backgroundImage:`url(${value===0?SigninSVG :SignupSVG})` 
                   }}
                 >
                   {" "}
