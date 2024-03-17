@@ -9,7 +9,7 @@
 |--|--|
 | 1. Mohammed Al-Akhras   | 4. Abdul mohaimen Safaf  |
 | 2. Aghiad Elwan Al-Hamwi |  5. Hamdi Diab      |
-|3. Salman Abo Araj| 6. Baraa Berkdar |
+|3. Baraa Berkdar |  |
 
 </div>
 
