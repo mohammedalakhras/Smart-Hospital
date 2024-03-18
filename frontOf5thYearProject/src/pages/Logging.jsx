@@ -85,9 +85,7 @@ export default function Logging(props) {
                 <div
                   className={st.sidebar}
                   style={{
-                    // backgroundImage: `url(/src/assets/image/Logging/${
-                    //   value == 0 ? 'Signin.svg' : 'Signup.svg'
-                    // })`,
+                   
                     backgroundImage:`url(${value===0?SigninSVG :SignupSVG})` 
                   }}
                 >

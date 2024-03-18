@@ -32,6 +32,20 @@ function App() {
         >
           Signup Page
         </button>
+        <button 
+          onClick={() => {
+            navigate("profile");
+          }}
+        >
+          Profile Page
+        </button>
+        <button 
+          onClick={() => {
+            navigate("editProfile");
+          }}
+        >
+          Edit Profile Page
+        </button>
       </div>
     </>
   );
