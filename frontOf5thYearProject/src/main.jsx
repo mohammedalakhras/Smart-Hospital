@@ -12,7 +12,7 @@ import SignUpInputs from "./components/Signup And Login/SignUpInputs.jsx";
 import LoginInputs from "./components/Signup And Login/LoginInputs.jsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <App /> },
+  { path: "/", element: <App />  },
   { path: "/", element: <Logging /> , children:[
     {path:"/signIn" , element:<LoginInputs />},
     {path:"/signUp" , element:<SignUpInputs />}
