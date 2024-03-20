@@ -5,14 +5,14 @@ export default function QuestionComponent(props) {
   return (
     <div className={st.mainBody}>
       <div className={st.ansNum}>
-        <p> {props.data.numAns} </p>
+        <p> {props.data.NumOfViews} </p>
         <p> اجابات </p>
         
       </div>
 
       <div>
         <div className={st.ques}>
-          <h2>{props.data.ques}</h2>
+          <h2>{props.data.message}</h2>
           <div className={st.tags}>
             {props.data.tags.map((k,i)=>{
             return   <div key={i} className={st.tag}>

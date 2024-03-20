@@ -6,9 +6,7 @@
 
 .element {
   padding: 0% 10% 3% 10%;
- 
 }
-
 
 .field {
   width: 90%;
@@ -18,5 +16,7 @@
   margin: 0% 10% 0% 12%;
 }
 
-
-
+.error {
+  color: red;
+  font-weight: 500;
+}

@@ -1,6 +1,6 @@
 import st from "./ProfAndCovEdit.module.css";
 import { Box, Grid, Button } from "@mui/material/";
-import aghiad from "../../../assets/image/Profile/Aghiad.svg";
+import patient from "../../../assets/image/Profile/patient.png";
 import { useState } from "react";
 export default function ProfAndCovEdit() {
   const [data, setdata] = useState({
@@ -26,7 +26,7 @@ export default function ProfAndCovEdit() {
             <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
               <div
                 className={st.ProfileImage}
-                style={{ backgroundImage: `url(${aghiad})` }}
+                style={{ backgroundImage: `url(${patient})` }}
               ></div>
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>

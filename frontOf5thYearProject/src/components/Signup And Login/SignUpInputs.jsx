@@ -1,12 +1,13 @@
 import { InputLabel, Select, TextField, MenuItem, Button } from "@mui/material";
 import st from "./SignUpInputs.module.css";
-import { useState } from "react";
-import { useNavigate  ,useOutletContext} from "react-router-dom";
-
+import { useEffect, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import axios from "axios";
 
 export default function SignUpInputs(props) {
   function HandleChange(e) {
     setPatorDoc(e.target.value);
+    console.log(PatorDoc);
   }
 
   function submit(e) {
@@ -28,11 +29,67 @@ export default function SignUpInputs(props) {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const [email, setEmail] = useState("");
-  const [PatorDoc, setPatorDoc] = useState(0);//doctor or patient (Select)
+  const [PatorDoc, setPatorDoc] = useState(0); //doctor or patient (Select)
 
   const navigate = useNavigate();
-  const [value,setValue] = useOutletContext();
+  const [value, setValue] = useOutletContext();
+  const [errors, setError] = useState({});
+  const [counter, setCounter] = useState(0);
 
+  useEffect(() => {
+    if (!name) {
+      errors.name = "الحقل مطلوب";
+    } else if (!/^[A-Z]{4,40}$/i.test(name)) {
+      setError({ ...errors, name: "الاسم غير صالح" });
+    } else {
+      setError({ ...errors, name: null });
+    }
+
+    if (!email) {
+      errors.email = "الحقل مطلوب";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      setError({ ...errors, email: "الايميل غير صالح" });
+    } else {
+      setError({ ...errors, email: null });
+    }
+
+    if (!pass) {
+      errors.pass = "الحقل مطلوب";
+    } else if (!/^(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*#?&]).*$/i.test(pass)) {
+      setError({ ...errors, pass: "كلمة المرور غير صالحة" });
+    } else {
+      setError({ ...errors, pass: null });
+    }
+  }, [name, email, pass, counter]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setCounter((p) => p + 1);
+    console.log(counter);
+    if (email && pass && errors.email == null && errors.pass == null) {
+      let url =
+        PatorDoc == 0
+          ? "http://127.0.0.1:8000/api/pation/register"
+          : "http://127.0.0.1:8000/api/doctor/register";
+      const res = await axios
+        .post(url, {
+          email: email,
+          password: pass,
+          full_name: name,
+        })
+        .then((res) => {
+          const token = res.data.access_token;
+          const type = res.data.type;
+
+          // window.localStorage.setItem("token", token);
+          navigate("/profile");
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+          setError({ ...errors, note: err.response.data.msg });
+        });
+    }
+  }
 
   return (
     <div className={st.container}>
@@ -64,6 +121,7 @@ export default function SignUpInputs(props) {
               placeholder="جون سميث"
               variant="standard"
             />
+            <p className={st.error}>{counter > 0 && errors.name}</p>
           </div>
 
           <div className={st.element}>
@@ -94,6 +152,7 @@ export default function SignUpInputs(props) {
               placeholder="example@host.com"
               variant="standard"
             />
+            <p className={st.error}>{counter > 0 && errors.email}</p>
           </div>
           <div className={st.element}>
             <InputLabel
@@ -120,6 +179,7 @@ export default function SignUpInputs(props) {
               type="password"
               variant="standard"
             />
+            <p className={st.error}>{counter > 0 && errors.pass}</p>
           </div>
         </div>
 
@@ -160,14 +220,15 @@ export default function SignUpInputs(props) {
               height: "40px",
             }}
           >
-            <MenuItem value={0}>مريض</MenuItem>
+            <MenuItem className={st.Item} value={0}>
+              مريض
+            </MenuItem>
             <MenuItem className={st.Item} value={1}>
               طبيب
             </MenuItem>
           </Select>
 
           <Button
-            onClick={submit}
             variant="contained"
             type="submit"
             sx={{
@@ -186,9 +247,12 @@ export default function SignUpInputs(props) {
                 color: "#F45D48",
               },
             }}
+            onClick={handleSubmit}
           >
             إنشاء حساب
           </Button>
+          <p className={st.error}>{counter > 0 && errors.note}</p>
+
           <InputLabel
             sx={{
               fontFamily: "Al-Jazeera-Arabic",
@@ -199,14 +263,13 @@ export default function SignUpInputs(props) {
 
               color: "#FF6F9C",
               margin: "10px 0px 10px 0px",
-              cursor:'pointer'
+              cursor: "pointer",
             }}
             variant="standard"
             htmlFor="select"
             onClick={() => {
               navigate("/signin/");
               setValue(0);
-
             }}
           >
             لدي حساب

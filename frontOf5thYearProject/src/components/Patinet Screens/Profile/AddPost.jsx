@@ -3,17 +3,40 @@ import st from "./AddPost.module.css";
 import Textarea from "@mui/joy/Textarea";
 import { Button } from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ErrorIcon from "@mui/icons-material/Error";
+import SendPost from "../../../functions/SendPost";
 
 export default function AddPost() {
   const [files, SetFiles] = useState([]);
+  const [valid, setValid] = useState(null);
+  const [TextMessage, setTextMessage] = useState("");
+  const [res, setRes] = useState("");
+ async function handleSubmit(e) {
+    e.preventDefault();
+    setValid(null);
+    const resp = await SendPost(
+      window.localStorage.getItem("token"),
+      TextMessage,
+      files
+    );
+    setRes(resp)
+    if(resp.status==200)
+    setValid(true);
+  else{
+    setValid(false)
+  }
+    console.log('resp',resp);
+  }
 
   function handleUploadFile(e) {
     SetFiles(Array.from(e.target.files));
+    console.log(files);
   }
 
   useEffect(() => {
     console.log("Files:", files);
-  }, [files]);
+  }, []);
 
   return (
     <div className={st.container}>
@@ -30,42 +53,41 @@ export default function AddPost() {
           border: "1px solid #000000",
           borderRadius: "20px",
         }}
+        value={TextMessage}
+        onChange={(e) => {
+          setTextMessage(e.target.value);
+          console.log(TextMessage);
+        }}
       />
       <Button
         variant="text"
         component="label"
-
         sx={{
-
-          
-         
           color: "#B0B3B8",
-          background:'#ffffff',
-          border:'#ffffff 0px',
-          marginTop:'30px',
-          marginRight:'10%'
+          background: "#ffffff",
+          border: "#ffffff 0px",
+          marginTop: "30px",
+          marginRight: "10%",
         }}
-      ><div style={{}} className={st.uploadImage}>
-        <ImageIcon sx={{ color: "rgb(68, 196, 132)" }} />
-        إرفاق صورة
-        <input
-          type="file"
-          hidden
-          onChange={handleUploadFile}
-          accept=".png,.jpg,.jpeg,.webp,.tiff,.gif"
-          multiple={true}
+      >
+        <div style={{}} className={st.uploadImage}>
+          <ImageIcon sx={{ color: "rgb(68, 196, 132)" }} />
+          إرفاق صورة
+          <input
+            type="file"
+            hidden
+            onChange={handleUploadFile}
+            accept=".png,.jpg,.jpeg,.webp,.tiff,.gif"
+            multiple={true}
           />
-          </div>
+        </div>
       </Button>
       {files.length > 0 && (
         <div className={st.uploadedimagescontainer}>
           <h3>الصور المرفقة:</h3>
           {files.map((file, index) => (
             <div key={index}>
-              <div
-               className={st.item}
-              >
-               
+              <div className={st.item}>
                 <ImageIcon sx={{ color: "rgb(68, 196, 132)" }} />
                 <div style={{ wordWrap: "break-word" }}>{file.name}</div>{" "}
               </div>
@@ -73,14 +95,35 @@ export default function AddPost() {
           ))}
         </div>
       )}
-      <div   className={st.button}>
-<Button
-                  sx={{background: '#F45D48',width:'20%' ,height:'50px' ,marginBottom:'3%'}}  
-                  >
-              <p>إرسال</p>     
-                  </Button>
-                  </div>
-
+      <div className={st.button}>
+        <Button
+          sx={{
+            background: "#F45D48",
+            width: "20%",
+            height: "50px",
+            marginBottom: "3%",
+          }}
+          onClick={handleSubmit}
+        >
+          <p>إرسال</p>
+        </Button>
+      </div>
+      <div className={st.msg}>
+        {" "}
+        {valid == true && valid != null ? (
+          <p className={st.succ}>
+            {<CheckCircleOutlineIcon />} تم الارسال بنجاح
+          </p>
+        ) : valid == false && valid != null ? (
+          <p className={st.err}>
+            {<ErrorIcon />}
+            حدث خطأ ما يرجى المحاولة لاحقاً
+           <br/> {res.data.msg}
+          </p>
+        ) : (
+          <p></p>
+        )}
+      </div>
     </div>
   );
 }

@@ -24,42 +24,59 @@
   background-size: cover;
   border-radius: 50%;
   border: 3px solid #ffffff;
+  background-color: #d3d1d1;
 }
 
-@media (max-width: 720px) {
-  .ProfileImage {
-    width: 150px;
-    margin-top: -75px;
-  }
-}
 @media (max-width: 350px) {
   .ProfileImage {
     width: 100px;
     margin-top: -50px;
   }
 }
-@media (min-width: 800px) {
+@media (min-width: 351px) and (max-width: 500px) {
+  .ProfileImage {
+    width: 150px;
+    margin-top: -50px;
+  }
+}
+@media (min-width: 501px) and (max-width: 600px) {
+  .ProfileImage {
+    width: 150px;
+    margin-top: -75px;
+  }
+}
+@media (min-width: 601px) and (max-width: 800px) {
   .ProfileImage {
     width: 200px;
-    margin-top: -100px;
+    margin-top: -175px;
   }
 }
-@media (min-width: 1000px) {
+
+@media (min-width: 801px) and (max-width: 999px) {
+  .ProfileImage {
+    width: 230px;
+    margin-top: -175px;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1199px) {
   .ProfileImage {
     width: 250px;
-    margin-top: -125px;
+    margin-top: -175px;
   }
 }
-@media (min-width: 1200px) {
+
+@media (min-width: 1200px) and (max-width: 1899px) {
   .ProfileImage {
     width: 300px;
-    margin-top: -150px;
+    margin-top: -200px;
   }
 }
+
 @media (min-width: 1900px) {
   .ProfileImage {
-    width: 350px;
-    margin-top: -175px;
+    width: 400px;
+    margin-top: -200px;
   }
 }
 
@@ -92,6 +109,7 @@
   line-height: 27px;
   color: #b0afaf;
   direction: ltr;
+  word-wrap: break-word;
 }
 
 .button {
@@ -113,4 +131,5 @@
 }
 .buttonContainer {
   text-align: center;
+  padding-bottom: 20px;
 }
