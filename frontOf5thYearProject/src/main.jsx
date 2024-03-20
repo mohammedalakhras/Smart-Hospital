@@ -10,9 +10,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Logging from "./pages/Logging.jsx";
 import SignUpInputs from "./components/Signup And Login/SignUpInputs.jsx";
 import LoginInputs from "./components/Signup And Login/LoginInputs.jsx";
+import Profile from "./pages/Patient Screens/Profile.jsx";
+import EditProfile from "./pages/Patient Screens/EditProfile.jsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <App />  },
+  { path: "/", element: <App /> , children:[
+    { path: "/profile", element: <Profile /> },
+    { path: "/editProfile", element: <EditProfile /> },
+
+
+  ]},
   { path: "/", element: <Logging /> , children:[
     {path:"/signIn" , element:<LoginInputs />},
     {path:"/signUp" , element:<SignUpInputs />}

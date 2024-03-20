@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Http\Controllers\Qustion;
+
+use App\Http\Controllers\Controller;
+use App\Models\Question;
+use App\Http\Requests\Qustion\{
+    StoreQustionContrller,
+};
+use App\Trait\{
+    responseTrait,
+    uplodeImages
+};
+use DB;
+use Illuminate\Http\Request;
+
+class QustionController extends Controller
+{
+    use responseTrait, uplodeImages;
+
+    public function index()
+    {
+        $qustions = Question::with('has_replys')->get();
+        return $this->returnData('data', $qustions);
+    }
+
+    public function store(StoreQustionContrller $request)
+    {
+        return DB::transaction(function () use ($request) {
+            $pation_id = auth()->user()->id;
+            $images = $request->images;
+            $qustion = Question::create([
+                "message"       => $request->message,
+                'pation_id'     => $pation_id
+            ]);
+            $names = $this->saveImages($images, "Question");
+            $qustion->createManyImages($names);
+            return $this->returnSucess("200", "تم اضافة السؤال بنجاح ");
+        });
+    }
+
+    public function incresView(string $id)
+    {
+        $qustion = Question::find($id);
+        if ($qustion) {
+            $newViews = $qustion->NumOfViews + 1;
+            $qustion->update(["NumOfViews" => $newViews]);
+            return $this->returnSucess(200, "تم زيادة المشاهدات");
+        }else{
+            return $this->returnError(404,"السؤال غير موجود");
+        }
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $qustion = Question::NotDoctorReply()->find($id);
+        if ($qustion && $qustion->pation_id == auth()->user()->id) {
+            $qustion->update($request->except('images'));
+            if ($request->hasFile('images')) {
+                $old_names = $qustion->image()->pluck('image_name');
+                $names     = $this->saveImages($request->images, "Question");
+                $qustion->image()->delete();
+                $this->deleteImages($old_names, "Question");
+                $qustion->createManyImages($names);
+            }
+            return $this->returnSucess("200", "تم تعديل السؤال بنجاح");
+        } else {
+            return $this->returnError('401', "السؤال غير موجود");
+        }
+    }
+
+    public function destroy(string $id)
+    {
+        $qustion = Question::find($id);
+        if ($qustion) {
+            return DB::transaction(function () use ($id, $qustion) {
+                $old_names = $qustion->image->pluck('image_name');
+                $qustion->image()->delete();
+                $qustion->delete();
+                $this->deleteImages($old_names, "Question");
+                return $this->returnSucess(200, "تم حذف السؤال بنجاح");
+            });
+        }else{
+            return $this->returnError('401', "السؤال غير موجود");
+
+        }
+    }
+
+    public function getFamus(){
+        $qustions=Question::orderBy("NumOfViews","desc")->take(5)->get();
+        return $this->returnData("qustions",$qustions);
+
+    }
+
+
+}
