@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import st from "./AddPost.module.css";
 import Textarea from "@mui/joy/Textarea";
 import { Button } from "@mui/material";
@@ -34,32 +34,38 @@ export default function AddPost() {
       <Button
         variant="text"
         component="label"
+
         sx={{
+
+          
+         
           color: "#B0B3B8",
-          background: "#ffffff",
-          border: "#ffffff 0px",
-          marginTop: "30px",
-          marginRight: "10%",
+          background:'#ffffff',
+          border:'#ffffff 0px',
+          marginTop:'30px',
+          marginRight:'10%'
         }}
-      >
-        <div style={{}} className={st.uploadImage}>
-          <ImageIcon sx={{ color: "rgb(68, 196, 132)" }} />
-          إرفاق صورة
-          <input
-            type="file"
-            hidden
-            onChange={handleUploadFile}
-            accept=".png,.jpg,.jpeg,.webp,.tiff,.gif"
-            multiple={true}
+      ><div style={{}} className={st.uploadImage}>
+        <ImageIcon sx={{ color: "rgb(68, 196, 132)" }} />
+        إرفاق صورة
+        <input
+          type="file"
+          hidden
+          onChange={handleUploadFile}
+          accept=".png,.jpg,.jpeg,.webp,.tiff,.gif"
+          multiple={true}
           />
-        </div>
+          </div>
       </Button>
       {files.length > 0 && (
         <div className={st.uploadedimagescontainer}>
           <h3>الصور المرفقة:</h3>
           {files.map((file, index) => (
             <div key={index}>
-              <div className={st.item}>
+              <div
+               className={st.item}
+              >
+               
                 <ImageIcon sx={{ color: "rgb(68, 196, 132)" }} />
                 <div style={{ wordWrap: "break-word" }}>{file.name}</div>{" "}
               </div>
@@ -67,18 +73,14 @@ export default function AddPost() {
           ))}
         </div>
       )}
-      <div className={st.button}>
-        <Button
-          sx={{
-            background: "#F45D48",
-            width: "20%",
-            height: "50px",
-            marginBottom: "3%",
-          }}
-        >
-          <p>إرسال</p>
-        </Button>
-      </div>
+      <div   className={st.button}>
+<Button
+                  sx={{background: '#F45D48',width:'20%' ,height:'50px' ,marginBottom:'3%'}}  
+                  >
+              <p>إرسال</p>     
+                  </Button>
+                  </div>
+
     </div>
   );
 }

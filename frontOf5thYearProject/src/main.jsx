@@ -12,9 +12,10 @@ import SignUpInputs from "./components/Signup And Login/SignUpInputs.jsx";
 import LoginInputs from "./components/Signup And Login/LoginInputs.jsx";
 import Profile from "./pages/Patient Screens/Profile.jsx";
 import EditProfile from "./pages/Patient Screens/EditProfile.jsx";
-
+import Home from "./pages/Patient Screens/Home.jsx";
 const router = createBrowserRouter([
   { path: "/", element: <App /> , children:[
+    { path: "/" , element : <Home />},
     { path: "/profile", element: <Profile /> },
     { path: "/editProfile", element: <EditProfile /> },
 
