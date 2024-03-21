@@ -5,40 +5,27 @@ import GetQuestion from "../../../functions/GetQuestion";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 
-export default function MyQuestions() {
+export default function MyQuestions(props) {
   const [isLoading, setLoading] = useState(true);
 
   const [data, setData] = useState([]);
- const [datares,setdatares]=useState(<></>);
- const [counter,setcounter]=useState(0);
+ const [datares,setdatares]=useState('');
   useEffect( () => {
-   const res = getData(window.localStorage.getItem("token"))
-  //  .then(
-  //     (data) => {
-        
-  //       setData(data.data.data);
 
-  //       setLoading(false);
-  //     }
-  //   );
-   
+ if(props.data.data.code==200){
+  setLoading(false)
 
-
-    if(data && Array.isArray(data)){
-      console.log(data);
-      setdatares( data.map((k, i) => {
-       return (
-         <div key={i} className={st.ques}>
-           <QuestionComponent data={k} />{" "}
-         </div>
-       );
-     }))
-   }
+    setdatares( props.data.data.data.map((k, i) => {
+      return (
+        <div key={k.id} className={st.ques}>
+          <QuestionComponent data={k} />{" "}
+        </div>
+      );
+    }));
+ }},[]
+ )
 
 
-
-
-  }, []);
 
   async function getData(token){
   

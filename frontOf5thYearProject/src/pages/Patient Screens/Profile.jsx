@@ -6,7 +6,10 @@ import ProfileAndCover from "../../components/Patinet Screens/Profile/ProfileAnd
 import st from "./Profile.module.css";
 import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
+import { useLoaderData } from "react-router-dom";
 export default function Profile() {
+  const ques = useLoaderData();
+  console.log("ques", ques);
   const [data, setData] = useState({});
 
   const [isLoading, setLoading] = useState(true);
@@ -24,7 +27,6 @@ export default function Profile() {
     }
   }, []);
 
- 
   async function getData(token) {
     try {
       const configToken = {
@@ -59,14 +61,18 @@ export default function Profile() {
   }
 
   if (isLoading) {
-    return <div className={st.loading}><CircularProgress /></div>;
+    return (
+      <div className={st.loading}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
     <div className={st.container}>
       <ProfileAndCover data={data} />
       <AddPost />
-      <MyQuestions />
+      <MyQuestions data={ques} />
       <CommonQuestions />
     </div>
   );

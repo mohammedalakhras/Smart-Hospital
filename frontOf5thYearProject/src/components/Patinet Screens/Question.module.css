@@ -5,7 +5,7 @@
 .ansNum {
   width: 80px ;
   height: 80px ;
-
+aspect-ratio: 1/1;
   background: #f6f6f6;
   border: 1px solid #000000;
   border-radius: 50%;
@@ -29,6 +29,7 @@
 
   color: #787878;
   margin-bottom:20px ;
+  word-break: break-all;
 }
 
 .tags {

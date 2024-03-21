@@ -13,23 +13,43 @@ import LoginInputs from "./components/Signup And Login/LoginInputs.jsx";
 import Profile from "./pages/Patient Screens/Profile.jsx";
 import EditProfile from "./pages/Patient Screens/EditProfile.jsx";
 import Home from "./pages/Patient Screens/Home.jsx";
+import GetQuestion from "./functions/GetQuestion.jsx";
 const router = createBrowserRouter([
-  { path: "/", element: <App /> , children:[
-    { path: "/" , element : <Home />},
-    { path: "/profile", element: <Profile /> },
-    { path: "/editProfile", element: <EditProfile /> },
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+        loader: async () => {
+          const data = await GetQuestion(window.localStorage.getItem("token"));
+          console.log(data);
+          return data || null;
+        },
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+        loader: async () => {
+          const data = await GetQuestion(window.localStorage.getItem("token"));
+          console.log(data);
+          return data || null;
+        },
+      },
+      { path: "/editProfile", element: <EditProfile /> },
+    ],
+  },
+  {
+    path: "/",
+    element: <Logging />,
+    children: [
+      { path: "/signIn", element: <LoginInputs /> },
+      { path: "/signUp", element: <SignUpInputs /> },
+    ],
+  },
 
-
-  ]},
-  { path: "/", element: <Logging /> , children:[
-    {path:"/signIn" , element:<LoginInputs />},
-    {path:"/signUp" , element:<SignUpInputs />}
-  ]},
-  // { path: "/login", element: <SignUp value={0} />  },
-  // { path: "/signup", element: <SignUp value={1} />  },
-
-  { path:'/start' , element:<StartPage />}
-  
+  { path: "/start", element: <StartPage /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
