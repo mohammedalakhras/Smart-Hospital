@@ -3,7 +3,6 @@ import st from "./MyQuestions.module.css";
 import QuestionComponent from "../QuestionComponent";
 import GetQuestion from "../../../functions/GetQuestion";
 import { CircularProgress } from "@mui/material";
-import axios from "axios";
 
 export default function MyQuestions(props) {
   const [isLoading, setLoading] = useState(true);
@@ -11,8 +10,12 @@ export default function MyQuestions(props) {
   const [data, setData] = useState([]);
  const [datares,setdatares]=useState('');
   useEffect( () => {
-
- if(props.data.data.code==200){
+if(props.data==null)
+{
+  setdatares(<p>خطأ في تحميل البيانات </p> )
+  setLoading(false)
+}
+ else if(props.data.data.code==200){
   setLoading(false)
 
     setdatares( props.data.data.data.map((k, i) => {
