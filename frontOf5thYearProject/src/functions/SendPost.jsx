@@ -41,6 +41,8 @@ export default async function SendPost(token, mess, files) {
       window.location.pathname = "signin";
     } else {
       console.log("Error fetching data:", error.message);
+      window.localStorage.clear("token");
+      window.location.pathname = "signin";
     }
   }
 }

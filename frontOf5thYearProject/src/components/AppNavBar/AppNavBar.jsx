@@ -40,7 +40,7 @@ export default function AppNavBar() {
       .catch((er) => {
         setAvtr(<Avatar src={prof} />);
       });
-  })
+  },[])
   return (
     <>
       <AppBar>
