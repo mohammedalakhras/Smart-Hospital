@@ -23,8 +23,8 @@ class PationController extends Controller
        
         $request1 = $request->except('password');
         $request1['password'] = bcrypt($request->password);
-        $admin = Pation::create($request1);
-        if ($admin)
+        $pation = Pation::create($request1);
+        if ($pation)
             return $this->returnData("data", "  تم انشاء الحساب بنجاح  ");
     }
 

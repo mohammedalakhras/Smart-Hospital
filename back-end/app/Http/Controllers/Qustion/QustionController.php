@@ -26,15 +26,19 @@ class QustionController extends Controller
 
     public function store(StoreQustionContrller $request)
     {
+        // return $request->specializations;
         return DB::transaction(function () use ($request) {
             $pation_id = auth()->user()->id;
             $images = $request->images;
             $qustion = Question::create([
-                "message"       => $request->message,
-                'pation_id'     => $pation_id
+                "message"          => $request->message,
+                'pation_id'        => $pation_id,
+                "specializations"  =>serialize($request->specializations)
             ]);
+            if($images){
             $names = $this->saveImages($images, "Question");
             $qustion->createManyImages($names);
+            }
             return $this->returnSucess("200", "تم اضافة السؤال بنجاح ");
         });
     }
@@ -56,6 +60,7 @@ class QustionController extends Controller
         $qustion = Question::NotDoctorReply()->find($id);
         if ($qustion && $qustion->pation_id == auth()->user()->id) {
             $qustion->update($request->except('images'));
+            $qustion->update(["specializations"  =>serialize($request->specializations)]);
             if ($request->hasFile('images')) {
                 $old_names = $qustion->image()->pluck('image_name');
                 $names     = $this->saveImages($request->images, "Question");

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Doctor\StoreDoctorRequest;
 use App\Models\Doctor;
+use App\Models\Question;
 use App\Trait\{
     responseTrait,
     uplodeImages
@@ -15,6 +16,7 @@ use DB;
 class DoctorController extends Controller
 {
     use responseTrait, uplodeImages;
+
     public function register(StoreDoctorRequest $request)
     {
         $request1 = $request->except('password');
@@ -25,9 +27,7 @@ class DoctorController extends Controller
 
     public function update(Request $request)
     {
-        // return $request->user();
         $doctor_id = $request->user()->id;
-
         $doctor = Doctor::find($doctor_id);
         if ($doctor) {
             return DB::transaction(function () use ($request, $doctor) {
@@ -55,9 +55,32 @@ class DoctorController extends Controller
         }
     }
 
-    public function getInformation(){
-      $doctor_id=auth()->user()->id;
-        $doctor=Doctor::find($doctor_id);
-        return $this->returnData("doctor",$doctor);
+
+    public function addReply(Request $request, Question $qustion){
+        $qustion->has_replys()->create([
+            "reply"        =>$request->reply,
+            "date"         =>date("y:m:h"),
+            "time"         =>now(),
+            "qusation_id"  =>$qustion->id,
+            "doctor_name"  => auth('doctor')->user()->full_name
+        ]);
+        return $this->returnSucess(200,"تم ارسال الرد ");
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function getInformation()
+    {
+        $doctor_id = auth()->user()->id;
+        $doctor = Doctor::find($doctor_id);
+        return $this->returnData("doctor", $doctor);
     }
 }

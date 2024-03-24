@@ -59,23 +59,20 @@
   }
 }
 
-.msg{
+.msg {
   padding-bottom: 20px;
-
 }
-.succ{
-  color: #2E7D32;
+.succ {
+  color: #2e7d32;
   font-size: 1.2rem;
   padding: 1rem;
-  border: 1px solid #2E7D32;
+  border: 1px solid #2e7d32;
   border-radius: 5px;
   display: flex;
   align-items: center;
   gap: 1rem;
-
 }
-.err{
-
+.err {
   color: red;
   font-size: 1.2rem;
   display: flex;
@@ -86,7 +83,4 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
-
-
 }
-

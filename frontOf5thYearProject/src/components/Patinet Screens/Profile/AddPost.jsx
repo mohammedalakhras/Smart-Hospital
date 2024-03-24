@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import st from "./AddPost.module.css";
 import Textarea from "@mui/joy/Textarea";
-import { Button } from "@mui/material";
+
 import ImageIcon from "@mui/icons-material/Image";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorIcon from "@mui/icons-material/Error";
 import SendPost from "../../../functions/SendPost";
+import SpecSelect from "./SpecSelect";
+import { Button } from "@mui/material";
 
 export default function AddPost() {
   const [files, SetFiles] = useState([]);
   const [valid, setValid] = useState(null);
   const [TextMessage, setTextMessage] = useState("");
   const [res, setRes] = useState("");
- async function handleSubmit(e) {
+  const [personName, setPersonName] = useState([]);
+
+  
+
+  async function handleSubmit(e) {
     e.preventDefault();
     setValid(null);
     const resp = await SendPost(
@@ -20,20 +26,27 @@ export default function AddPost() {
       TextMessage,
       files
     );
-    setRes(resp)
-    if(resp.status==200)
-    setValid(true);
-  else{
-    setValid(false)
-  }
-    console.log('resp',resp);
+    setRes(resp);
+    if (resp.status == 200) setValid(true);
+    else {
+      setValid(false);
+    }
+    console.log("resp", resp);
   }
 
   function handleUploadFile(e) {
     SetFiles(Array.from(e.target.files));
     console.log(files);
   }
-
+  const handleSpecSelect = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
   useEffect(() => {
     console.log("Files:", files);
   }, []);
@@ -42,6 +55,10 @@ export default function AddPost() {
     <div className={st.container}>
       <h2 className={st.head}>أضف سؤالك هنا</h2>
 
+   
+<SpecSelect callback={handleSpecSelect}/>
+
+      
       <Textarea
         placeholder="اكتب المشكلة التي تعاني منها و تود الاستفسار عنها"
         required
@@ -52,6 +69,7 @@ export default function AddPost() {
           background: "rgba(217, 217, 217, 0.15)",
           border: "1px solid #000000",
           borderRadius: "20px",
+          marginTop:'20px'
         }}
         value={TextMessage}
         onChange={(e) => {
@@ -118,7 +136,7 @@ export default function AddPost() {
           <p className={st.err}>
             {<ErrorIcon />}
             حدث خطأ ما يرجى المحاولة لاحقاً
-           <br/> {res.data.msg}
+            <br /> {res.data.msg}
           </p>
         ) : (
           <p></p>

@@ -11,6 +11,7 @@ class Specialization extends Model
     public $timestamps = true;
 
     protected $fillable=['name'];
+    protected $hidden =['created_at','updated_at'];
 
 
     public function has_doctors()

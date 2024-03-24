@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +41,8 @@ use Illuminate\Support\Facades\Route;
     // Appointment Api
 
     include __DIR__ .'/Appointment/appointment.php';
+
+    Route::get("specializations/all",function (){
+        $Specializations=Specialization::all();
+        return response()->json(["status"=>"true","data"=>$Specializations],200);
+    });

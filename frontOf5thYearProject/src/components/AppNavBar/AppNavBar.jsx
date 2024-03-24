@@ -14,11 +14,33 @@ import avaterImage from "../../assets/image/aghiad.jpg";
 
 //context
 import { MainContext } from "../../pages/App";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import getData from "../../functions/getData";
+
+//standaer profile image 
+import prof from "../../assets/image/Profile/patient.png";
+
 export default function AppNavBar() {
   const {IsMobileValue  , isOpenValue} = useContext(MainContext)
   const [  , setIsSideBarOpen] = isOpenValue
   const [isMobile] = IsMobileValue
+  const [avtr, setAvtr] = useState(null);
+
+  useEffect(()=>{
+    getData(window.localStorage.getItem("token"))
+      .then((r) => {
+        setAvtr(
+          r.data.pation.profile == null ? (
+            <Avatar src={prof} />
+          ) : (
+            <Avatar src={r.data.pation.profile} />
+          )
+        );
+      })
+      .catch((er) => {
+        setAvtr(<Avatar src={prof} />);
+      });
+  })
   return (
     <>
       <AppBar>
@@ -40,7 +62,8 @@ export default function AppNavBar() {
                 <span>3</span>
                 <NotificationsIcon />
               </Box>
-              <Avatar src={avaterImage} />
+              {/* <Avatar src={avaterImage} /> */}
+              {avtr}
             </Stack>
           </Box>
         </Toolbar>

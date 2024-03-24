@@ -11,7 +11,8 @@ Route::controller(DoctorController::class)
     ->prefix('doctor')
     ->middleware('auth:doctor')
     ->group(function () {
-        Route::post('update'    , "update");
-        Route::get('information','getInformation');
+        Route::post('update'     , "update");
+        Route::get('information' ,'getInformation');
+        Route::post('add/reply/{qustion}'  ,"addReply");
 
     });

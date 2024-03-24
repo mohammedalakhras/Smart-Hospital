@@ -12,7 +12,7 @@ class Question extends Model
     protected $table = 'questions';
     public $timestamps = true;
 
-    protected $fillable = ['pation_id','message','NumOfViews'];
+    protected $fillable = ['pation_id','message','NumOfViews','specializations'];
     protected $hidden   =['created_at','updated_at','pation_id'];
     protected $appends  =['images'];
     public function has_replys()
@@ -28,6 +28,12 @@ class Question extends Model
     public function scopeNotDoctorReply(Builder $query){
       $query->whereDoesntHave('has_replys')->get();
     }
+
+    public function getSpecializationsAttribute($val){
+        return $val=unserialize($val);
+
+    }
+
 
     public function getImagesAttribute(){
         return $this->image()->get(['image_name','imageable_type'])

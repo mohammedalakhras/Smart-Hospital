@@ -29,10 +29,20 @@ const router = createBrowserRouter([
         },
       },
       {
+        path: "/editProfile",
+        element: <EditProfile />,
+        loader: async () => {
+          const data = await GetQuestion(window.localStorage.getItem("token"));
+          console.log(data);
+          return data || null;
+        },
+      },
+      {
         path: "/profile",
         element: <Profile />,
         loader: async () => {
           const data = await GetQuestion(window.localStorage.getItem("token"));
+          
           console.log(data);
           return data || null;
         },
