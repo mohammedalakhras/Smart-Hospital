@@ -7,9 +7,9 @@
 
 |The students are: | |
 |--|--|
-| 1. Mohammed Al-Akhras   | 4. Abdul mohaimen Safaf  |
-| 2. Aghiad Elwan Al-Hamwi |  5. Hamdi Diab      |
-|3. Baraa Berkdar |  |
+| 1. Mohammed Al-Akhras   |  4. Hamdi Diab |
+| 3. Baraa Berkdar |  5. Abdul Mohaimen Safaf      |
+|2. Aghiad Elwan Al-Hamwi |  |
 
 </div>
 
