@@ -1,4 +1,4 @@
-import { Box, Typography , Avatar } from "@mui/material";
+import { Box, Typography , Avatar, CircularProgress } from "@mui/material";
 import classes from "./SideBarContent.module.css";
 import Logo from '../../../assets/image/aghiad.jpg'
 import { MainContext } from "../../../pages/App";
@@ -14,13 +14,17 @@ export default function SideBarContent() {
   const [isMobile] = IsMobileValue;
 
   const [avtr, setAvtr] = useState(null);
-const [profDt,setDt]=useState()
+const [profDt,setDt]=useState(null)
+const[loading,setLoading]=useState(true)
 
 
   useEffect(()=>{
     getData(window.localStorage.getItem("token"))
     .then((r) => {
       setDt(r.data.pation)
+      setLoading(false)
+      console.log('fullname',r.data.pation);
+
       setAvtr(
         r.data.pation.profile == null ? (
           <Avatar src={prof} />
@@ -33,11 +37,16 @@ const [profDt,setDt]=useState()
       setAvtr(<Avatar src={prof} />);
     });
     
-  })
+  },[])
+  if(loading){
+    return <CircularProgress sx={{display:'flex',justifyContent:'center',alignItems:'center',margin:'auto'}} />
+  }
   return (
     <Box className={classes.container}>
       {isMobile && <span>
-        <Typography variant="string" >{profDt.full_name}</Typography>
+        <Typography variant="string" >
+          {profDt.full_name}
+          </Typography>
         {/* <Avatar  src={Logo}></Avatar > */}
         {avtr}
         </span>}
