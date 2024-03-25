@@ -9,6 +9,7 @@ export default function LoginInputs() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [counter, setCounter] = useState(0);
+  const [counter2, setCounter2] = useState(0);
   const navigate = useNavigate();
 
   const [errors, setError] = useState({});
@@ -29,7 +30,7 @@ export default function LoginInputs() {
     } else {
       setError({ ...errors, pass: null });
     }
-  }, [email, pass, counter]);
+  }, [email, pass, counter,counter2]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -99,6 +100,8 @@ export default function LoginInputs() {
               variant="standard"
               onChange={(e) => {
                 setEmail(e.target.value);
+                setCounter2(p=>p+1);
+                console.log(email);
               }}
             />
             <p className={st.error}>{counter > 0 && errors.email}</p>
@@ -127,6 +130,8 @@ export default function LoginInputs() {
               variant="standard"
               onChange={(e) => {
                 setPass(e.target.value);
+                setCounter2(p=>p+1);
+
               }}
             />
             <p className={st.error}>{counter > 0 && errors.pass}</p>

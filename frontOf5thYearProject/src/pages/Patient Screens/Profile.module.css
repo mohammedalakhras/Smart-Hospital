@@ -22,3 +22,26 @@
   justify-content: center;
   align-items: center;
 }
+
+.button {
+  width: 50%;
+  height: 59px;
+
+  background: #f45d48;
+  border-radius: 5px;
+  margin: auto;
+}
+.button p {
+  font-family: "Al-Jazeera-Arabic";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 41px;
+  text-align: right;
+
+  color: #ffffff;
+}
+.buttonContainer {
+  text-align: center;
+  padding-bottom: 20px;
+}

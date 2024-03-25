@@ -11,8 +11,8 @@ export default function WellcomSection() {
       <Box className={classes.trangleBackGround}>
         <Grid container p={10}>
           <Grid item xs={IsMobile ? 12 : 8}>
-            <Box pt={10} textAlign="center">
-              <Typography variant="h3">
+            <Box pt={10} textAlign="center" >
+              <Typography variant="h3" sx={{fontFamily:'Al-Jazeera-Arabic'}}>
                 مرحبا بك في منتدانا
                 <div>الطبي المميز</div>
               </Typography>

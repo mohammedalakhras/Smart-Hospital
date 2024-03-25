@@ -15,14 +15,19 @@ export default function SignUpInputs(props) {
   }
   function HandelName(e) {
     setName(e.target.value);
+    setCounter2(p=>p+1);
     console.log(name);
   }
   function HandelEmail(e) {
     setEmail(e.target.value);
+    setCounter2(p=>p+1);
+
     console.log(email);
   }
   function HandelPass(e) {
     setPass(e.target.value);
+    setCounter2(p=>p+1);
+
     console.log(pass);
   }
 
@@ -35,13 +40,16 @@ export default function SignUpInputs(props) {
   const [value, setValue] = useOutletContext();
   const [errors, setError] = useState({});
   const [counter, setCounter] = useState(0);
+  const [counter2, setCounter2] = useState(0);
 
   useEffect(() => {
     if (!name) {
       errors.name = "الحقل مطلوب";
-    } else if (!/^[A-Z]{4,40}$/i.test(name)) {
-      setError({ ...errors, name: "الاسم غير صالح" });
-    } else {
+    }
+    // } else if (!/^[A-Z]{4,40}$/i.test(name)) {
+    //   setError({ ...errors, name: "الاسم غير صالح" });
+    // }
+     else {
       setError({ ...errors, name: null });
     }
 
@@ -60,7 +68,7 @@ export default function SignUpInputs(props) {
     } else {
       setError({ ...errors, pass: null });
     }
-  }, [name, email, pass, counter]);
+  }, [name, email, pass, counter,counter2]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -82,7 +90,7 @@ export default function SignUpInputs(props) {
           const type = res.data.type;
 
           // window.localStorage.setItem("token", token);
-          navigate("/profile");
+          navigate("/signin");
         })
         .catch((err) => {
           console.log(err.response.data.msg);

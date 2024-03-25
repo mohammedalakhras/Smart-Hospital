@@ -67,6 +67,7 @@ export default function ProfileAndCover(props) {
                     style={{
                       background: "#f45d48",
                       bordeRadius: "5px",
+                      
                     }}
                   >
                     <ModeEditIcon sx={{ color: "#FFFFFF" }} />

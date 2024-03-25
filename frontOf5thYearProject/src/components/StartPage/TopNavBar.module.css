@@ -3,7 +3,7 @@
     color:black;
     margin: 5px;
     padding: 8px 15px;
-    width: 100px;
+    width: 120px;
 }
 @media (max-width:600px) {
     .groupButton button {
