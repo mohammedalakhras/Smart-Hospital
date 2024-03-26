@@ -23,6 +23,20 @@
  * Remove the margin in all browsers.
  */
 
+ @font-face {
+  font-family: 'Al-Jazeera-Arabic';
+  src: url('../src/fonts/Al-Jazeera-Arabic-Bold-1.ttf') format('ttf'),
+  url('../src/fonts/Al-Jazeera-Arabic-Bold.ttf') format('ttf'),
+  url('../src/fonts/Al-Jazeera-Arabic-Light.ttf') format('ttf'),
+  url('../src/fonts/Al-Jazeera-Arabic-Regular.ttf') format('truetype'),
+       
+  /* Add additional font formats if necessary */
+  /* Specify the correct path to the font files */
+}
+
+body , p , h1 , h6 , span , a , h2 , h3 , h5 , h4 , div , button{
+  font-family:'Al-Jazeera-Arabic' !important;
+}
 body {
   margin: 0;
   direction: rtl;

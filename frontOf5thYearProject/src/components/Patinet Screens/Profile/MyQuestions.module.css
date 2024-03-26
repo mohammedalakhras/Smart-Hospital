@@ -9,11 +9,10 @@
   margin: 10%;
 }
 .head {
-  width: 238.43px;
   height: 54px;
   margin-right: 10%;
-  padding-top: 5%;
-
+  padding-top: 5%;  
+padding-bottom: 5%;
   font-family: "Al-Jazeera-Arabic";
   font-style: normal;
   font-weight: 700;

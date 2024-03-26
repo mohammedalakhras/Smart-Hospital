@@ -4,8 +4,8 @@ import MyQuestions from "../../components/Patinet Screens/Profile/MyQuestions";
 import ProfileAndCover from "../../components/Patinet Screens/Profile/ProfileAndCover";
 import st from "./Profile.module.css";
 import { useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
-import { useLoaderData } from "react-router-dom";
+import { CircularProgress, Button } from "@mui/material";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import getData from "../../functions/getData";
 
 export default function Profile() {
@@ -15,7 +15,7 @@ export default function Profile() {
 
   const [isLoading, setLoading] = useState(true);
   const [r, setR] = useState({});
-
+const navigate = useNavigate();
   useEffect(() => {
     if (window.localStorage.getItem("token") == null) {
       window.location.pathname = "/signup";
@@ -76,7 +76,23 @@ export default function Profile() {
         <ProfileAndCover data={data} />
         <AddPost />
         <MyQuestions data={ques} />
-        <CommonQuestions />
+        {/* <CommonQuestions /> */}
+
+        <div className={st.buttonContainer}>
+        <Button className={st.button} style={{
+          background: "#f45d48",
+          bordeRadius: "5px",
+        }}
+        
+        onClick={()=>{
+          window.localStorage.clear('token')
+          navigate('/signup')
+        }}>
+
+          <p> تسجيل الخروج</p>
+
+        </Button>
+        </div>
       </div>
     );
   }
