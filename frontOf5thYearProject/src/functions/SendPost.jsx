@@ -38,11 +38,11 @@ export default async function SendPost(token, mess, files) {
     if (error.response && error.response.status === 401) {
       console.log("Unauthorized. Please check your token.");
       window.localStorage.clear("token");
-      window.location.pathname = "signin";
+      window.location.pathname = "signup";
     } else {
       console.log("Error fetching data:", error.message);
       window.localStorage.clear("token");
-      window.location.pathname = "signin";
+      window.location.pathname = "signup";
     }
   }
 }
