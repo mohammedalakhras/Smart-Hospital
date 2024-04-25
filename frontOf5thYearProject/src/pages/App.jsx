@@ -23,47 +23,6 @@ function App() {
           <SideBar />
           <div className={classes.main}>
             <Outlet />
-            {/* <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "10%",
-                margin: "10%",
-                padding: "10%",
-                backgroundColor: "#116a3b",
-              }}
-            >
-              <button
-                onClick={() => {
-                  navigate("start");
-                }}
-              >
-                Start Page
-              </button>
-
-              <button
-                onClick={() => {
-                  navigate("signup");
-                }}
-              >
-                Signup Page
-              </button>
-              <button
-                onClick={() => {
-                  navigate("profile");
-                }}
-              >
-                Profile Page
-              </button>
-              <button
-                onClick={() => {
-                  navigate("editProfile");
-                }}
-              >
-                Edit Profile Page
-              </button>
-            </div> */}
           </div>
         </Box>
       </MainContext.Provider>

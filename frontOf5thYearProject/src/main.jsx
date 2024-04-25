@@ -13,7 +13,8 @@ import LoginInputs from "./components/Signup And Login/LoginInputs.jsx";
 import Profile from "./pages/Patient Screens/Profile.jsx";
 import EditProfile from "./pages/Patient Screens/EditProfile.jsx";
 import Home from "./pages/Patient Screens/Home.jsx";
-import GetQuestion from "./functions/GetQuestion.jsx";
+import getTokenFromLocalStorage from "./functions/getTokenFromLocalStorage.js";
+import FindADoctor from "./pages/Patient Screens/FindADoctor.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,32 +23,20 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: async () => {
-          const data = await GetQuestion(window.localStorage.getItem("token"));
-          console.log(data);
-          return data || null;
-        },
+        loader: getTokenFromLocalStorage,
       },
       {
         path: "/editProfile",
         element: <EditProfile />,
-        loader: async () => {
-          const data = await GetQuestion(window.localStorage.getItem("token"));
-          console.log(data);
-          return data || null;
-        },
+        loader: getTokenFromLocalStorage,
       },
       {
         path: "/profile",
         element: <Profile />,
-        loader: async () => {
-          const data = await GetQuestion(window.localStorage.getItem("token"));
-          
-          console.log(data);
-          return data || null;
-        },
+        loader: getTokenFromLocalStorage,
       },
       { path: "/editProfile", element: <EditProfile /> },
+      { path: '/find_doctor', element: <FindADoctor />}
     ],
   },
   {

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 
 export default async function getData(token) {
   try {
