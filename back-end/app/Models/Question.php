@@ -19,6 +19,10 @@ class Question extends Model
     {
         return $this->hasMany('App\Models\Replie', 'qusation_id');
     }
+    public function pation()
+    {
+        return $this->belongsTo('App\Models\Pation','pation_id');
+    }
 
     public function image()
     {
