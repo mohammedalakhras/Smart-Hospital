@@ -15,6 +15,9 @@ import EditProfile from "./pages/Patient Screens/EditProfile.jsx";
 import Home from "./pages/Patient Screens/Home.jsx";
 import getTokenFromLocalStorage from "./functions/getTokenFromLocalStorage.js";
 import FindADoctor from "./pages/Patient Screens/FindADoctor.jsx";
+
+//import data function 
+import { getSpecializationAndCounters } from "./functions/getSpecializationAndCountry.js";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,7 +39,7 @@ const router = createBrowserRouter([
         loader: getTokenFromLocalStorage,
       },
       { path: "/editProfile", element: <EditProfile /> },
-      { path: '/find_doctor', element: <FindADoctor />}
+      { path: '/find_doctor', element: <FindADoctor /> , loader:getSpecializationAndCounters}
     ],
   },
   {
