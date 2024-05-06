@@ -20,13 +20,16 @@ class QustionController extends Controller
 
     public function index()
     {
-        $qustions = Question::with('has_replys')->get();
+        $qustions = Question::with('has_replys')->where('pation_id',auth()->user()->id)->get();
         return $this->returnData('data', $qustions);
+    }
+
+    public function show(Question $qustion){
+        return $this->returnData("data",$qustion->with('has_replys')->get());
     }
 
     public function store(StoreQustionContrller $request)
     {
-        // return $request->specializations;
         return DB::transaction(function () use ($request) {
             $pation_id = auth()->user()->id;
             $images = $request->images;
