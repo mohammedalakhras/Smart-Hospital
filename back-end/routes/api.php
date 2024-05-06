@@ -18,31 +18,25 @@ use Illuminate\Support\Facades\Route;
 
 
 
-    // Auth Api 
-    
-        include __DIR__ ."/Auth/auth.php";
+// Auth Api 
+include __DIR__ . "/Auth/auth.php";
+// Admin APi 
+include __DIR__ . "/Admin/admin.php";
+// Pation Route 
+include __DIR__ . '/Pation/pation.php';
+// Qustion Api
+include __DIR__ . "/Qustion/qustion.php";
+// Admin Api
+include __DIR__ . '/Doctor/doctor.php';
+// Appointment Api
+include __DIR__ . '/Appointment/appointment.php';
 
+// City Api  
+include __DIR__ ."/city.php";
 
-    // Admin APi 
-    include __DIR__ ."/Admin/admin.php";
-
-    // Pation Route 
-    include __DIR__ .'/Pation/pation.php';
-        // Qustion Api
-        
-        include __DIR__ ."/Qustion/qustion.php";
-
-
-    // Admin Api
-    
-    include __DIR__ .'/Doctor/doctor.php';
-
-
-    // Appointment Api
-
-    include __DIR__ .'/Appointment/appointment.php';
-
-    Route::get("specializations/all",function (){
-        $Specializations=Specialization::all();
-        return response()->json(["status"=>"true","data"=>$Specializations],200);
-    });
+// Specilazations Api 
+include __DIR__ ."/specilazations.php";
+Route::get("specializations/all", function () {
+    $Specializations = Specialization::all();
+    return response()->json(["status" => "true", "data" => $Specializations], 200);
+});

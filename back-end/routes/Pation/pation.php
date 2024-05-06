@@ -14,4 +14,6 @@ use Whoops\Run;
         Route::post('update'             , [PationController::class,'update']);
         Route::get('information'         , [PationController::class,'getInformation']);
         Route::post('add/chronic_dseases',[ChronicPationContrller::class,"addChronic"]);
+        Route::post('search/doctor',[PationController::class, "search"]);
+   
     });

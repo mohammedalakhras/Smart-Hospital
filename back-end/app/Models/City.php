@@ -8,6 +8,7 @@ class City extends Model
 {
 
     protected $table = 'cites';
+    public $hidden=['created_at','updated_at','country_id'];
     public $timestamps = true;
 
     public function has_pation()

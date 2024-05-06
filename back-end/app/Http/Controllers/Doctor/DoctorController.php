@@ -56,15 +56,34 @@ class DoctorController extends Controller
     }
 
 
-    public function addReply(Request $request, Question $qustion){
-        $qustion->has_replys()->create([
-            "reply"        =>$request->reply,
-            "date"         =>date("y:m:h"),
-            "time"         =>now(),
-            "qusation_id"  =>$qustion->id,
-            "doctor_name"  => auth('doctor')->user()->full_name
-        ]);
-        return $this->returnSucess(200,"تم ارسال الرد ");
+    public function addReply(Request $request, Question $qustion)
+    {
+        $data = [];
+        $data['reply']          = $request->reply;
+        $data['date']           = date('y:m:h');
+        $data['time']           = now();
+        $data['qusation_id']    = $qustion->id;
+
+        if (auth('doctor')->user()) {
+        
+            $data['doctor_name'] = auth('doctor')->user()->full_name;
+            $qustion->has_replys()->create($data);
+        
+        } elseif (auth('pation')->user()) {
+        
+            $pation_id = $qustion->pation->id;
+            if (auth('pation')->user()->id == $pation_id) {
+                $qustion->has_replys()->create($data);
+        
+            }
+            else {
+                return $this->returnError(401, "Unauthorized");
+            }
+            
+        } else {
+            return $this->returnError(401, "Unauthorized");
+        }
+        return $this->returnSucess(200, "تم ارسال الرد ");
     }
 
 
