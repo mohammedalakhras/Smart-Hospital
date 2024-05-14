@@ -1,3 +1,4 @@
+import { useState } from 'react'
 //import mui components
 import {Box} from '@mui/material'
 //import components 
@@ -6,10 +7,11 @@ import CardSection from '../../components/Patinet Screens/FindADoctor/CardSectio
 //import css file 
 import classes from './Profile.module.css'
 export default function FindADoctor() {
+  const [doctors , setDoctors ] = useState([]) ;
   return (
     <Box className={classes.container} textAlign='center'>
-        <FilterList />
-        <CardSection />
+        <FilterList setDoctors={setDoctors}/>
+        <CardSection doctors={doctors}/>
     </Box>
   )
 }

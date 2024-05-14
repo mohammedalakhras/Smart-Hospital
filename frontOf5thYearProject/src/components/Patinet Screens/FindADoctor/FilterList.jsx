@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 //import mui components
 import {
@@ -8,14 +8,23 @@ import {
   InputLabel,
   FormControl,
   Grid,
+  Typography,
 } from "@mui/material";
+//import functions
+import filteringDoctor from "../../../functions/filteringDoctor";
 
-export default function FilterList() {
+// eslint-disable-next-line react/prop-types
+export default function FilterList({setDoctors}) {
   const {countryData , specializationData} = useLoaderData();
-  console.log(countryData);
-  console.log(specializationData)
   const [specialization, setSpecialization] = useState("");
   const [country, setCountry] = useState("");
+  useEffect(() => {
+    async function fetchdatafromServer(){
+      const data = await filteringDoctor(specialization , country);
+      setDoctors(data);
+    }
+    fetchdatafromServer();
+  } , [country, specialization])
   function handleSpecializationChange(e) {
     setSpecialization(e.target.value);
   }
@@ -42,9 +51,14 @@ export default function FilterList() {
               onChange={handleSpecializationChange}
             >
               {
-                specializationData.data.map((i)=>{return (<MenuItem key={i.id} value={i.id}>{i.name}</MenuItem>)})
+               specializationData.data.length > 0 &&  specializationData.data.map((i)=>{return (<MenuItem key={i.id} value={i.id}>{i.name}</MenuItem>)})
               }
             </Select>
+               {
+                specializationData.data.length === 0 && (
+                  <Typography variant="subtitle1" color="red">لا يوجد أختاصاصات</Typography>
+                )
+              } 
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -67,9 +81,14 @@ export default function FilterList() {
               onChange={handleCountryChange}
             >
               {
-                countryData.data.map((i)=>{return (<MenuItem key={i.id} value={i.id}>{i.name}</MenuItem>)})
+              countryData.data.length > 0 &&   countryData.data.map((i)=>{return (<MenuItem key={i.id} value={i.id}>{i.name}</MenuItem>)})
               }
             </Select>
+            {
+                countryData.data.length === 0 && (
+                  <Typography variant="subtitle1" color="red">لا يوجد محافظات</Typography>
+                )
+              } 
           </FormControl>
         </Grid>
       </Grid>
