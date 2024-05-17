@@ -15,6 +15,10 @@
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
+.css-mteo7j-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
+  position:absolute !important;
+  right:-10px !important;
+}
 
 /* Sections
    ========================================================================== */

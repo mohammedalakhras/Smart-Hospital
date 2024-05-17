@@ -7,6 +7,8 @@ import store from "./stor/index.js";
 import { Provider } from "react-redux";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+//import router components 
 import Logging from "./pages/Logging.jsx";
 import SignUpInputs from "./components/Signup And Login/SignUpInputs.jsx";
 import LoginInputs from "./components/Signup And Login/LoginInputs.jsx";
@@ -15,6 +17,11 @@ import EditProfile from "./pages/Patient Screens/EditProfile.jsx";
 import Home from "./pages/Patient Screens/Home.jsx";
 import getTokenFromLocalStorage from "./functions/getTokenFromLocalStorage.js";
 import FindADoctor from "./pages/Patient Screens/FindADoctor.jsx";
+import InfoOfDoctor from "./pages/Patient Screens/InfoOfDoctor.jsx";
+
+
+//import data function 
+import { getSpecializationAndCounters } from "./functions/getSpecializationAndCountry.js";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,7 +43,8 @@ const router = createBrowserRouter([
         loader: getTokenFromLocalStorage,
       },
       { path: "/editProfile", element: <EditProfile /> },
-      { path: '/find_doctor', element: <FindADoctor />}
+      { path: '/find_doctor', element: <FindADoctor /> , loader:getSpecializationAndCounters},
+      { path: '/doctoer_details', element: <InfoOfDoctor />}
     ],
   },
   {
