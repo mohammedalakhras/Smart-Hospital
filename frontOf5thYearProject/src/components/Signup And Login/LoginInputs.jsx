@@ -35,7 +35,6 @@ export default function LoginInputs() {
   async function handleSubmit(e) {
     e.preventDefault();
     setCounter((p) => p + 1);
-    console.log(counter);
     if (email && pass && errors.email == null && errors.pass == null) {
       const res = await axios
         .post("http://127.0.0.1:8000/api/login", {
@@ -50,7 +49,6 @@ export default function LoginInputs() {
           navigate("/profile");
         })
         .catch((err) => {
-          console.log(err.response.data.msg);
           setError({ ...errors, note: err.response.data.msg });
         });
     }
@@ -101,7 +99,6 @@ export default function LoginInputs() {
               onChange={(e) => {
                 setEmail(e.target.value);
                 setCounter2(p=>p+1);
-                console.log(email);
               }}
             />
             <p className={st.error}>{counter > 0 && errors.email}</p>

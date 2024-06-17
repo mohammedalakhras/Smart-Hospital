@@ -8,7 +8,6 @@ import { createContext, useState } from "react";
 export const MainContext = createContext();
 function App() {
   const IsMobile = useMediaQuery("(max-width:800px)");
-  // const navigate = useNavigate();
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   return (
     <>

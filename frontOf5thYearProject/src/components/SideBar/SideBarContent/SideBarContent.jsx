@@ -1,57 +1,27 @@
-import { Box, Typography , Avatar, CircularProgress } from "@mui/material";
+import { Box, Typography, Avatar} from "@mui/material";
 import classes from "./SideBarContent.module.css";
-import Logo from '../../../assets/image/aghiad.jpg'
 import { MainContext } from "../../../pages/App";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 
-
-import getData from "../../../functions/getData";
+//import default image
 import prof from "../../../assets/image/Profile/patient.png";
-
 
 export default function SideBarContent() {
   const { IsMobileValue } = useContext(MainContext);
   const [isMobile] = IsMobileValue;
 
-  const [avtr, setAvtr] = useState(null);
-const [profDt,setDt]=useState(null)
-const[loading,setLoading]=useState(true)
-
-
-  useEffect(()=>{
-    getData(window.localStorage.getItem("token"))
-    .then((r) => {
-      setDt(r.data.pation)
-      setLoading(false)
-      console.log('fullname',r.data.pation);
-
-      setAvtr(
-        r.data.pation.profile == null ? (
-          <Avatar src={prof} />
-        ) : (
-          <Avatar src={r.data.pation.profile} />
-        )
-      );
-    })
-    .catch((er) => {
-      setAvtr(<Avatar src={prof} />);
-    });
-    
-  },[])
-  if(loading){
-    return <CircularProgress sx={{display:'flex',justifyContent:'center',alignItems:'center',margin:'auto'}} />
-  }
   return (
     <Box className={classes.container}>
-      {isMobile && <span>
-        <Typography variant="string" >
-          {profDt.full_name}
+      {isMobile && (
+        <span>
+          <Typography variant="string">
+            <Avatar src={prof} />
           </Typography>
-        {/* <Avatar  src={Logo}></Avatar > */}
-        {avtr}
-        </span>}
+        </span>
+      )}
       <Box>
-        <Typography variant="h6">الرئيسية</Typography>
+        <Typography variant="h6" component={Link} to='/' sx={{textDecoration:'none'}}>الرئيسية</Typography>
       </Box>
       <Box>
         <Typography variant="h6">توابعها</Typography>
@@ -64,8 +34,8 @@ const[loading,setLoading]=useState(true)
         <Typography variant="h6">الحجوزات</Typography>
         <hr />
         <Typography variant="string">الإطلاع على المواعيد </Typography>
-        <Typography variant="string">حجز مخبر</Typography>
-        <Typography variant="string">حجز طبيب</Typography>
+        <Typography component={Link} to='/find_doctor' sx={{textDecoration:'none' , color:'initial'}} variant="string">حجز مخبر</Typography><br />
+        <Typography component={Link} to='/find_doctor' sx={{textDecoration:'none' , color:'initial'}} variant="string">حجز طبيب</Typography>
       </Box>
       <Box>
         <Typography variant="h6">البحث عن طبيب</Typography>

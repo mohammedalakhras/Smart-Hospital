@@ -23,16 +23,16 @@ import axios from "axios"
             if (error.response) {
               return error.response
             }
-            console.log('error',error);
+            // console.log('error',error);
           });
        
       } catch (error) {
         if (error.response && error.response.status === 401) {
-          console.log("Unauthorized. Please check your token.");
+          // console.log("Unauthorized. Please check your token.");
           window.localStorage.clear("token");
           window.location.pathname = "/signup";
         } else {
-          console.log("Error fetching data:", error.message);
+          // console.log("Error fetching data:", error.message);
           window.localStorage.clear("token");
           window.location.pathname = "signup";
         }

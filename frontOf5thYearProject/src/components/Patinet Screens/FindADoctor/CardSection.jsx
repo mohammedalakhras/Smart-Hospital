@@ -13,7 +13,7 @@ export default function CardSection({doctors}) {
       {
       doctors.data.length >= 0 && doctors.data.map((element)=>{
         return (<Grid key={element.id} item xs={6}>
-          <DoctorCard name={element.full_name} id={element.id} profile={element.profile} />
+          <DoctorCard name={element.full_name} id={element.id} profile={element.profile} info={element.info} />
         </Grid>)
       })
       }

@@ -7,7 +7,6 @@ import axios from "axios";
 export default function SignUpInputs(props) {
   function HandleChange(e) {
     setPatorDoc(e.target.value);
-    console.log(PatorDoc);
   }
 
   function submit(e) {
@@ -16,19 +15,15 @@ export default function SignUpInputs(props) {
   function HandelName(e) {
     setName(e.target.value);
     setCounter2(p=>p+1);
-    console.log(name);
+
   }
   function HandelEmail(e) {
     setEmail(e.target.value);
     setCounter2(p=>p+1);
-
-    console.log(email);
   }
   function HandelPass(e) {
     setPass(e.target.value);
     setCounter2(p=>p+1);
-
-    console.log(pass);
   }
 
   const [name, setName] = useState("");
@@ -73,7 +68,6 @@ export default function SignUpInputs(props) {
   async function handleSubmit(e) {
     e.preventDefault();
     setCounter((p) => p + 1);
-    console.log(counter);
     if (email && pass && errors.email == null && errors.pass == null) {
       let url =
         PatorDoc == 0
@@ -93,7 +87,6 @@ export default function SignUpInputs(props) {
           navigate("/signin");
         })
         .catch((err) => {
-          console.log(err.response.data.msg);
           setError({ ...errors, note: err.response.data.msg });
         });
     }

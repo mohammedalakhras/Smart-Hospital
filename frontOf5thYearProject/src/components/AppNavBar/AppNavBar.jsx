@@ -1,6 +1,8 @@
 //mui components
 import { Box, AppBar, Toolbar, Avatar, Stack, Button } from "@mui/material";
 
+//import router components
+import { Link } from "react-router-dom";
 //style css file
 import classes from "./AppNavBar.module.css";
 
@@ -10,43 +12,33 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 //image
 import logo from "../../assets/image/logo.png";
-import avaterImage from "../../assets/image/aghiad.jpg";
+
 
 //context
 import { MainContext } from "../../pages/App";
-import { useContext, useEffect, useState } from "react";
-import getData from "../../functions/getData";
+import { useContext} from "react";
 
-//standaer profile image 
+
+//standaer profile image
 import prof from "../../assets/image/Profile/patient.png";
 
 export default function AppNavBar() {
-  const {IsMobileValue  , isOpenValue} = useContext(MainContext)
-  const [  , setIsSideBarOpen] = isOpenValue
-  const [isMobile] = IsMobileValue
-  const [avtr, setAvtr] = useState(null);
+  const { IsMobileValue, isOpenValue } = useContext(MainContext);
+  const [, setIsSideBarOpen] = isOpenValue;
+  const [isMobile] = IsMobileValue;
 
-  useEffect(()=>{
-    getData(window.localStorage.getItem("token"))
-      .then((r) => {
-        setAvtr(
-          r.data.pation.profile == null ? (
-            <Avatar src={prof} />
-          ) : (
-            <Avatar src={r.data.pation.profile} />
-          )
-        );
-      })
-      .catch((er) => {
-        setAvtr(<Avatar src={prof} />);
-      });
-  },[])
   return (
     <>
       <AppBar>
         <Toolbar className={classes.Toolbar}>
           {isMobile && (
-            <Button p={0} className={classes.menuButton} onClick={()=>{setIsSideBarOpen(true)}}>
+            <Button
+              p={0}
+              className={classes.menuButton}
+              onClick={() => {
+                setIsSideBarOpen(true);
+              }}
+            >
               <MenuIcon />
             </Button>
           )}
@@ -63,7 +55,7 @@ export default function AppNavBar() {
                 <NotificationsIcon />
               </Box>
               {/* <Avatar src={avaterImage} /> */}
-              {avtr}
+              <Avatar src={prof} component={Link} to='/profile' sx={{textDecoration:'none'}}/>
             </Stack>
           </Box>
         </Toolbar>
