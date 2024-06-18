@@ -27,59 +27,55 @@ class DoctorController extends Controller
 
     public function update(Request $request)
     {
-        $doctor_id = $request->user()->id;
-        $doctor = Doctor::find($doctor_id);
-        if ($doctor) {
-            return DB::transaction(function () use ($request, $doctor) {
-                $doctor->update($request->except(['profile_image', 'cover_image']));
-                if ($request->hasFile('profile_image')) {
-                    $old_profile_image = $doctor->image()->where('type', 1)->pluck('image_name');
-                    $doctor->image()->where('type', 1)->delete();
-                    // Uplode To Serve 
-                    $image_name = $this->saveImages([$request->profile_image], "Doctor")[0];
-                    $doctor->image()->where('type', 1)->updateOrCreate(['image_name' => $image_name, "type" => 1]);
-                    $this->deleteImages($old_profile_image, 'Doctor');
-                }
-                if ($request->hasFile('cover_image')) {
-                    $old_cover_image   = $doctor->image()->where('type', 2)->pluck('image_name');
-                    $doctor->image()->where('type', 2)->delete();
-                    // Uplode To Serve 
-                    $image_name = $this->saveImages([$request->cover_image], "Doctor")[0];
-                    $doctor->image()->where('type', 2)->updateOrCreate(['image_name' => $image_name, "type" => "2"]);
-                    $this->deleteImages($old_cover_image, 'Pation');
-                }
-                return $this->returnSucess('200', "تم تعديل البيانات بنجاح");
-            });
-        } else {
-            return $this->returnError('201', "الدكتور غير موجود ");
-        }
+        // $doctor_id = $request->user()->id;
+        $doctor = Doctor::find($request->user()->id);
+        return DB::transaction(function () use ($request, $doctor) {
+            $doctor->update($request->except(['profile_image', 'cover_image']));
+            if ($request->hasFile('profile_image')) {
+                $old_profile_image = $doctor->image()->where('type', 1)->pluck('image_name');
+                $doctor->image()->where('type', 1)->delete();
+                // Uplode To Serve 
+                $image_name = $this->saveImages([$request->profile_image], "Doctor")[0];
+                $doctor->image()->where('type', 1)->updateOrCreate(['image_name' => $image_name, "type" => 1]);
+                $this->deleteImages($old_profile_image, 'Doctor');
+            }
+            if ($request->hasFile('cover_image')) {
+                $old_cover_image   = $doctor->image()->where('type', 2)->pluck('image_name');
+                $doctor->image()->where('type', 2)->delete();
+                // Uplode To Serve 
+                $image_name = $this->saveImages([$request->cover_image], "Doctor")[0];
+                $doctor->image()->where('type', 2)->updateOrCreate(['image_name' => $image_name, "type" => "2"]);
+                $this->deleteImages($old_cover_image, 'Pation');
+            }
+            return $this->returnSucess('200', "تم تعديل البيانات بنجاح");
+        });
     }
 
 
     public function addReply(Request $request, Question $qustion)
     {
-        $data = [];
-        $data['reply']          = $request->reply;
-        $data['date']           = date('y:m:h');
-        $data['time']           = now();
-        $data['qusation_id']    = $qustion->id;
+        $request->merge([
+            "date"          => date('y:m:h'),
+            "time"          => now(),
+            "qusation_id"   => $qustion->id
+        ]);
+        // $data = [];
+        // $data['reply']          = $request->reply;
+        // $data['date']           = date('y:m:h');
+        // $data['time']           = now();
+        // $data['qusation_id']    = $qustion->id;
 
         if (auth('doctor')->user()) {
-        
-            $data['doctor_name'] = auth('doctor')->user()->full_name;
-            $qustion->has_replys()->create($data);
-        
+
+            $request->merge(['doctor_name' => auth('doctor')->user()->full_name]);
+            $qustion->has_replys()->create($request->all());
         } elseif (auth('pation')->user()) {
-        
             $pation_id = $qustion->pation->id;
             if (auth('pation')->user()->id == $pation_id) {
-                $qustion->has_replys()->create($data);
-        
-            }
-            else {
+                $qustion->has_replys()->create($request->all());
+            } else {
                 return $this->returnError(401, "Unauthorized");
             }
-            
         } else {
             return $this->returnError(401, "Unauthorized");
         }

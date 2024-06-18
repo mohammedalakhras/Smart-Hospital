@@ -32,6 +32,12 @@ class Question extends Model
     public function scopeNotDoctorReply(Builder $query){
       $query->whereDoesntHave('has_replys')->get();
     }
+    public function scopeFilter(Builder $query ,$filter){
+        if(!isset($filter)){$filter = null;}
+        $query->when($filter , function($query) use ($filter){
+            $query->where('message','LIKE',"%$filter%");
+        });
+    }
 
     public function getSpecializationsAttribute($val){
         return $val=unserialize($val);

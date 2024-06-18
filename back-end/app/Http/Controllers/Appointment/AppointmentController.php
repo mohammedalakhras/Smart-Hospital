@@ -18,11 +18,11 @@ class AppointmentController extends Controller
     use responseTrait;
     // تخزين موعد لمريض
     public function store(Request $request){
+
         $appointment=Appointment::create([
             "doctor_id"  =>$request->doctor_id,
-            "time"       =>$request->time,
-            "date"       =>$request->date,
-            "pation_id"  =>auth()->user()->id
+            "pation_id"  =>auth()->user()->id,
+            "ReqInfo"    =>$request->optinal_info
         ]);
         if($appointment){
             return $this->returnSucess("200","تم اضافة الموعد بجاح ");

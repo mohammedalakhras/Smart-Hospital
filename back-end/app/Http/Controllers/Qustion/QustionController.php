@@ -24,6 +24,12 @@ class QustionController extends Controller
         return $this->returnData('data', $qustions);
     }
 
+    public function allQustion(Request $request){
+        $qustions = Question::filter($request->filter)->get();
+        return $this->returnData('data', $qustions);
+
+    }
+
     public function show(Question $qustion){
         return $this->returnData("data",$qustion->with('has_replys')->get());
     }

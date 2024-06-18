@@ -9,9 +9,9 @@ Route::post('doctor/register', [DoctorController::class, 'register']);
 
 Route::controller(DoctorController::class)
     ->prefix('doctor')
-    ->middleware('auth:doctor')
+    ->middleware('auth:doctor','competInfo')
     ->group(function () {
         Route::post('update'     , "update");
         Route::get('information' ,'getInformation'); 
+        Route::post('add/reply/{qustion}'  ,[DoctorController::class,"addReply"]);
     });
-    Route::post('add/reply/{qustion}'  ,[DoctorController::class,"addReply"]);

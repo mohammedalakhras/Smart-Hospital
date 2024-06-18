@@ -14,8 +14,8 @@ class ComplateInformation
 
     public function handle(Request $request, Closure $next): Response
     {
-        $user = auth()->user()->mobile;
-        if(!empty($user))
+        $user = auth()->user();
+        if(!empty($user->mobile))
         return $next($request);
         else{
             return $this->returnError("401","يجب اكمال معلوماتك الشخصضية اولا ");
