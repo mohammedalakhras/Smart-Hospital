@@ -1,0 +1,26 @@
+.container{
+    width: 60%;
+    height: auto;
+    border-radius: 20px;
+    margin:5% auto;
+}
+.container > div:first-child{
+    background-image: linear-gradient(to left, #68C1C2, #F3F2F2 100%);
+    border: 2px solid #000;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    color:#787878;
+}
+.container > div:nth-child(2){
+    margin-top:20px;
+    margin-bottom:20px;
+    width: 100%;
+}
+.container > div:nth-child(2) > img{
+    width: 100%;
+}
+.container >div:nth-child(3){
+    background-color: white;
+    border-radius: 10px;
+}

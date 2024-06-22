@@ -19,6 +19,7 @@ import getTokenFromLocalStorage from "./functions/getTokenFromLocalStorage.js";
 import getData from "./functions/getData.jsx";
 import FindADoctor from "./pages/Patient Screens/FindADoctor.jsx";
 import InfoOfDoctor from "./pages/Patient Screens/InfoOfDoctor.jsx";
+import QuestionDetails from "./pages/Patient Screens/QuestionDetails.jsx";
 
 
 //import data function 
@@ -43,7 +44,8 @@ const router = createBrowserRouter([
       },
       { path: "/editProfile", element: <EditProfile /> },
       { path: '/find_doctor', element: <FindADoctor /> , loader:getSpecializationAndCounters},
-      { path: '/doctoer_details', element: <InfoOfDoctor />}
+      { path: '/doctoer_details', element: <InfoOfDoctor />},
+      { path: '/question_details', element: <QuestionDetails />}
     ],
   },
   {
