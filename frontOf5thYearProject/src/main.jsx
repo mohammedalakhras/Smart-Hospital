@@ -16,10 +16,11 @@ import Profile from "./pages/Patient Screens/Profile.jsx";
 import EditProfile from "./pages/Patient Screens/EditProfile.jsx";
 import Home from "./pages/Patient Screens/Home.jsx";
 import getTokenFromLocalStorage from "./functions/getTokenFromLocalStorage.js";
-import getData from "./functions/getData.jsx";
+// import getData from "./functions/getData.jsx";
 import FindADoctor from "./pages/Patient Screens/FindADoctor.jsx";
 import InfoOfDoctor from "./pages/Patient Screens/InfoOfDoctor.jsx";
 import QuestionDetails from "./pages/Patient Screens/QuestionDetails.jsx";
+import Chatbot from "./pages/Chatbot.jsx";
 
 
 //import data function 
@@ -45,7 +46,8 @@ const router = createBrowserRouter([
       { path: "/editProfile", element: <EditProfile /> },
       { path: '/find_doctor', element: <FindADoctor /> , loader:getSpecializationAndCounters},
       { path: '/doctoer_details', element: <InfoOfDoctor />},
-      { path: '/question_details', element: <QuestionDetails />}
+      { path: '/question_details', element: <QuestionDetails />},
+      { path: "/chatbot", element: <Chatbot /> },
     ],
   },
   {
@@ -56,8 +58,9 @@ const router = createBrowserRouter([
       { path: "/signUp", element: <SignUpInputs /> },
     ],
   },
-
+  
   { path: "/start", element: <StartPage /> },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -1,0 +1,18 @@
+.container{
+    border:2px #E2E8F0 solid;
+    border-radius: 10px;
+    padding:5px 10px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.inputField{
+    border:none;
+    outline: none;
+    margin :5px 20px;
+    width: 80%;
+}
+.icon{
+    margin-top: 4px;
+    color:var(--primary);
+    transform: rotateZ(-45deg);
+}
