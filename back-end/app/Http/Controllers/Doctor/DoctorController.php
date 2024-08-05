@@ -59,14 +59,7 @@ class DoctorController extends Controller
             "time"          => now(),
             "qusation_id"   => $qustion->id
         ]);
-        // $data = [];
-        // $data['reply']          = $request->reply;
-        // $data['date']           = date('y:m:h');
-        // $data['time']           = now();
-        // $data['qusation_id']    = $qustion->id;
-
         if (auth('doctor')->user()) {
-
             $request->merge(['doctor_name' => auth('doctor')->user()->full_name]);
             $qustion->has_replys()->create($request->all());
         } elseif (auth('pation')->user()) {
@@ -83,7 +76,9 @@ class DoctorController extends Controller
     }
 
 
-
+    public function getReply(Question $qustion){
+       return $qustion->has_replys()->orderBy("date",'asc')->orderBy('time','asc')->get(['date','time','reply','doctor_name']);
+    }
 
 
 
