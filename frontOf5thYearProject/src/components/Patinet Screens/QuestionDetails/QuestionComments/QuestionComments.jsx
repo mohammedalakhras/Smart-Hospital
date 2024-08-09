@@ -1,15 +1,13 @@
 import { Typography, Box, Avatar, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 //import component 
 import CommentFeild from "./CommentFeild";
 export default function QuestionComments() {
+  const data = useLoaderData()
   const [commentValue , setCommentValue] = useState('')
-  const [comments, setComments] = useState([
-    { id: 1, comment: "hello bro how are you", name: undefined, profile: "" },
-    { id: 2, comment: "hi", name: "أحمد", profile: "" },
-    { id: 3, comment: "yes iam here", name: "براء", profile: "" },
-    { id: 4, comment: "no i am not here", name: "أحمد", profile: "" },
-  ]);
+  const [comments, setComments] = useState(data);
+  const da = new Date();
   useEffect(()=>{
     setCommentValue('');
   },[comments])
@@ -17,7 +15,7 @@ export default function QuestionComments() {
       setCommentValue(event.target.value);
   }
   function inputHandler(){
-    setComments([...comments , { id: commentValue, comment:commentValue , name: undefined, profile: "" }])
+    setComments([...comments , { date:`${da.getFullYear()}-${da.getMonth()+1}-${da.getDate()}` , time:`${da.getHours()}:${da.getMinutes()+1}:${da.getSeconds()}` ,reply:commentValue , doctor_name: undefined }])
     
   }
   return (
@@ -25,10 +23,9 @@ export default function QuestionComments() {
       {comments.map((element) => {
         return (
           <Comment
-            key={element.id}
-            Comment={element.comment}
-            CommenterName={element.name}
-            profile={element.profile}
+            key={element.time}
+            Comment={element.reply}
+            CommenterName={element.doctor_name}
           />
         );
       })}

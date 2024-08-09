@@ -21,10 +21,14 @@ import FindADoctor from "./pages/Patient Screens/FindADoctor.jsx";
 import InfoOfDoctor from "./pages/Patient Screens/InfoOfDoctor.jsx";
 import QuestionDetails from "./pages/Patient Screens/QuestionDetails.jsx";
 import Chatbot from "./pages/Chatbot.jsx";
+import AIAnalysis from "./pages/AIAnalysis.jsx";
 
 
 //import data function 
 import { getSpecializationAndCounters } from "./functions/getSpecializationAndCountry.js";
+import fetchQuestionDetails from "./functions/fetchQuestionDetails.js";
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,8 +50,9 @@ const router = createBrowserRouter([
       { path: "/editProfile", element: <EditProfile /> },
       { path: '/find_doctor', element: <FindADoctor /> , loader:getSpecializationAndCounters},
       { path: '/doctoer_details', element: <InfoOfDoctor />},
-      { path: '/question_details', element: <QuestionDetails />},
+      { path: '/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
       { path: "/chatbot", element: <Chatbot /> },
+      { path: "/AI_Analysis", element: <AIAnalysis /> },
     ],
   },
   {
