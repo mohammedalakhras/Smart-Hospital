@@ -31,7 +31,8 @@ class QustionController extends Controller
     }
 
     public function show(Question $qustion){
-        return $this->returnData("data",$qustion->with('has_replys')->get());
+        // return $qustion->load('has_replys');
+        return $this->returnData("data",$qustion->load('has_replys'));
     }
 
     public function store(StoreQustionContrller $request)
