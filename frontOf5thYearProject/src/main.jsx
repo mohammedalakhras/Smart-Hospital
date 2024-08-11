@@ -27,17 +27,20 @@ import AIAnalysis from "./pages/AIAnalysis.jsx";
 //import data function 
 import { getSpecializationAndCounters } from "./functions/getSpecializationAndCountry.js";
 import fetchQuestionDetails from "./functions/fetchQuestionDetails.js";
+import TESTAPI from "./pages/TESTAPI.jsx";
+import TESTCHAT from "./pages/TESTCHAT.jsx";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    loader: getTokenFromLocalStorage,
+   
     children: [
       {
         path: "/",
         element: <Home />,
+        loader: getTokenFromLocalStorage,
       },
       {
         path: "/editProfile",
@@ -46,6 +49,7 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+        loader: getTokenFromLocalStorage,
       },
       { path: "/editProfile", element: <EditProfile /> },
       { path: '/find_doctor', element: <FindADoctor /> , loader:getSpecializationAndCounters},
@@ -53,6 +57,8 @@ const router = createBrowserRouter([
       { path: '/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
       { path: "/chatbot", element: <Chatbot /> },
       { path: "/AI_Analysis", element: <AIAnalysis /> },
+      { path: "/TESTAPI", element: <TESTAPI /> },
+      { path: "/TESTCHAT", element: <TESTCHAT /> },
     ],
   },
   {

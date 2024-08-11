@@ -30,6 +30,10 @@ padding-bottom: 5%;
   padding: 10px;
   border-bottom: 2px solid #dddddd;
   border-top: 2px solid #dddddd;
+  
+}
+.ques:hover{
+  cursor: pointer;
 }
 
 .container {
