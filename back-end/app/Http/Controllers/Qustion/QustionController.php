@@ -32,7 +32,7 @@ class QustionController extends Controller
 
     public function show(Question $qustion){
         // return $qustion->load('has_replys');
-        return $this->returnData("data",$qustion->load('has_replys'));
+        return $this->returnData("data",$qustion->load('has_replys','pation:id'));
     }
 
     public function store(StoreQustionContrller $request)
