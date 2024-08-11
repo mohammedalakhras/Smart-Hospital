@@ -23,6 +23,8 @@ import QuestionDetails from "./pages/Patient Screens/QuestionDetails.jsx";
 import Chatbot from "./pages/Chatbot.jsx";
 import AIAnalysis from "./pages/AIAnalysis.jsx";
 
+//doctor Route
+import DoctorHome from "./pages/Doctor Screens/DoctorHome.jsx";
 
 //import data function 
 import { getSpecializationAndCounters } from "./functions/getSpecializationAndCountry.js";
@@ -53,6 +55,12 @@ const router = createBrowserRouter([
       { path: '/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
       { path: "/chatbot", element: <Chatbot /> },
       { path: "/AI_Analysis", element: <AIAnalysis /> },
+      //doctor 
+      {
+        path:'/doctor' , element:<DoctorHome /> , children: [
+    
+        ]
+      },
     ],
   },
   {
@@ -63,6 +71,7 @@ const router = createBrowserRouter([
       { path: "/signUp", element: <SignUpInputs /> },
     ],
   },
+
   
   { path: "/start", element: <StartPage /> },
 
