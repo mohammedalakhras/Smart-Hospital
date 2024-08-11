@@ -17,15 +17,20 @@ export default function QuestionComponent(props) {
       <div>
         <div className={st.ques}>
           <h2>{props.data.message}</h2>
-          {/* <div className={st.tags}>
-            {props.data.tags.map((k, i) => {
+          <div className={st.tags}>
+            {
+            (props.data.specializations!=null)? props.data.specializations.map((k, i) => {
               return (
                 <div key={i} className={st.tag}>
                   {k}
                 </div>
               );
-            })}
-          </div> */}
+            }):<></>
+          }
+          
+          </div>
+
+          {console.log("data",props.data)}
         </div>
       </div>
     </div>
