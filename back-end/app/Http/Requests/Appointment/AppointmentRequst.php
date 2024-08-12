@@ -24,8 +24,6 @@ class AppointmentRequst extends FormRequest
     {
         return [
             "doctor_id"       => "required|exists:doctors,id", 
-            "date"            => "required|date",
-            "time"            => "required"
         ];
     }
     public function messages()
@@ -33,9 +31,6 @@ class AppointmentRequst extends FormRequest
         return [
             "doctor_id.required"         => "اسم الدكتور مطلوب ",
             "doctor_id.exists"           => "الدكتور غير موجود",
-            "date.required"              => " التاربخ مطلوب ",
-            "date.date"                  => "  صيغة التاريخ غير صحيحية ",
-            "time.required"               => " حقل الوقت مطلوب  ",
             
         ];
     }
