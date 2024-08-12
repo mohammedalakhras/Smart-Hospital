@@ -1,15 +1,14 @@
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
-import { useEffect,useState } from 'react';
-import axios from 'axios';
-import getSpec from '../../../functions/getSpec';
-import React from 'react';
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Chip from "@mui/material/Chip";
+import { useEffect, useState } from "react";
+import getSpec from "../../../functions/getSpec";
+import React from "react";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -22,7 +21,6 @@ const MenuProps = {
   },
 };
 
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -33,21 +31,27 @@ function getStyles(name, personName, theme) {
 }
 
 export default function SpecSelect(props) {
-    const [names ,setNames]=React.useState([]);
+  const [names, setNames] = React.useState([]);
 
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
 
-  useEffect(()=>{
- getSpec()
-.then(r=>{
-    setNames(r.data.data);
+  useEffect(() => {
+    getSpec()
+      .then((r) => {
+        setNames(r.data.data);
+        console.log(r.data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
-}).catch(e=>{
-console.log(e);})
-  },[])
-
-
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    props.SetFunc(typeof value === "string" ? value.split(",") : value);
+  };
 
   return (
     <div>
@@ -57,11 +61,11 @@ console.log(e);})
           labelId="SpecLabel"
           id="demo-multiple-chip"
           multiple
-          value={personName}
-          onChange={props.callback}
+          value={props.var}
+          onChange={props.handle}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
                 <Chip key={value} label={value} />
               ))}
@@ -71,11 +75,11 @@ console.log(e);})
         >
           {names.map((name) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
+              key={name.id}
+              value={name.name}
+              style={getStyles(name.name, props.var, theme)}
             >
-              {name}
+              {name.name}
             </MenuItem>
           ))}
         </Select>

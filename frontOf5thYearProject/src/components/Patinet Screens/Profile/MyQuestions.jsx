@@ -3,12 +3,15 @@ import st from "./MyQuestions.module.css";
 import QuestionComponent from "../QuestionComponent";
 import GetQuestion from "../../../functions/GetQuestion";
 import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function MyQuestions(props) {
   const [isLoading, setLoading] = useState(true);
 
   const [data, setData] = useState([]);
   const [datares, setdatares] = useState("");
+  const navigator=useNavigate('');
+
   useEffect(() => {
     if (props.data == null) {
       setdatares(<p>خطأ في تحميل البيانات </p>);
@@ -19,7 +22,7 @@ export default function MyQuestions(props) {
       setdatares(
         props.data.data.data.map((k, i) => {
           return (
-            <div key={k.id} className={st.ques}>
+            <div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
               <QuestionComponent data={k} />{" "}
             </div>
           );

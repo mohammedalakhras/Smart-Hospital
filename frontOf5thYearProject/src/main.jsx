@@ -29,17 +29,20 @@ import DoctorHome from "./pages/Doctor Screens/DoctorHome.jsx";
 //import data function 
 import { getSpecializationAndCounters } from "./functions/getSpecializationAndCountry.js";
 import fetchQuestionDetails from "./functions/fetchQuestionDetails.js";
+import TESTAPI from "./pages/TESTAPI.jsx";
+import TESTCHAT from "./pages/TESTCHAT.jsx";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    loader: getTokenFromLocalStorage,
+   
     children: [
       {
         path: "/",
         element: <Home />,
+        loader: getTokenFromLocalStorage,
       },
       {
         path: "/editProfile",
@@ -48,6 +51,7 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+        loader: getTokenFromLocalStorage,
       },
       { path: "/editProfile", element: <EditProfile /> },
       { path: '/find_doctor', element: <FindADoctor /> , loader:getSpecializationAndCounters},
@@ -58,9 +62,10 @@ const router = createBrowserRouter([
       //doctor 
       {
         path:'/doctor' , element:<DoctorHome /> , children: [
-    
         ]
       },
+      { path: "/TESTAPI", element: <TESTAPI /> },
+      { path: "/TESTCHAT", element: <TESTCHAT /> },
     ],
   },
   {

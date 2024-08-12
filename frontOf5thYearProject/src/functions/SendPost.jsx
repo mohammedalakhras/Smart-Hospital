@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function SendPost(token, mess, files) {
+export default async function SendPost(token, mess, files, spec) {
   try {
     const configToken = {
       headers: {
@@ -20,6 +20,11 @@ export default async function SendPost(token, mess, files) {
     files.forEach((file, index) => {
       formData.append(`images[${index}]`, file);
     });
+
+    spec.forEach((s, index) => {
+      formData.append(`specializations[${index}]`, s);
+    });
+
     console.log(formData);
 
     await axios.get("http://127.0.0.1:8000/api/checkToken", configToken);
@@ -28,11 +33,11 @@ export default async function SendPost(token, mess, files) {
       .post("http://127.0.0.1:8000/api/qustions", formData, configToken)
       .catch((error) => {
         if (error.response) {
-          return error.response
+          return error.response;
         }
-        console.log('error',error);
+        console.log("error", error);
       });
-    
+
     return res;
   } catch (error) {
     if (error.response && error.response.status === 401) {

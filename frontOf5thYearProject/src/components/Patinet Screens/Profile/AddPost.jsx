@@ -14,9 +14,7 @@ export default function AddPost() {
   const [valid, setValid] = useState(null);
   const [TextMessage, setTextMessage] = useState("");
   const [res, setRes] = useState("");
-  const [personName, setPersonName] = useState([]);
-
-  
+  const [Spec, setSpec] = useState([]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,7 +22,8 @@ export default function AddPost() {
     const resp = await SendPost(
       window.localStorage.getItem("token"),
       TextMessage,
-      files
+      files,
+      Spec
     );
     setRes(resp);
     if (resp.status == 200) setValid(true);
@@ -38,15 +37,15 @@ export default function AddPost() {
     SetFiles(Array.from(e.target.files));
     console.log(files);
   }
+
   const handleSpecSelect = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setSpec(typeof value === "string" ? value.split(",") : value);
+    console.log("Spec", Spec);
   };
+
   useEffect(() => {
     console.log("Files:", files);
   }, []);
@@ -55,10 +54,8 @@ export default function AddPost() {
     <div className={st.container}>
       <h2 className={st.head}>أضف سؤالك هنا</h2>
 
-   
-<SpecSelect callback={handleSpecSelect}/>
+      <SpecSelect handle={handleSpecSelect} var={Spec} />
 
-      
       <Textarea
         placeholder="اكتب المشكلة التي تعاني منها و تود الاستفسار عنها"
         required
@@ -69,7 +66,7 @@ export default function AddPost() {
           background: "rgba(217, 217, 217, 0.15)",
           border: "1px solid #000000",
           borderRadius: "20px",
-          marginTop:'20px'
+          marginTop: "20px",
         }}
         value={TextMessage}
         onChange={(e) => {
