@@ -14,10 +14,10 @@ class CreateAppointmentsTable extends Migration {
 					->constrained('pation');
 			$table->foreignId('doctor_id')
 					->constrained('doctors');
-			$table->date('date');
-			$table->time('time');
-			$table->integer('type')  ->default(0);
-			$table->integer('status')->default(0);
+			$table->date('date')->nullable();
+			$table->time('time')->nullable();
+			$table->integer('type')->default(0);
+			$table->enum('status',["pinding","accept","reject","review","finshed"])->default('pinding');
 			$table->string('ReqInfo', 200)->nullable();
 			$table->string('diagnostic', 200)->nullable();
 		});

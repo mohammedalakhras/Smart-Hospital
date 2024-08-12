@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Doctor\DoctorController;
+use App\Http\Controllers\DoctorController;
 
 
 Route::prefix('doctor')
@@ -18,7 +18,7 @@ Route::get('get/reply/{qustion}'  ,[DoctorController::class,"getReply"])->middle
 
 Route::controller(DoctorController::class)
     ->prefix('doctor')
-    ->middleware('auth:doctor','competInfo')
+    ->middleware('auth:doctor',)
     ->group(function () {
         Route::get('information' ,'getInformation'); 
     });

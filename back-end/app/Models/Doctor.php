@@ -58,7 +58,7 @@ class Doctor extends  Authenticatable implements JWTSubject
         }
     }
     public function getCityAttribute()
-    {
+    {   if($this->hasCity()->count()>0)
         return $this->hasCity()->pluck('name')[0];
     }
 
