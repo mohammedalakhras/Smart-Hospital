@@ -7,8 +7,10 @@ import { useEffect, useState } from "react";
 import { CircularProgress, Button } from "@mui/material";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import getData from "../../functions/getData";
-
+// import { useDispatch } from "react-redux";
+// import { setInfo } from "../../store/informationOfUserReducer";
 export default function Profile() {
+  // const dispatch = useDispatch()
   const ques = useLoaderData();
   const [data, setData] = useState({});
 
@@ -22,6 +24,7 @@ const navigate = useNavigate();
       try {
         getData(window.localStorage.getItem("token")).then((res) => {
           console.log("Data LOG",res.data);
+          // dispatch(setInfo(res.data.pation.id))
           setData(res.data.pation);
           setLoading(false);
         });

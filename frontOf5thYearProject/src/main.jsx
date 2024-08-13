@@ -24,7 +24,7 @@ import Chatbot from "./pages/Chatbot.jsx";
 import AIAnalysis from "./pages/AIAnalysis.jsx";
 
 //doctor Route
-import DoctorHome from "./pages/Doctor Screens/DoctorHome.jsx";
+import DoctorLayout from "./pages/Doctor Screens/DoctorLayout.jsx";
 
 //import data function 
 import { getSpecializationAndCounters } from "./functions/getSpecializationAndCountry.js";
@@ -60,10 +60,7 @@ const router = createBrowserRouter([
       { path: "/chatbot", element: <Chatbot /> },
       { path: "/AI_Analysis", element: <AIAnalysis /> },
       //doctor 
-      {
-        path:'/doctor' , element:<DoctorHome /> , children: [
-        ]
-      },
+      
       { path: "/TESTAPI", element: <TESTAPI /> },
       { path: "/TESTCHAT", element: <TESTCHAT /> },
     ],
@@ -77,7 +74,10 @@ const router = createBrowserRouter([
     ],
   },
 
-  
+  {
+    path:'/doctor' , element:<DoctorLayout /> , children: [
+    ]
+  },
   { path: "/start", element: <StartPage /> },
 
 ]);

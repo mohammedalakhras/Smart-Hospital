@@ -7,11 +7,11 @@ export default async function fetchQuestionDetails({params}){
             Authorization: `Bearer ${token}`,
         }
 }).then(response => {return response.json()}).then( data => {ob = data});
-    console.log(ob)
-    ob.sort((a, b) => {
-        const timeA = new Date(`${a.date}T${a.time}`);
-        const timeB = new Date(`${b.date}T${b.time}`);
-        return timeA - timeB;
-      });
-    return ob;
+    console.log(ob.data)
+    // ob.sort((a, b) => {
+    //     const timeA = new Date(`${a.date}T${a.time}`);
+    //     const timeB = new Date(`${b.date}T${b.time}`);
+    //     return timeA - timeB;
+    //   });
+    return ob.data;
 }

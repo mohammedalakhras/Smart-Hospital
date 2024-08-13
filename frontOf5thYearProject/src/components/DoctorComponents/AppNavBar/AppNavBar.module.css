@@ -1,0 +1,57 @@
+.Toolbar{
+    background-color: var(--primary);
+    padding: 5px 20px;
+    justify-content: space-between;
+}
+.Toolbar input{
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 40px;
+    border: none;
+    width: 40vw;
+}
+.Toolbar input:focus{
+    outline: none;
+}
+.logo{
+    width: 50px;
+}
+.logo img{
+    width: 100%;
+}
+.AvaterContainer div{
+    margin: 5px
+}
+.AvaterContainer div:first-child{
+    background-color: #0A8080;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding-right:4px ;
+    position: relative;
+}
+.AvaterContainer div:first-child span{
+    position: absolute;
+    background-color: #F45D48;
+    width: 17px ;
+    height: 17px;
+    padding-right: 5px;
+    border-radius: 100px;
+    right: -10px;
+}
+.AvaterContainer svg{
+    margin-top: 3px;
+    font-size: 30px;
+}
+@media (max-width:800px) {
+    .AvaterContainer div{
+        margin: 2px;
+    }
+    .logo {
+        width : 40px ;
+    }
+}
+.menuButton{
+    min-width: 0px !important;
+    width: 30px;
+}

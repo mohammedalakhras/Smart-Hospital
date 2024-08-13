@@ -11,22 +11,22 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MenuIcon from "@mui/icons-material/Menu";
 
 //image
-import logo from "../../assets/image/logo.png";
+import logo from "../../../assets/image/logo.png";
 
 
 //context
-import { MainContext } from "../../pages/App";
+import { MainContext } from "../../../pages/Doctor Screens/DoctorLayout";
 import { useContext, useEffect} from "react";
 
 //import function data
-import getData from "../../functions/getData";
+import getData from "../../../functions/getData";
 
 //standaer profile image
-import prof from "../../assets/image/Profile/patient.png";
+import prof from "../../../assets/image/Profile/patient.png";
 
 //import for redux 
 import { useDispatch } from "react-redux";
-import { setInfo } from "../../store/informationOfUserReducer";
+import { setInfo } from "../../../store/informationOfUserReducer";
 
 export default function AppNavBar() {
   const dispatch = useDispatch()
@@ -36,10 +36,10 @@ export default function AppNavBar() {
 
   useEffect(()=>{
     getData(window.localStorage.getItem("token")).then((res) => {
-      console.log(res.data.pation.id)
+      console.log(res.data.doctor.id)
       console.log(res.data)
       
-      dispatch(setInfo({id:res.data.pation.id}))
+      dispatch(setInfo({id:res.data.doctor.id}))
     })
 },[])
   return (
@@ -70,7 +70,7 @@ export default function AppNavBar() {
                 <NotificationsIcon />
               </Box>
               {/* <Avatar src={avaterImage} /> */}
-              <Avatar src={prof} component={Link} to='/profile' sx={{textDecoration:'none'}}/>
+              <Avatar src={prof} component={Link} to='/doctor/profile' sx={{textDecoration:'none'}}/>
             </Stack>
           </Box>
         </Toolbar>

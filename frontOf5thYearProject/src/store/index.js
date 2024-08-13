@@ -1,5 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import SelectedDoctorReducer from "./SelectedDoctorReducer";
-const store = configureStore({ reducer: {selectedDoctor : SelectedDoctorReducer} });
+import informationOfUserReducer from "./informationOfUserReducer";
+const store = configureStore({ reducer: {selectedDoctor : SelectedDoctorReducer
+    , informaionOfUser : informationOfUserReducer
+} });
 
 export default store;
