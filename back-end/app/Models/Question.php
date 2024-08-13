@@ -13,7 +13,7 @@ class Question extends Model
     public $timestamps = true;
 
     protected $fillable = ['pation_id','message','NumOfViews','specializations'];
-    protected $hidden   =['created_at','updated_at','pation_id'];
+    protected $hidden   =['created_at','updated_at'];
     protected $appends  =['images'];
     public function has_replys()
     {

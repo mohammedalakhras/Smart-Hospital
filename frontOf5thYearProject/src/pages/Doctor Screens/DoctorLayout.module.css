@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    flex: 1;
+  }
+  .main {
+    flex: 1;
+    background: #f7f5f5;
+    height: 90.5vh;
+    overflow-y: scroll;
+  }

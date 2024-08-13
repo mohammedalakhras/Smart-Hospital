@@ -46,7 +46,13 @@ export default function LoginInputs() {
           const type = res.data.type;
 
           window.localStorage.setItem("token", token);
-          navigate("/profile");
+          localStorage.setItem("type", type);
+          if(type ==='doctor'){
+            navigate('/doctor')
+          }else{
+
+            navigate("/profile");
+          }
         })
         .catch((err) => {
           setError({ ...errors, note: err.response.data.msg });

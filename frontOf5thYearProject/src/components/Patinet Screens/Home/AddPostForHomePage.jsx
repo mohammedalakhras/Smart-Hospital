@@ -28,7 +28,7 @@ export default function AddPost() {
   }
 
   useEffect(() => {
-    console.log("Files:", files);
+
 
     getData(window.localStorage.getItem("token"))
       .then((r) => {

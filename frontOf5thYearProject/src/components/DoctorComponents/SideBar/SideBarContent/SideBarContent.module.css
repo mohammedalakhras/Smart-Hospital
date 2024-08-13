@@ -1,0 +1,35 @@
+.container{
+    padding: 30px;
+}
+.container > span:first-child{
+    padding: 30px;
+    padding-bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    text-align: center;
+}
+.container > span:first-child > span {
+    padding-top: 20px;
+    font-weight: bold;
+}
+.container > span:first-child > div {
+    width: 60px;
+    height: 60px;
+}
+.container > div{
+    margin: 20px auto;
+    text-align: center;
+    background-color: white;
+    width: 120px;
+    border-radius: 10px;
+    padding: 10px 5px;
+}
+.container > div h6{
+    font-weight: bold;
+}
+.container > div span{
+    display: block;
+    color: #7E7878;
+    margin: 10px 0px;
+}

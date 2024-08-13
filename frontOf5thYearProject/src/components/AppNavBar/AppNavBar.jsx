@@ -16,17 +16,32 @@ import logo from "../../assets/image/logo.png";
 
 //context
 import { MainContext } from "../../pages/App";
-import { useContext} from "react";
+import { useContext, useEffect} from "react";
 
+//import function data
+import getData from "../../functions/getData";
 
 //standaer profile image
 import prof from "../../assets/image/Profile/patient.png";
 
+//import for redux 
+import { useDispatch } from "react-redux";
+import { setInfo } from "../../store/informationOfUserReducer";
+
 export default function AppNavBar() {
+  const dispatch = useDispatch()
   const { IsMobileValue, isOpenValue } = useContext(MainContext);
   const [, setIsSideBarOpen] = isOpenValue;
   const [isMobile] = IsMobileValue;
 
+  useEffect(()=>{
+    getData(window.localStorage.getItem("token")).then((res) => {
+      console.log(res.data.pation.id)
+      console.log(res.data)
+      
+      dispatch(setInfo({id:res.data.pation.id}))
+    })
+},[])
   return (
     <>
       <AppBar>

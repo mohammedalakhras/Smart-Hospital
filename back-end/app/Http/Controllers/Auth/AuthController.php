@@ -41,11 +41,11 @@ class AuthController extends Controller
     }
 
 
-    public function logout(Request $request)
-    {
-        auth()->logout();
-        return $this->returnSucess(200, '  تم تسجيل الخروج بنجاح ');
-    }
+    // public function logout(Request $request)
+    // {
+    //     auth()->logout();
+    //     return $this->returnSucess(200, '  تم تسجيل الخروج بنجاح ');
+    // }
 
 
     public function checkToken(Request $request)

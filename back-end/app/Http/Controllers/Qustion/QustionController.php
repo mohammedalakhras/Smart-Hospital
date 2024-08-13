@@ -31,7 +31,8 @@ class QustionController extends Controller
     }
 
     public function show(Question $qustion){
-        return $this->returnData("data",$qustion->with('has_replys')->get());
+        // return $qustion->load('has_replys');
+        return $this->returnData("data",$qustion->load('has_replys'));
     }
 
     public function store(StoreQustionContrller $request)
@@ -103,8 +104,16 @@ class QustionController extends Controller
     public function getFamus(){
         $qustions=Question::orderBy("NumOfViews","desc")->take(5)->get();
         return $this->returnData("qustions",$qustions);
+    }
+
+    public function getQustionToDoctor(){
+        $doctor_id = auth()->user()->full_name;
+        $qustions = Question::with('has_replys')->whereRelation('has_replys','doctor_name',$doctor_id)->get();
+        return $this->returnData('data', $qustions);        
 
     }
+
+
 
 
 }
