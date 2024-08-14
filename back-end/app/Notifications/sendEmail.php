@@ -38,18 +38,17 @@ class sendEmail extends Notification
 
         $status = $this->requestt->status;
         switch($this->requestt->status){
-            case "accept" :$this->requestt->status=" تم قبول";
-            case "reject" :$this->requestt->status="تم رفض";
-            case "review" :$this->requestt->status="تم وضع مراجعة ل";
+            case "accept" :$this->requestt->status=" تم قبول";break;
+            case "reject" :$this->requestt->status="تم رفض";break;
+            case "review" :$this->requestt->status="تم وضع مراجعة ل";break;
 
         }
         return (new MailMessage)
         ->greeting("مرحبا  $notifiable->full_name")
-        // ->line($this->requestt->status)
         ->line($this->requestt->status)
         ->line("موعد لك مع الدكتور  ")
         ->line($this->doctor_name)
-        ->line($status=="reject" ? "بتاريخ  ".$this->requestt->date."الساعة ".$this->requestt->time:"")
+        ->line($status=="reject" ?"": "بتاريخ  ".$this->requestt->date."الساعة ".$this->requestt->time)
         ->line("شكرا لك لاستخدامك تطبيقنا");
     }
 

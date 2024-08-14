@@ -11,5 +11,5 @@ Route::group(["middleware" => "auth:pation"], function () {
     Route::get('qustion/all', [QustionController::class, 'allQustion']);
 });
 Route::get('doctor/qustions',[QustionController::class,'getQustionToDoctor'])->middleware('auth:doctor');
-
+Route::get("qustion/doctor/{id}",[QustionController::class,"show"])->middleware("auth:doctor");
 // 13 Row Coded From Baraa Berkdar
