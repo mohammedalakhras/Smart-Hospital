@@ -1,0 +1,47 @@
+.container {
+  width: 90%;
+  height: auto;
+  /* background: #F3F2F2; */
+  border-radius: 20px;
+  /* border: rgb(219, 219, 219) solid 5px; */
+  margin:5%;
+
+}
+
+.loading{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.5;
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  width: 50%;
+  height: 59px;
+
+  background: #f45d48;
+  border-radius: 5px;
+  margin: auto;
+}
+.button p {
+  font-family: "Al-Jazeera-Arabic";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 41px;
+  text-align: right;
+
+  color: #ffffff;
+}
+.buttonContainer {
+  text-align: center;
+  padding-bottom: 20px;
+}

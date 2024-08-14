@@ -5,12 +5,14 @@ import SideBar from "../components/SideBar/SideBar";
 import classes from "./App.module.css";
 import { Outlet } from "react-router-dom";
 import { createContext, useState } from "react";
+import PatientWrapperAuth from "./Patient Screens/patientWrapperAuth";
 export const MainContext = createContext();
 function App() {
   const IsMobile = useMediaQuery("(max-width:800px)");
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   return (
     <>
+    <PatientWrapperAuth>
       <MainContext.Provider
         value={{
           IsMobileValue: [IsMobile],
@@ -25,8 +27,11 @@ function App() {
           </div>
         </Box>
       </MainContext.Provider>
+    </PatientWrapperAuth>
     </>
   );
 }
 
 export default App;
+
+
