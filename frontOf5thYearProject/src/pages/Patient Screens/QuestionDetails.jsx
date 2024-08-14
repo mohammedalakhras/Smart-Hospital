@@ -5,6 +5,7 @@ import QuestionComments from '../../components/Patinet Screens/QuestionDetails/Q
 import { useLoaderData } from 'react-router-dom'
 
 export default function QuestionDetails() {
+    console.log('Question Details component')
     const data = useLoaderData()
   return (
     <Box className={classes.container}>

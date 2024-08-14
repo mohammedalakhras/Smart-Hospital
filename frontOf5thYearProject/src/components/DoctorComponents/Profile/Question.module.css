@@ -1,0 +1,62 @@
+.mainBody {
+  display: flex;
+  gap: 30px;
+}
+.ansNum {
+  width: 80px ;
+  height: 80px ;
+aspect-ratio: 1/1;
+  background: #f6f6f6;
+  border: 1px solid #000000;
+  border-radius: 50%;
+  text-align: center;
+}
+.ansNum p {
+   font-family: "Al-Jazeera-Arabic";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+
+  color: #b0afaf;
+  padding: 0;
+}
+.ques {
+  font-family: "Al-Jazeera-Arabic";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  text-align: right;
+
+  color: #787878;
+  margin-bottom:20px ;
+  word-break: break-all;
+}
+
+.tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  width: 80px;
+  height: 40px;
+
+text-align: center;
+background: #F6F6F6;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+
+
+
+
+  font-family: "Al-Jazeera-Arabic";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 27px;
+
+  color: #b0afaf;
+}
