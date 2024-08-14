@@ -1,4 +1,3 @@
-import AddPost from "../../components/Patinet Screens/Profile/AddPost";
 import CommonQuestions from "../../components/Patinet Screens/Profile/CommonQuestions";
 import MyQuestions from "../../components/Patinet Screens/Profile/MyQuestions";
 import ProfileAndCover from "../../components/Patinet Screens/Profile/ProfileAndCover";
@@ -15,7 +14,7 @@ export default function Profile() {
   const [data, setData] = useState({});
 
   const [isLoading, setLoading] = useState(true);
-  const [r, setR] = useState({});
+  // const [r, setR] = useState({});
 const navigate = useNavigate();
   useEffect(() => {
     if (window.localStorage.getItem("token") == null) {
@@ -23,9 +22,9 @@ const navigate = useNavigate();
     } else {
       try {
         getData(window.localStorage.getItem("token")).then((res) => {
-          console.log("Data LOG",res.data);
+          console.log("Data LOG",res.doctor);
           // dispatch(setInfo(res.data.pation.id))
-          setData(res.data.pation);
+          setData(res.data.doctor);
           setLoading(false);
         });
       } catch (err) {
@@ -34,39 +33,7 @@ const navigate = useNavigate();
     }
   }, []);
 
-  // async function getData(token) {
-  //   try {
-  //     const configToken = {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         Accept: "application/json",
-  //       },
-  //     };
-
-  //     // Check token validity
-  //     await axios.get("http://127.0.0.1:8000/api/checkToken", configToken);
-
-  //     // Fetch patient information
-  //     const res = await axios.get(
-  //       "http://127.0.0.1:8000/api/pation/information/",
-  //       configToken
-  //     );
-
-  //     // Process patient data (e.g., setData(patientData))
-  //     setLoading(false);
-  //     setData(res.data.pation);
-  //     console.log("Data retrieved successfully:", res.data);
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       console.log("Unauthorized. Please check your token.");
-  //       window.localStorage.clear("token");
-  //       window.location.pathname = "signin";
-  //     } else {
-  //       console.log("Error fetching data:", error.message);
-  //     }
-  //   }
-  // }
-
+ 
   if (isLoading || data == {}) {
     return (
       <div className={st.loading}>
@@ -77,9 +44,8 @@ const navigate = useNavigate();
     return (
       <div className={st.container}>
         <ProfileAndCover data={data} />
-        <AddPost />
         <MyQuestions data={ques} />
-        {/* <CommonQuestions /> */}
+        <CommonQuestions />
 
         <div className={st.buttonContainer}>
         <Button className={st.button} style={{
@@ -91,9 +57,7 @@ const navigate = useNavigate();
           window.localStorage.clear('token')
           navigate('/signup')
         }}>
-
           <p> تسجيل الخروج</p>
-
         </Button>
         </div>
       </div>

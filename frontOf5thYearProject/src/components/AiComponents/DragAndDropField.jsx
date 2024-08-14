@@ -1,8 +1,9 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useState  , useEffect} from "react";
-
-const Innercomponents = ()=> <>أضف صورة هنا <br /> أو <br /> أنقر للتحميل</>
-export default function DragAndDropField() {
+import Send from '../../functions/getResultRDS.jsx'
+const Innercomponents = ()=> <> أنقر للتحميل</>
+// eslint-disable-next-line react/prop-types
+export default function DragAndDropField({data , setData}) {
   const [fileToShow , setFileToShow] = useState(null);
   const [file, setFile] = useState(null);
 
@@ -12,14 +13,18 @@ export default function DragAndDropField() {
     else{setFileToShow()}
       console.log(fileToShow)
   },[file])
+
+
+
+
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
-
-  
   };
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault();
     console.log(file);
+    const resultData =await Send(file,setData,data);
+    setData(resultData);
   }
   function hundleDelete(){
     setFile(null)

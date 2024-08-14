@@ -1,18 +1,19 @@
 import { Box, useMediaQuery } from "@mui/material";
 // import { useNavigate } from "react-router-dom";
-import AppNavBar from "../components/AppNavBar/AppNavBar";
-import SideBar from "../components/SideBar/SideBar";
-import classes from "./App.module.css";
+import AppNavBar from "../../components/DoctorComponents/AppNavBar/AppNavBar";
+import SideBar from "../../components/DoctorComponents/SideBar/SideBar";
+import classes from "./DoctorLayout.module.css";
 import { Outlet } from "react-router-dom";
 import { createContext, useState } from "react";
-import PatientWrapperAuth from "./Patient Screens/patientWrapperAuth";
+import DoctorWrapper from "./DoctorWrapperAuth";
 export const MainContext = createContext();
-function App() {
+function DoctorLayout() {
   const IsMobile = useMediaQuery("(max-width:800px)");
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   return (
     <>
-    <PatientWrapperAuth>
+    <DoctorWrapper>
+
       <MainContext.Provider
         value={{
           IsMobileValue: [IsMobile],
@@ -27,11 +28,9 @@ function App() {
           </div>
         </Box>
       </MainContext.Provider>
-    </PatientWrapperAuth>
+    </DoctorWrapper>
     </>
   );
 }
 
-export default App;
-
-
+export default DoctorLayout;

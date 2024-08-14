@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import QuestionComponent from "../QuestionComponent";
+import QuestionComponent from "./QuestionComponent";
 import st from "./MyQuestions.module.css";
 import { Link } from "react-router-dom";
 export default function CommonQuestions() {
@@ -23,7 +23,7 @@ export default function CommonQuestions() {
           {dataToShow.map((k, i) => {
             return (
               <div key={i} className={st.ques}>
-                <Link to={`/question_details/${k.id}`}>
+                <Link to={`/doctor/question_details/${k.id}`}>
                   <QuestionComponent data={k} />{" "}
                 </Link>
               </div>

@@ -23,6 +23,9 @@ import QuestionDetails from "./pages/Patient Screens/QuestionDetails.jsx";
 import Chatbot from "./pages/Chatbot.jsx";
 import AIAnalysis from "./pages/AIAnalysis.jsx";
 
+//doctor Route
+import DoctorLayout from "./pages/Doctor Screens/DoctorLayout.jsx";
+import DoctorProfile from "./pages/Doctor Screens/Profile.jsx";
 
 //import data function 
 import { getSpecializationAndCounters } from "./functions/getSpecializationAndCountry.js";
@@ -54,9 +57,11 @@ const router = createBrowserRouter([
       { path: "/editProfile", element: <EditProfile /> },
       { path: '/find_doctor', element: <FindADoctor /> , loader:getSpecializationAndCounters},
       { path: '/doctoer_details', element: <InfoOfDoctor />},
-      { path: '/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
       { path: "/chatbot", element: <Chatbot /> },
       { path: "/AI_Analysis", element: <AIAnalysis /> },
+      { path: '/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
+      //doctor 
+      
       { path: "/TESTAPI", element: <TESTAPI /> },
       { path: "/TESTCHAT", element: <TESTCHAT /> },
     ],
@@ -69,7 +74,14 @@ const router = createBrowserRouter([
       { path: "/signUp", element: <SignUpInputs /> },
     ],
   },
-  
+
+  {
+    path:'/doctor' , element:<DoctorLayout /> , children: [
+      {path:'/doctor' , element:<DoctorProfile /> },
+      { path: '/doctor/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
+
+    ]
+  },
   { path: "/start", element: <StartPage /> },
 
 ]);

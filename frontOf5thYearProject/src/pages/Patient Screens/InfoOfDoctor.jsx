@@ -26,8 +26,16 @@ export default function InfoOfDoctor() {
   }, []);
 
   function handleButtonClick() {
-    //make appointment wait baraa for finish it 
-    //the id of doctor in selecteddoctor
+    const data = new FormData();
+    data.append('doctor_id' , selectedDoctor.id)
+    console.log(selectedDoctor.id)
+    fetch('http://127.0.0.1:8000/api/appointments',{
+      method: 'Post',
+      header:{
+        Authorization : `Bearer ${localStorage['token']}` 
+      },
+      body : data
+    }).then(data => console.log(data))
   }
 
   if (selectedDoctor.id == -1) {

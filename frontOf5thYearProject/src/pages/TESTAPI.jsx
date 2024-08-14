@@ -1,51 +1,20 @@
-import React, { useState, useEffect } from "react";
+import  { useState } from "react";
 import Send from "../functions/getResultRDS.jsx";
 
-const fileToDataUri = (file) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      resolve(event.target.result);
-    };
-    reader.readAsDataURL(file);
-  });
+// const fileToDataUri = (file) =>
+//   new Promise((resolve, reject) => {
+//     const reader = new FileReader();
+//     reader.onload = (event) => {
+//       resolve(event.target.result);
+//     };
+//     reader.readAsDataURL(file);
+//   });
 
 export default function TESTAPI() {
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   Send(null,setData,data)
-  //     .then((result) => {
-  //       setData(result);
-  //     })
-  //     .catch((err) => {
-  //       setError(err.message);
-  //     });
-  // }, []);
-
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
 
   const [dataUri, setDataUri] = useState("");
 
-  // const onChange = (file) => {
-
-  //   if(!file) {
-  //     setDataUri('');
-  //     return;
-  //   }
-
-  //   fileToDataUri(file)
-  //     .then(dataUri => {
-  //       setDataUri(dataUri)
-
-  //     }).then(()=>
-  //        Send(file)
-  //     )
-
-  // }
 
   return (
     <div>
