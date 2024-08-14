@@ -95,3 +95,4 @@ class Doctor extends  Authenticatable implements JWTSubject
         return [];
     }
 }
+// 97 Row Coded From Baraa Berkdar

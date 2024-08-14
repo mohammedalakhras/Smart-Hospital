@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Appointment\AppointmentController;
+use App\Http\Controllers\AppointmentController;
 
 
     Route::group(["middleware"=>["auth:pation",'competInfo']],function(){
@@ -16,3 +16,4 @@ use App\Http\Controllers\Appointment\AppointmentController;
                 Route::get("get/doctor/appointments",'getAppointmentDoctor');
                 Route::post("appointment/change/status","changeStatus");
             });
+// 18 Row Coded From Baraa Berkdar

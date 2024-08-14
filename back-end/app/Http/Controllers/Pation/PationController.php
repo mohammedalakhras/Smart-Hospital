@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Pation\Operation;
+namespace App\Http\Controllers\Pation;
 
+use DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Pation;
+use App\Models\{
+    Pation,
+    Doctor
+};
 use App\Trait\{
     uplodeImages,
     responseTrait
 };
-use DB;
 use  App\Http\Requests\Pation\{
     StorePAtionRequest,
     UpdatePationRequest,
     SearchDoctorRequest
 };
-use App\Models\Doctor;
 
 class PationController extends Controller
 {
@@ -75,3 +76,4 @@ class PationController extends Controller
         return $this->returnData('data', $doctors);
     }
 }
+// 78 Row Coded From Baraa Berkdar

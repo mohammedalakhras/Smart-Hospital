@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Pation extends  Authenticatable implements JWTSubject
 {
-
+    use Notifiable;
     protected $table = 'pation';
     public $timestamps = true;
 
@@ -91,3 +91,4 @@ class Pation extends  Authenticatable implements JWTSubject
         return [];
     }
 }
+// 93 Row Coded From Baraa Berkdar
