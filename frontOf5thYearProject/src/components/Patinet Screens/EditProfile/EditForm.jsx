@@ -1,18 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Button, InputLabel, TextField ,Select,MenuItem } from "@mui/material/";
+import {
+  Box,
+  Grid,
+  Button,
+  InputLabel,
+  TextField,
+  Select,
+  MenuItem,
+} from "@mui/material/";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import st from "./EditForm.module.css";
 import getCities from "../../../functions/getcities";
+import dayjs from "dayjs";
 export default function EditForm() {
   const [name, setName] = useState("");
   const [fname, setFname] = useState("");
   const [mname, setMname] = useState("");
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [chronicDiseases, setChronicDiseases] = useState("");
+  const [date, setDate] = useState(dayjs("2001-01-01"));
   const [errors, setError] = useState({});
   const [cities, setCities] = useState([]);
   const [city, setcity] = useState(1);
-  
+
   useEffect(() => {
     getCities().then((e) => setCities(e.data.data));
     console.log(cities);
@@ -30,10 +46,7 @@ export default function EditForm() {
             xl={12}
             className={st.head}
           >
-            <p>
-              أكمل معلوماتك
-           
-            </p>
+            <p>أكمل معلوماتك</p>
           </Grid>
           <Grid
             container
@@ -63,6 +76,7 @@ export default function EditForm() {
                 <TextField
                   className={st.field}
                   required
+                  value={name}
                   id="fullname"
                   placeholder="جون سميث"
                   variant="standard"
@@ -70,7 +84,7 @@ export default function EditForm() {
                     setName(e.target.value);
                   }}
                 />
-                <p className={st.error}>{errors.name}</p>
+                <p className={st.error}>{errors.fullname}</p>
               </div>
 
               <div className={st.element}>
@@ -86,20 +100,21 @@ export default function EditForm() {
                   variant="standard"
                   htmlFor="email"
                 >
-                  الاسم الكامل
+                  اسم الأب
                 </InputLabel>
                 <br />
                 <TextField
                   className={st.field}
                   required
-                  id="fullname"
-                  placeholder="جون سميث"
+                  value={fname}
+                  id="fathername"
+                  placeholder="أدخل اسم الأب"
                   variant="standard"
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setFname(e.target.value);
                   }}
                 />
-                <p className={st.error}>{errors.name}</p>
+                <p className={st.error}>{errors.fname}</p>
               </div>
 
               <div className={st.element}>
@@ -115,21 +130,23 @@ export default function EditForm() {
                   variant="standard"
                   htmlFor="email"
                 >
-                  الاسم الكامل
+                  اسم الأم
                 </InputLabel>
                 <br />
                 <TextField
                   className={st.field}
                   required
-                  id="fullname"
-                  placeholder="جون سميث"
+                  value={mname}
+                  id="mname"
+                  placeholder="أدخل اسم الأم"
                   variant="standard"
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setMname(e.target.value);
                   }}
                 />
-                <p className={st.error}>{errors.name}</p>
+                <p className={st.error}>{errors.mname}</p>
               </div>
+              
               <div className={st.element}>
                 <InputLabel
                   sx={{
@@ -143,22 +160,25 @@ export default function EditForm() {
                   variant="standard"
                   htmlFor="email"
                 >
-                  الاسم الكامل
+                   رقم الهاتف
                 </InputLabel>
                 <br />
                 <TextField
                   className={st.field}
                   required
-                  id="fullname"
-                  placeholder="جون سميث"
+                  id="moblie"
+                  placeholder="+963999999999"
+                  sx={{direction:"ltr"}}
                   variant="standard"
+                  value={phone}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setPhone(e.target.value);
                   }}
                 />
-                <p className={st.error}>{errors.name}</p>
+                <p className={st.error}>{errors.phone}</p>
               </div>
 
+       
               {/* </Box> */}
               {/* </div> */}
             </Grid>
@@ -178,23 +198,24 @@ export default function EditForm() {
                   variant="standard"
                   htmlFor="email"
                 >
-                  الاسم الكامل
+                   الأمراض المزمنة
                 </InputLabel>
                 <br />
                 <TextField
                   className={st.field}
                   required
                   id="fullname"
-                  placeholder="جون سميث"
+                  placeholder="أدخل الأمراض المزمنة"
                   variant="standard"
+                  value={chronicDiseases}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setChronicDiseases(e.target.value);
                   }}
                 />
-                <p className={st.error}>{errors.name}</p>
+                <p className={st.error}>{errors.chronic}</p>
               </div>
 
-              <div className={st.element}>
+              {/* <div className={st.element}>
                 <InputLabel
                   sx={{
                     fontFamily: "Inter",
@@ -221,7 +242,7 @@ export default function EditForm() {
                   }}
                 />
                 <p className={st.error}>{errors.name}</p>
-              </div>
+              </div> */}
 
               <div className={st.element}>
                 <InputLabel
@@ -232,26 +253,31 @@ export default function EditForm() {
                     fontSize: "1rem",
                     lineHeight: "24px",
                     color: "#84A1FF",
-                    
                   }}
                   variant="standard"
                   htmlFor="email"
                 >
-                  رقم الهاتف
+                  تاريخ الميلاد 
                 </InputLabel>
                 <br />
-                <TextField
-                  sx={{textAlign:"left"}}
-                  className={st.field}
-                  required
-                  id="fullname"
-                  placeholder="+963999999999"
-                  variant="standard"
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-                <p className={st.error}>{errors.name}</p>
+                <div style={{ display: "block", alignContent: "center" }}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}   >
+                    {/* <DemoContainer components={["DatePicker"]}   */}
+                    <DatePicker
+                      key="date"
+                      label="تاريخ الميلاد"
+                      format="DD/MM/YYYY"
+                      sx={{ direction: "rtl" }}
+                      value={date}
+                      onChange={(newvalue) => {
+                        setDate(newvalue);
+                        console.log(newvalue.$D ,'/',newvalue.$M,'/',newvalue.$y,"\n",newvalue);
+                      }}
+                    />
+                    {/* </DemoContainer> */}
+                  </LocalizationProvider>
+                </div>
+                <p className={st.error}>{errors.date}</p>
               </div>
 
               <div className={st.element}>
@@ -275,29 +301,38 @@ export default function EditForm() {
                   id="demo-simple-select"
                   value={city}
                   label="Age"
-                  onChange={(e)=>{setcity(e.target.value)
-                    
-                      console.log('city',city)
-                    
+                  onChange={(e) => {
+                    setcity(e.target.value);
                   }}
                 >
-                 {cities.map(e=>
-              
-                  <MenuItem value={e.id}>{e.name}</MenuItem>
-                  
-                  
-                  
-
-                 )}
+                  {cities.map((e) => (
+                    <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+                  ))}
                   {/* <MenuItem value={10}>Ten</MenuItem>
                   <MenuItem value={20}>Twenty</MenuItem>
                   <MenuItem value={30}>Thirty</MenuItem> */}
                 </Select>
-                <p className={st.error}>{errors.name}</p>
+                <p className={st.error}>{errors.city}</p>
               </div>
               {/* </Box> */}
               {/* </div> */}
             </Grid>
+          </Grid>
+          <Grid item>
+            <div>
+              <Button
+                className={st.button}
+                style={{
+                  background: "#f45d48",
+                  bordeRadius: "5px",
+                  color: "#fff",
+                }}
+                onClick={() => {}}
+              >
+                <ModeEditIcon sx={{ color: "#FFFFFF" }} />
+                <p style={{}}> حفظ التعديلات </p>
+              </Button>
+            </div>
           </Grid>
         </Box>
       </div>
