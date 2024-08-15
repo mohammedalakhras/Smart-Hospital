@@ -29,6 +29,8 @@ export default function QuestionComponent(props) {
           }
           
           </div>
+
+          {console.log("data",props.data)}
         </div>
       </div>
     </div>
