@@ -53,8 +53,8 @@ export default function EditForm(props) {
     setDate(dayjs(props.data.Bdate));
     setcity(props.data.city_id);
 
-    setCov(props.data.cover);
     setProf(props.data.profile);
+    setCov(props.data.cover);
   }, []);
 
   useEffect(() => {
@@ -94,19 +94,24 @@ export default function EditForm(props) {
     }
   }, [name, fname, mname, phone]);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = (event, id) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProf(reader.result);
-        console.log("file", prof);
+        if (id == 1) setProf(reader.result);
+        else setCov(reader.result);
+
+        console.log("prof", prof);
+        console.log("cov", cov);
       };
       reader.readAsDataURL(file);
     } else {
-      setCov(null);
+      if (id == 1) setProf(null);
+      else setCov(null);
     }
   };
+
   function handleSubmit() {
     setTry(true);
     setMsg("");
@@ -133,7 +138,7 @@ export default function EditForm(props) {
         formatedDate,
         phone,
         prof,
-        null
+        cov
       ).then((e) => {
         if (e != null) {
           if (e.data != null) {
@@ -155,11 +160,22 @@ export default function EditForm(props) {
           <div
             className={stProf.cover}
             style={{
-              backgroundImage: `url(${
-                props.data.cover == null ? cover : props.data.cover
-              })`,
+              backgroundImage: `url(${props.data.cover == null ? cover : cov})`,
             }}
-          ></div>
+          >
+            <input
+              type="file"
+              id="coverinput"
+              style={{ display: "none" }}
+              onChange={(e) => handleFileChange(e, 2)}
+            />
+            <button
+              className={st.editIconCover}
+              onClick={() => document.getElementById("coverinput").click()}
+            >
+              <EditIcon className={st.icon} />
+            </button>
+          </div>
           <Box sx={{ flexGrow: 1 }}>
             <Grid
               container
@@ -180,7 +196,7 @@ export default function EditForm(props) {
                     type="file"
                     id="fileInput"
                     style={{ display: "none" }}
-                    onChange={(e) => handleFileChange(e)}
+                    onChange={(e) => handleFileChange(e, 1)}
                   />
                   <button
                     className={st.editIcon}

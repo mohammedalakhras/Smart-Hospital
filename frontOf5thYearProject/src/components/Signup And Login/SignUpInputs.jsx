@@ -14,16 +14,15 @@ export default function SignUpInputs(props) {
   }
   function HandelName(e) {
     setName(e.target.value);
-    setCounter2(p=>p+1);
-
+    setCounter2((p) => p + 1);
   }
   function HandelEmail(e) {
     setEmail(e.target.value);
-    setCounter2(p=>p+1);
+    setCounter2((p) => p + 1);
   }
   function HandelPass(e) {
     setPass(e.target.value);
-    setCounter2(p=>p+1);
+    setCounter2((p) => p + 1);
   }
 
   const [name, setName] = useState("");
@@ -44,26 +43,26 @@ export default function SignUpInputs(props) {
     // } else if (!/^[A-Z]{4,40}$/i.test(name)) {
     //   setError({ ...errors, name: "الاسم غير صالح" });
     // }
-     else {
+    else {
       setError({ ...errors, name: null });
     }
 
     if (!email) {
       errors.email = "الحقل مطلوب";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-      setError({ ...errors, email: "الايميل غير صالح" });
-    } else {
-      setError({ ...errors, email: null });
+      errors.email = "الايميل غير صالح";
+    } else {  
+      errors.email = null;
     }
 
     if (!pass) {
       errors.pass = "الحقل مطلوب";
     } else if (!/^(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*#?&]).*$/i.test(pass)) {
-      setError({ ...errors, pass: "كلمة المرور غير صالحة" });
+      errors.pass = "كلمة المرور غير صالحة";
     } else {
-      setError({ ...errors, pass: null });
+      errors.pass = null;
     }
-  }, [name, email, pass, counter,counter2]);
+  }, [name, email, pass, counter, counter2]);
 
   async function handleSubmit(e) {
     e.preventDefault();

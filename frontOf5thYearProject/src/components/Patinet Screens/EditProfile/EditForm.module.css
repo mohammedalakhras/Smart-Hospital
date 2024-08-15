@@ -52,43 +52,57 @@
     right: 70%; 
   }
   
-  .editIcon .icon {
+  .editIconCover{
+    display: flex;
+    position: relative; 
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #aaaaaa;
+    color: white; 
+    padding: 5px 5px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    top: 90%; 
+    right: 92%; 
+  }
+   .icon {
     margin: 18px;
     font-size: 22px; 
   }
   
   @media (max-width: 350px) {
-    .editIcon .icon {
+     .icon {
       margin: 8px;
       font-size: 12px; 
     }
   }
   @media (max-width: 600px) {
-    .editIcon .icon {
+   .icon {
       margin: 12px;
       font-size: 18px; 
     }
   }
   
-  /* Media query للشاشات المتوسطة */
   @media (min-width: 601px) and (max-width: 1024px) {
-    .editIcon .icon {
+     .icon {
       margin: 15px;
       font-size: 20px; 
     }
   }
   @media (min-width: 601px) and (max-width: 1024px) {
-    .editIcon .icon {
+     .icon {
       margin: 18px;
       font-size: 22px; 
     }
   }
   
-  /* Media query للشاشات الكبيرة */
+ 
   @media (min-width: 1025px) {
     .editIcon {
-      bottom: 30px; /* تعديل الموضع للشاشات الكبيرة */
-      left: 30px; /* تعديل الموضع للشاشات الكبيرة */
+      bottom: 30px; 
+      left: 30px; 
     }
   }
   
