@@ -36,9 +36,7 @@ export default function AppNavBar() {
 
   useEffect(()=>{
     getData(window.localStorage.getItem("token")).then((res) => {
-      console.log(res.data.doctor.id)
-      console.log(res.data)
-      
+    
       dispatch(setInfo({id:res.data.doctor.id}))
     })
 },[])

@@ -11,6 +11,7 @@ export default function MyQuestions(props) {
   const [data, setData] = useState([]);
   const [datares, setdatares] = useState("");
   const navigator=useNavigate('');
+  const type = localStorage.getItem('type');
 
   useEffect(() => {
     if (props.data == null) {
@@ -22,9 +23,14 @@ export default function MyQuestions(props) {
       setdatares(
         props.data.data.data.map((k, i) => {
           return (
-            <div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
+            <>
+            {!type === "doctor" &&<div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
               <QuestionComponent data={k} />{" "}
-            </div>
+            </div>}
+            {type === "doctor" && <div key={k.id} className={st.ques} onClick={()=>{navigator(`/doctor/question_details/${k.id}`)}} >
+              <QuestionComponent data={k} />{" "}
+            </div>}
+            </>
           );
         })
       );

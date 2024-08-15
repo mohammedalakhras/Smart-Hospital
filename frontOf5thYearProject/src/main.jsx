@@ -77,7 +77,7 @@ const router = createBrowserRouter([
 
   {
     path:'/doctor' , element:<DoctorLayout /> , children: [
-      {path:'/doctor' , element:<DoctorProfile /> },
+      {path:'/doctor' , element:<DoctorProfile /> ,loader: getTokenFromLocalStorage,},
       { path: '/doctor/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
 
     ]
