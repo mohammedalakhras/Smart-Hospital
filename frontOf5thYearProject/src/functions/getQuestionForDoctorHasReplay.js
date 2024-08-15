@@ -13,7 +13,6 @@ export default async function getQuestionForDotoctorHasReply() {
     .catch((e) => {
       return {data : e};
     });
-    console.log(res)
     
   return res;
 }

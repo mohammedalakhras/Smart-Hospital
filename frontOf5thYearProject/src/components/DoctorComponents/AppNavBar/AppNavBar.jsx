@@ -33,11 +33,9 @@ export default function AppNavBar() {
   const { IsMobileValue, isOpenValue } = useContext(MainContext);
   const [, setIsSideBarOpen] = isOpenValue;
   const [isMobile] = IsMobileValue;
-
   useEffect(()=>{
     getData(window.localStorage.getItem("token")).then((res) => {
-    
-      dispatch(setInfo({id:res.data.doctor.id}))
+      dispatch(setInfo({id:res.data.doctor.id  , name:res.data.doctor.full_name}))
     })
 },[])
   return (

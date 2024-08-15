@@ -3,7 +3,6 @@ import getQuestionForDotoctorHasReply from "./getQuestionForDoctorHasReplay";
 export default async function GetQuestion(token) {
   const type = localStorage['type'];
   if(type==="doctor"){
-    console.log(type)
     return getQuestionForDotoctorHasReply();
   }
   try {
