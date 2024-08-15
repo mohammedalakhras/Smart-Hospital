@@ -7,8 +7,8 @@ export default async function updateProfile(
   city,
   date,
   phone,
-  img, // URL or path to the image
-  cover // You can handle cover image similarly if needed
+  img,
+  cover
 ) {
   const token = window.localStorage["token"];
   console.log("TOKEN", token);
@@ -29,10 +29,12 @@ export default async function updateProfile(
     data.append("city_id", city);
     data.append("Bdate", date);
     data.append("mobile", phone);
-    if (img != null) data.append("profile_image", await urlToObject(img));
 
-    // Add cover image if necessary
-    // data.append('cover_image', await urlToObject(cover));
+    // فقط قم بتحويل الصورة إلى ملف إذا كانت img ليست URL
+    if (img && !img.startsWith("http"))
+      data.append("profile_image", await urlToObject(img));
+    if (cover && !cover.startsWith("http"))
+      data.append("cover_image", await urlToObject(cover));
 
     const config = {
       method: "post",

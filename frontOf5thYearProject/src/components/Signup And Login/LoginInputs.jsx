@@ -18,17 +18,17 @@ export default function LoginInputs() {
     if (!email) {
       errors.email = "الحقل مطلوب";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-      setError({ ...errors, email: "الايميل غير صالح" });
+     errors.email= "الايميل غير صالح"
     } else {
-      setError({ ...errors, email: null });
+      errors.email= null 
     }
 
     if (!pass) {
       errors.pass = "الحقل مطلوب";
     } else if (!/^(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*#?&]).*$/i.test(pass)) {
-      setError({ ...errors, pass: "كلمة المرور غير صالحة" });
+      errors.pass= "كلمة المرور غير صالحة" 
     } else {
-      setError({ ...errors, pass: null });
+     errors.pass= null
     }
   }, [email, pass, counter,counter2]);
 
