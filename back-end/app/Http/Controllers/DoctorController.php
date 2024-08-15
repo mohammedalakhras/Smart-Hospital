@@ -3,27 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Doctor\StoreDoctorRequest;
-use App\Http\Requests\Doctor\UpdateDoctorRequest;
-use App\Models\Doctor;
-use App\Models\Question;
+use Illuminate\Http\Request;
+use DB;
+use App\Http\Requests\Doctor\{
+    StoreDoctorRequest,
+    UpdateDoctorRequest
+};
+use App\Models\{
+    Doctor,
+    Question
+};
 use App\Trait\{
     responseTrait,
     uplodeImages
 };
-use DB;
-use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
     use responseTrait, uplodeImages;
-
     public function index(){
-
         return $this->returnData('data',Doctor::all());
     }
-
-
     public function register(StoreDoctorRequest $request)
     {
         $request1 = $request->except('password');
@@ -31,10 +31,8 @@ class DoctorController extends Controller
         Doctor::create($request1);
         return $this->returnSucess('200', "تم انشاء الحساب بنجاح");
     }
-
     public function update(UpdateDoctorRequest $request)
     {
-        // $doctor_id = $request->user()->id;
         $doctor = Doctor::find($request->user()->id);
         return DB::transaction(function () use ($request, $doctor) {
             $doctor->update($request->except(['profile_image', 'cover_image']));
@@ -57,8 +55,6 @@ class DoctorController extends Controller
             return $this->returnSucess('200', "تم تعديل البيانات بنجاح");
         });
     }
-
-
     public function addReply(Request $request, Question $qustion)
     {
         $request->merge([
@@ -85,14 +81,6 @@ class DoctorController extends Controller
     public function getReply(Question $qustion){
        return $qustion->has_replys()->orderBy("date",'asc')->orderBy('time','asc')->get(['date','time','reply','doctor_name']);
     }
-
-
-
-
-
-
-
-
     public function getInformation()
     {
         $doctor_id = auth()->user()->id;
@@ -100,3 +88,6 @@ class DoctorController extends Controller
         return $this->returnData("doctor", $doctor);
     }
 }
+
+
+// 90 Row Coded From Baraa Berkdar  

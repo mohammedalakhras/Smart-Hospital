@@ -59,5 +59,5 @@ class Question extends Model
         foreach($images as $image)
             $this->image()->create(["image_name"=>$image,"type"=>1]);
         }
-
 }
+// 62 Row Coded From Baraa Berkdar

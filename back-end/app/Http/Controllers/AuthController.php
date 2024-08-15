@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginReques;
-use App\Models\Pation;
 use App\Trait\responseTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -41,11 +39,11 @@ class AuthController extends Controller
     }
 
 
-    // public function logout(Request $request)
-    // {
-    //     auth()->logout();
-    //     return $this->returnSucess(200, '  تم تسجيل الخروج بنجاح ');
-    // }
+    public function logout(Request $request)
+    {
+        auth()->logout();
+        return $this->returnSucess(200, '  تم تسجيل الخروج بنجاح ');
+    }
 
 
     public function checkToken(Request $request)
@@ -87,3 +85,4 @@ class AuthController extends Controller
         ]);
     }
 }
+// 87 Row coded From Baraa Berkdar

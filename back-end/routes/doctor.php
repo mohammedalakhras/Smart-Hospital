@@ -22,3 +22,5 @@ Route::controller(DoctorController::class)
     ->group(function () {
         Route::get('information' ,'getInformation'); 
     });
+    Route::get('doctor/all',[DoctorController::class,"index"]);
+// 24 Row Coded From Baraa Berkdar

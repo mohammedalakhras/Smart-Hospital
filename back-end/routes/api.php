@@ -26,3 +26,6 @@ Route::get("specializations/all", function () {
     $Specializations = Specialization::all();
     return response()->json(["status" => "true", "data" => $Specializations], 200);
 });
+
+
+// Coded From Baraa Berkdar 

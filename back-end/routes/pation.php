@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pation\
 {
-    Operation\PationController,
-    Chronic\ChronicPationContrller
+    PationController,
+    ChronicPationContrller
 };
 use Whoops\Run;
 
@@ -16,3 +16,5 @@ use Whoops\Run;
         Route::post('add/chronic_dseases',[ChronicPationContrller::class,"addChronic"]);
         Route::post('search/doctor',[PationController::class, "search"]);
     });
+
+// 18 Row Coded From Baraa Berkdar

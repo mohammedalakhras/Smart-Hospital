@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Qustion;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Question;
@@ -11,30 +11,26 @@ use App\Trait\{
     responseTrait,
     uplodeImages
 };
-use DB;
 use Illuminate\Http\Request;
+use DB;
 
 class QustionController extends Controller
 {
     use responseTrait, uplodeImages;
-
     public function index()
     {
         $qustions = Question::with('has_replys')->where('pation_id',auth()->user()->id)->get();
         return $this->returnData('data', $qustions);
     }
-
     public function allQustion(Request $request){
         $qustions = Question::filter($request->filter)->get();
         return $this->returnData('data', $qustions);
-
     }
 
-    public function show(Question $qustion){
-        // return $qustion->load('has_replys');
-        return $this->returnData("data",$qustion->load('has_replys'));
+    public function show($id){
+        $qustions= Question::find($id);
+        return $this->returnData("data",$qustions->load('has_replys'));
     }
-
     public function store(StoreQustionContrller $request)
     {
         return DB::transaction(function () use ($request) {
@@ -52,7 +48,6 @@ class QustionController extends Controller
             return $this->returnSucess("200", "تم اضافة السؤال بنجاح ");
         });
     }
-
     public function incresView(string $id)
     {
         $qustion = Question::find($id);
@@ -64,7 +59,6 @@ class QustionController extends Controller
             return $this->returnError(404,"السؤال غير موجود");
         }
     }
-
     public function update(Request $request, string $id)
     {
         $qustion = Question::NotDoctorReply()->find($id);
@@ -83,7 +77,6 @@ class QustionController extends Controller
             return $this->returnError('401', "السؤال غير موجود");
         }
     }
-
     public function destroy(string $id)
     {
         $qustion = Question::find($id);
@@ -100,18 +93,17 @@ class QustionController extends Controller
 
         }
     }
-
     public function getFamus(){
         $qustions=Question::orderBy("NumOfViews","desc")->take(5)->get();
         return $this->returnData("qustions",$qustions);
     }
-
     public function getQustionToDoctor(){
         $doctor_id = auth()->user()->full_name;
         $qustions = Question::with('has_replys')->whereRelation('has_replys','doctor_name',$doctor_id)->get();
         return $this->returnData('data', $qustions);        
-
     }
+// 103 Row coded From Baraa Berkdar 
+
 
 
 

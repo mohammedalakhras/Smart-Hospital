@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Pation\Chronic;
+namespace App\Http\Controllers\Pation;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pation\ChronicRequest;
