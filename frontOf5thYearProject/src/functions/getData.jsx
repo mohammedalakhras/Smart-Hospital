@@ -42,12 +42,12 @@ export default async function getData(token) {
       }else return null
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        console.log("Unauthorized. Please check your token.");
-        window.localStorage.clear("token");
+        // console.log("Unauthorized. Please check your token.");
+        window.localStorage.clear();
         window.location.pathname = "signup";
       } else {
-        console.log("Error fetching data:", error.message);
-        window.localStorage.clear("token");
+        // console.log("Error fetching data:", error.message);
+        window.localStorage.clear();
         window.location.pathname = "signup";
       }
     }

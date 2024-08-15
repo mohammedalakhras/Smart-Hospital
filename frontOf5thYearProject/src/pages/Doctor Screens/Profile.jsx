@@ -1,4 +1,4 @@
-import CommonQuestions from "../../components/Patinet Screens/Profile/CommonQuestions";
+import CommonQuestions from "../../components/DoctorComponents/Profile/CommonQuestions";
 import MyQuestions from "../../components/Patinet Screens/Profile/MyQuestions";
 import ProfileAndCover from "../../components/Patinet Screens/Profile/ProfileAndCover";
 import st from "./Profile.module.css";

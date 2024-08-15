@@ -7,16 +7,19 @@ import CommentFeild from "./CommentFeild";
 //import for redux 
 import { useSelector } from "react-redux";
 
+
 export default function QuestionComments() {
-  const id = useSelector(state=>state.informaionOfUser.id)
+  const {id , name} = useSelector(state=>state.informaionOfUser)
   const params = useParams()
   const data = useLoaderData()
   const [commentValue , setCommentValue] = useState('')
   const [comments, setComments] = useState(data.has_replys);
   const da = new Date();
   const [token , setToken] = useState('');
+  const [type , setType] = useState('');
   useEffect(()=>{
     setToken(localStorage.getItem('token'))
+    setType(localStorage.getItem('type'))
   },[])
   useEffect(()=>{
     async function sendComment(){
@@ -38,7 +41,11 @@ export default function QuestionComments() {
       setCommentValue(event.target.value);
   }
   function inputHandler(){
-    setComments([...comments , { date:`${da.getFullYear()}-${da.getMonth()+1}-${da.getDate()}` , time:`${da.getHours()}:${da.getMinutes()+1}:${da.getSeconds()}` ,reply:commentValue , doctor_name: undefined }])
+    if(type === 'doctor')
+    setComments([...comments , { date:`${da.getFullYear()}-${da.getMonth()+1}-${da.getDate()}` , time:`${da.getHours()}:${da.getMinutes()+1}:${da.getSeconds()}` ,reply:commentValue , doctor_name: name }])
+  else
+  setComments([...comments , { date:`${da.getFullYear()}-${da.getMonth()+1}-${da.getDate()}` , time:`${da.getHours()}:${da.getMinutes()+1}:${da.getSeconds()}` ,reply:commentValue , doctor_name: undefined }])
+
   }
   return (
     <Box p={4}>
@@ -51,7 +58,7 @@ export default function QuestionComments() {
           />
         );
       })}
-      {id === data.pation_id &&
+      {(id === data.pation_id || type==='doctor') &&
     <CommentFeild inputHandler={inputHandler} changeHandler={changeHandler} commentValue={commentValue}/>
       }</Box>
   );
