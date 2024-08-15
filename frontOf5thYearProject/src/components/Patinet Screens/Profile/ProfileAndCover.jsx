@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import st from "./ProfileAndCover.module.css";
 import { Box, Grid, Button } from "@mui/material/";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import { useNavigate } from "react-router-dom";
 import patient from "../../../assets/image/Profile/patient.png";
-
+import cover from "../../../assets/image/Profile/cover.svg";
 export default function ProfileAndCover(props) {
   useEffect(() => {
     setdata(props.data);
   }, [props.data]);
 
   const [data, setdata] = useState(props.data);
+  const navigate=useNavigate();
   
  
 
@@ -18,14 +20,17 @@ export default function ProfileAndCover(props) {
     <div>
       {" "}
       <div className={st.container}>
-        <div className={st.cover}></div>
+        <div className={st.cover} style={{backgroundImage: `url(${data.cover==null?cover:data.cover})`}}></div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}  justifyContent="center" alignItems="center">
             <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
               <div
                 className={st.ProfileImage}
-                style={{ backgroundImage: `url(${data.prfile==null?patient:data.prfile})` }}
-              ></div>
+                style={{ backgroundImage: `url(${data.profile==null?patient:data.profile})` }}
+              >
+                {console.log(data)
+                }
+              </div>
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
               <div>
@@ -69,9 +74,10 @@ export default function ProfileAndCover(props) {
                       bordeRadius: "5px",
                       
                     }}
+                    onClick={()=>navigate('/editProfile')}
                   >
                     <ModeEditIcon sx={{ color: "#FFFFFF" }} />
-                    <p> أكمال-تعديل المعلومات </p>
+                    <p> إكمال-تعديل المعلومات </p>
                   </Button>
                 </div>
               </Grid>

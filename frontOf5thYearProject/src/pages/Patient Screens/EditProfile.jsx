@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProfAndCovEdit from "../../components/Patinet Screens/EditProfile/ProfAndCovEdit";
 import st from "./Profile.module.css";
 import getData from "../../functions/getData";
@@ -10,7 +10,6 @@ export default function EditProfile() {
   const [data, setData] = useState({});
 
   const [isLoading, setLoading] = useState(true);
-  
 
   useEffect(() => {
     if (window.localStorage.getItem("token") == null) {
@@ -18,7 +17,7 @@ export default function EditProfile() {
     } else {
       try {
         getData(window.localStorage.getItem("token")).then((res) => {
-          console.log("Data LOG",res.data.pation);
+          console.log("Data LOG", res.data.pation);
           setData(res.data.pation);
           setLoading(false);
         });
@@ -29,9 +28,18 @@ export default function EditProfile() {
   }, []);
 
   return (
-    <div className={st.container}>
-      <ProfAndCovEdit data={data} />
-      <EditForm />
+    <div>
+      {isLoading && (
+        <div className={st.loading}>
+          <CircularProgress />
+        </div>
+      )}
+      {!isLoading && (
+        <div className={st.container}>
+          <ProfAndCovEdit data={data} />
+          <EditForm data={data} />
+        </div>
+      )}
     </div>
   );
 }
