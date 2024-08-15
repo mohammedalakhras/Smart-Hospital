@@ -37,7 +37,7 @@ export default function EditProfile() {
       {!isLoading && (
         <div className={st.container}>
           <ProfAndCovEdit data={data} />
-          <EditForm />
+          <EditForm data={data} />
         </div>
       )}
     </div>
