@@ -24,7 +24,7 @@ export default function MyQuestions(props) {
         props.data.data.data.map((k, i) => {
           return (
             <>
-            {!type === "doctor" &&<div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
+            {!(type == "doctor") &&<div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
               <QuestionComponent data={k} />{" "}
             </div>}
             {type === "doctor" && <div key={k.id} className={st.ques} onClick={()=>{navigator(`/doctor/question_details/${k.id}`)}} >

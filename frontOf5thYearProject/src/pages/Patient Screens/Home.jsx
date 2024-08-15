@@ -13,15 +13,15 @@ import { useEffect } from "react";
 export default function Home() {
 useEffect( ()=>{
 async function test(){
-const response_0 = await fetch("https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png");
-const exampleImage = await response_0.blob();
+// const response_0 = await fetch("https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png");
+// const exampleImage = await response_0.blob();
 						
-const client = await Client.connect("MohammedAlakhras/Retinal_Diseases_Classification");
-const result = await client.predict("/predict", { 
-				img: exampleImage, 
-});
+// const client = await Client.connect("MohammedAlakhras/Retinal_Diseases_Classification");
+// const result = await client.predict("/predict", { 
+// 				img: exampleImage, 
+// });
 
-console.log(result.data);}
+console.log('HELLO');}
 test()
 },[])
   const ques = useLoaderData();

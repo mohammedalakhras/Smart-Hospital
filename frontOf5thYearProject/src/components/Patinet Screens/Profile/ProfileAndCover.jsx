@@ -18,7 +18,7 @@ export default function ProfileAndCover(props) {
 
   return (
     <div>
-      {" "}
+      {" "} 
       <div className={st.container}>
         <div className={st.cover} style={{backgroundImage: `url(${data.cover==null?cover:data.cover})`}}></div>
         <Box sx={{ flexGrow: 1 }}>
@@ -57,7 +57,7 @@ export default function ProfileAndCover(props) {
 
                     <Grid item xs={5} sm={5} md={5} lg={5} xl={5}>
                       <p className={st.ptitle}>الأمراض المزمنة</p>
-                      <p className={st.pvalue}>{data.dis}</p>
+                      <p className={st.pvalue}>{data.chornic}</p>
                     </Grid>
                   </Grid>
                 </Box>

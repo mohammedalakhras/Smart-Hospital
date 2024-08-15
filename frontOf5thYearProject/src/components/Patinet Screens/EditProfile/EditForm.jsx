@@ -52,7 +52,7 @@ export default function EditForm(props) {
     setPhone(props.data.mobile);
     setDate(dayjs(props.data.Bdate));
     setcity(props.data.city_id);
-
+    setChronicDiseases(props.data.chornic)
     setProf(props.data.profile);
     setCov(props.data.cover);
   }, []);
@@ -61,36 +61,38 @@ export default function EditForm(props) {
     console.log(name, fname, mname, errors);
 
     if (!name) {
-      errors.fullname = "الحقل مطلوب";
+      // setError({ ...errors, fullname: "الحقل مطلوب" });
+      setError((prev)=>{return { ...prev, fullname: "الحقل مطلوب" }});
+      // errors.fullname = "الحقل مطلوب";
     } else if (!/^[\p{L}\s]+$/u.test(name)) {
-      errors.fullname = "الاسم غير صالح";
+      setError((prev)=>{return { ...prev, fullname: "الاسم غير صالح" }});
     } else {
-      errors.fullname = null;
+      setError((prev)=>{return { ...prev, fullname: null }});
     }
 
     if (!fname) {
-      errors.fname = "الحقل مطلوب";
+      setError((prev)=>{return { ...prev, fname: "الحقل مطلوب" }});
     } else if (!/^[\p{L}\s]+$/u.test(fname)) {
-      errors.fname = "اسم الأب غير صالح";
+      setError((prev)=>{return { ...prev, fname: "الاسم غير صالح" }});
     } else {
-      errors.fname = null;
+      setError((prev)=>{return { ...prev, fname: null }});
     }
 
     if (!mname) {
-      errors.mname = "الحقل مطلوب";
+      setError((prev)=>{return { ...prev, mname: "الحقل مطلوب"} });
     } else if (!/^[\p{L}\s]+$/u.test(mname)) {
-      errors.mname = "اسم الأم غير صالح";
+      setError((prev)=>{return { ...prev, mname: "الاسم غير صالح" }});
     } else {
-      errors.mname = null;
+      setError((prev)=>{return { ...prev, mname: null }});
     }
     console.log(phone);
 
     if (!phone) {
-      errors.phone = "الحقل مطلوب";
+      setError((prev)=>{return { ...prev,phone: "الحقل مطلوب"}});
     } else if (!/^[\+]{0,1}[0-9]{8,18}$/u.test(phone)) {
-      errors.phone = "رقم الهاتف غير صالح";
+      setError((prev)=>{return { ...prev,phone: "رقم الهاتف غير صالح"}});
     } else {
-      errors.phone = null;
+      setError((prev)=>{return { ...prev,phone: null}});
     }
   }, [name, fname, mname, phone]);
 
@@ -115,13 +117,15 @@ export default function EditForm(props) {
   function handleSubmit() {
     setTry(true);
     setMsg("");
-    console.log("name", name);
-    console.log("fname", fname);
-    console.log("mname", mname);
-    console.log("city", city);
-    let formatedDate = date.$y + "-" + date.$M + 1 + "-" + date.$D;
-    console.log("date", formatedDate);
-    console.log("phone", phone);
+    // console.log("name", name);
+    // console.log("fname", fname);
+    // console.log("mname", mname);
+    // console.log("city", city);
+    let formatedDate = date.$y + "-" + Number(date.$M + 1) + "-" + date.$D;
+    // console.log("date", formatedDate);
+    // console.log("phone", phone);
+    console.log("checDiseaase",chronicDiseases);
+    
     if (
       errors.name == null &&
       errors.fname == null &&
@@ -137,6 +141,7 @@ export default function EditForm(props) {
         city,
         formatedDate,
         phone,
+        chronicDiseases,
         prof,
         cov
       ).then((e) => {

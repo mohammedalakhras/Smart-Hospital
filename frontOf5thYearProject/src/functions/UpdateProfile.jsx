@@ -7,6 +7,7 @@ export default async function updateProfile(
   city,
   date,
   phone,
+  chronicDiseases,
   img,
   cover
 ) {
@@ -27,6 +28,9 @@ export default async function updateProfile(
     data.append("father", fname);
     data.append("mother", mname);
     data.append("city_id", city);
+    data.append("chornic", chronicDiseases);
+    console.log("UPDATE CHRON",chronicDiseases);
+    
     data.append("Bdate", date);
     data.append("mobile", phone);
 

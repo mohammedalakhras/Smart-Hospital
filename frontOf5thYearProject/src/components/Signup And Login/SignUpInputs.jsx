@@ -9,9 +9,17 @@ export default function SignUpInputs(props) {
     setPatorDoc(e.target.value);
   }
 
-  function submit(e) {
-    // e.preventDefault();
-  }
+  const [name, setName] = useState("");
+  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("");
+  const [PatorDoc, setPatorDoc] = useState(0); //doctor or patient (Select)
+
+  const navigate = useNavigate();
+  const [value, setValue] = useOutletContext();
+  const [errors, setError] = useState({});
+  const [counter, setCounter] = useState(0);
+  const [counter2, setCounter2] = useState(0);
+
   function HandelName(e) {
     setName(e.target.value);
     setCounter2((p) => p + 1);
@@ -25,69 +33,61 @@ export default function SignUpInputs(props) {
     setCounter2((p) => p + 1);
   }
 
-  const [name, setName] = useState("");
-  const [pass, setPass] = useState("");
-  const [email, setEmail] = useState("");
-  const [PatorDoc, setPatorDoc] = useState(0); //doctor or patient (Select)
-
-  const navigate = useNavigate();
-  const [value, setValue] = useOutletContext();
-  const [errors, setError] = useState({});
-  const [counter, setCounter] = useState(0);
-  const [counter2, setCounter2] = useState(0);
-
   useEffect(() => {
+    const newErrors = {};
+
     if (!name) {
-      errors.name = "الحقل مطلوب";
-    }
-    // } else if (!/^[A-Z]{4,40}$/i.test(name)) {
-    //   setError({ ...errors, name: "الاسم غير صالح" });
-    // }
-    else {
-      setError({ ...errors, name: null });
+      newErrors.name = "الحقل مطلوب";
+    } else {
+      newErrors.name = null;
     }
 
     if (!email) {
-      errors.email = "الحقل مطلوب";
+      newErrors.email = "الحقل مطلوب";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-      errors.email = "الايميل غير صالح";
-    } else {  
-      errors.email = null;
+      newErrors.email = "الايميل غير صالح";
+    } else {
+      newErrors.email = null;
     }
 
     if (!pass) {
-      errors.pass = "الحقل مطلوب";
+      newErrors.pass = "الحقل مطلوب";
     } else if (!/^(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*#?&]).*$/i.test(pass)) {
-      errors.pass = "كلمة المرور غير صالحة";
+      newErrors.pass = "كلمة المرور غير صالحة";
     } else {
-      errors.pass = null;
+      newErrors.pass = null;
     }
+
+    setError(newErrors);
   }, [name, email, pass, counter, counter2]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setCounter((p) => p + 1);
+
     if (email && pass && errors.email == null && errors.pass == null) {
       let url =
         PatorDoc == 0
           ? "http://127.0.0.1:8000/api/pation/register"
           : "http://127.0.0.1:8000/api/doctor/register";
-      const res = await axios
-        .post(url, {
+      try {
+        const res = await axios.post(url, {
           email: email,
           password: pass,
           full_name: name,
-        })
-        .then((res) => {
-          const token = res.data.access_token;
-          const type = res.data.type;
-
-          // window.localStorage.setItem("token", token);
-          navigate("/signin");
-        })
-        .catch((err) => {
-          setError({ ...errors, note: err.response.data.msg });
         });
+
+        const token = res.data.access_token;
+        const type = res.data.type;
+
+        // window.localStorage.setItem("token", token);
+        navigate("/signin");
+      } catch (err) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          note: err.response.data.msg,
+        }));
+      }
     }
   }
 
@@ -154,6 +154,7 @@ export default function SignUpInputs(props) {
             />
             <p className={st.error}>{counter > 0 && errors.email}</p>
           </div>
+
           <div className={st.element}>
             <InputLabel
               sx={{
@@ -201,7 +202,6 @@ export default function SignUpInputs(props) {
           </InputLabel>
           <Select
             required
-            labelId=""
             id="select"
             value={PatorDoc}
             onChange={HandleChange}
@@ -260,7 +260,6 @@ export default function SignUpInputs(props) {
               fontWeight: "700",
               fontSize: "15px",
               lineHeight: "25px",
-
               color: "#FF6F9C",
               margin: "10px 0px 10px 0px",
               cursor: "pointer",
