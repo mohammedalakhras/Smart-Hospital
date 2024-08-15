@@ -12,6 +12,7 @@ import getData from "../../functions/getData";
 export default function Profile() {
   // const dispatch = useDispatch()
   const ques = useLoaderData();
+  console.log(ques)
   const [data, setData] = useState({});
 
   const [isLoading, setLoading] = useState(true);

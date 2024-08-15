@@ -11,22 +11,23 @@ export default function MyQuestions(props) {
   const [data, setData] = useState([]);
   const [datares, setdatares] = useState("");
   const navigator=useNavigate('');
-  const type = localStorage.getItem('type');
-
+  const [type , setType ] = useState('')
+  console.log( props.data.data.data)
   useEffect(() => {
+    setType(localStorage.getItem('type'))
     if (props.data == null) {
       setdatares(<p>خطأ في تحميل البيانات </p>);
       setLoading(false);
     } else if (props.data.data.code == 200) {
       setLoading(false);
-
+      
       setdatares(
         props.data.data.data.map((k, i) => {
           return (
             <>
-            {!type === "doctor" &&<div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
+            {!(type === "doctor") && (<div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
               <QuestionComponent data={k} />{" "}
-            </div>}
+            </div>)}
             {type === "doctor" && <div key={k.id} className={st.ques} onClick={()=>{navigator(`/doctor/question_details/${k.id}`)}} >
               <QuestionComponent data={k} />{" "}
             </div>}
