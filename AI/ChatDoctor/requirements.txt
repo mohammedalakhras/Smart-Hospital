@@ -1,0 +1,8 @@
+transformers
+light-the-torch
+torch
+torchvision
+sacremoses
+gradio
+accelerate
+gradio_client

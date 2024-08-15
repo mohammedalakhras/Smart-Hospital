@@ -22,7 +22,6 @@ const navigate = useNavigate();
     } else {
       try {
         getData(window.localStorage.getItem("token")).then((res) => {
-          console.log("Data LOG",res.doctor);
           // dispatch(setInfo(res.data.pation.id))
           setData(res.data.doctor);
           setLoading(false);
