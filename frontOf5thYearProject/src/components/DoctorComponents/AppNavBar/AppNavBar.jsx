@@ -16,7 +16,7 @@ import logo from "../../../assets/image/logo.png";
 
 //context
 import { MainContext } from "../../../pages/Doctor Screens/DoctorLayout";
-import { useContext, useEffect} from "react";
+import { useContext, useEffect, useState} from "react";
 
 //import function data
 import getData from "../../../functions/getData";
@@ -33,8 +33,10 @@ export default function AppNavBar() {
   const { IsMobileValue, isOpenValue } = useContext(MainContext);
   const [, setIsSideBarOpen] = isOpenValue;
   const [isMobile] = IsMobileValue;
+  const [profile , setProfile ] = useState(null)
   useEffect(()=>{
     getData(window.localStorage.getItem("token")).then((res) => {
+      setProfile(res.data.doctor.profile)
       dispatch(setInfo({id:res.data.doctor.id  , name:res.data.doctor.full_name}))
     })
 },[])
@@ -54,19 +56,19 @@ export default function AppNavBar() {
             </Button>
           )}
           <Box className={classes.logo}>
-            <img src={logo} alt="logo" />
+            <img src={profile ? profile : logo} alt="logo" />
           </Box>
           <Box>
             <input placeholder="أبحث هنا..... " />
           </Box>
           <Box>
             <Stack direction="row" className={classes.AvaterContainer}>
-              <Box>
+              {/* <Box>
                 <span>3</span>
                 <NotificationsIcon />
-              </Box>
+              </Box> */}
               {/* <Avatar src={avaterImage} /> */}
-              <Avatar src={prof} component={Link} to='/doctor/profile' sx={{textDecoration:'none'}}/>
+              <Avatar src={prof} component={Link} to='/doctor' sx={{textDecoration:'none'}}/>
             </Stack>
           </Box>
         </Toolbar>

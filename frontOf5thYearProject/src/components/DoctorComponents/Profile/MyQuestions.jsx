@@ -47,7 +47,7 @@ export default function MyQuestions(props) {
     <div className={st.container}>
       <div className={st.content}>
         <h2 className={st.head}>الأسئلة الخاصة بك</h2>
-        <div className={st.queses}>{datares}</div>
+        <div className={st.queses}>{datares ? datares : "لا يوجد أسئلة بعد"}</div>
       </div>
     </div>
   );

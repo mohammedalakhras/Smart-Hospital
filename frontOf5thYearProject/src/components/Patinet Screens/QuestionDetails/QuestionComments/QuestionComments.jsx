@@ -1,4 +1,4 @@
-import { Typography, Box, Avatar, Stack } from "@mui/material";
+import { Typography, Box, Avatar, Stack , Chip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 //import component 
@@ -49,6 +49,17 @@ export default function QuestionComments() {
   }
   return (
     <Box p={4}>
+      {
+        comments.length === 0 && (
+          <Box sx={{ position: "relative" , height:'100%' }}>
+          <Chip
+            color="error"
+            label=" لا يوجد تعليقات بعد  "
+            sx={{ position: "absolute", top: "200px", right: "45%" }}
+          />
+        </Box>
+        )
+      }
       {comments.map((element) => {
         return (
           <Comment
