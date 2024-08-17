@@ -26,6 +26,7 @@ import AIAnalysis from "./pages/AIAnalysis.jsx";
 //doctor Route
 import DoctorLayout from "./pages/Doctor Screens/DoctorLayout.jsx";
 import DoctorProfile from "./pages/Doctor Screens/Profile.jsx";
+import EditProfileForDoctor from "./pages/Doctor Screens/EditProfile.jsx";
 
 //import data function 
 import { getSpecializationAndCounters } from "./functions/getSpecializationAndCountry.js";
@@ -82,7 +83,9 @@ const router = createBrowserRouter([
     path:'/doctor' , element:<DoctorLayout /> , children: [
       {path:'/doctor' , element:<DoctorProfile /> ,loader: getTokenFromLocalStorage,},
       { path: '/doctor/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
+      { path: '/doctor/edit profile', element: <EditProfileForDoctor />},
       { path: '/doctor/appointment', element: <DoctorAppointments /> , },
+
 
     ]
   },

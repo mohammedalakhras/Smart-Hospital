@@ -1,6 +1,6 @@
 import CommonQuestions from "../../components/DoctorComponents/Profile/CommonQuestions";
 import MyQuestions from "../../components/Patinet Screens/Profile/MyQuestions";
-import ProfileAndCover from "../../components/Patinet Screens/Profile/ProfileAndCover";
+import ProfileAndCover from "../../components/DoctorComponents/Profile/ProfileAndCover";
 import st from "./Profile.module.css";
 import { useEffect, useState } from "react";
 import { CircularProgress, Button } from "@mui/material";
@@ -23,6 +23,7 @@ const navigate = useNavigate();
       try {
         getData(window.localStorage.getItem("token")).then((res) => {
           // dispatch(setInfo(res.data.pation.id))
+          console.log(res.data)
           setData(res.data.doctor);
           setLoading(false);
         });

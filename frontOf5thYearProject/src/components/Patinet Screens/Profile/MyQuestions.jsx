@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import st from "./MyQuestions.module.css";
 import QuestionComponent from "../QuestionComponent";
 import GetQuestion from "../../../functions/GetQuestion";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress  , Chip , Box} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function MyQuestions(props) {
@@ -53,8 +53,19 @@ export default function MyQuestions(props) {
     <div className={st.container}>
       <div className={st.content}>
         <h2 className={st.head}>الأسئلة الخاصة بك</h2>
-        <div className={st.queses}>{datares}</div>
+        <div className={st.queses}>{datares.lenght > 0 ? datares : <NoQuestion />}</div>
       </div>
     </div>
   );
+}
+
+function NoQuestion(){
+  return (
+    <Box sx={{marginRight : '10%'}}>
+          <Chip
+            color="error"
+            label="لا يوجد أسئلة بعد"
+          />
+        </Box>
+  )
 }

@@ -1,0 +1,76 @@
+.container {
+    background-color:#FFFFFF;
+      border-radius: 20px;
+      margin-bottom: 50px;
+  
+  }
+  .cover {
+    width: 100%;
+    height: 392px;
+  
+    background-color: #524c4c;
+  
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-image: url("/src/assets/image/Profile/cover.svg"); */
+    border-radius: 20px;
+  }
+  .ProfileImage {
+    top: 340px;
+    right: 7%;
+    width: 200px;
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+  }
+  
+  @media (max-width: 720px) {
+    .ProfileImage {
+      width: 150px;
+      margin-top: -75px;
+    }
+  }
+  @media (max-width: 350px) {
+    .ProfileImage {
+      width: 100px;
+      margin-top: -50px;
+    }
+  }
+  @media (min-width: 800px) {
+    .ProfileImage {
+      width: 200px;
+      margin-top: -100px;
+    }
+  }
+  @media (min-width: 1000px) {
+    .ProfileImage {
+      width: 250px;
+      margin-top: -125px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .ProfileImage {
+      width: 300px;
+      margin-top: -150px;
+    }
+  }
+  @media (min-width: 1900px) {
+    .ProfileImage {
+      width: 350px;
+      margin-top: -175px;
+    }
+  }
+
+  .name {
+    font-family: "Al-Jazeera-Arabic";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 54px;
+    text-align: right;
+    color: #000000;
+  }
+  
+  

@@ -1,6 +1,7 @@
 import React from "react";
 import st from "./Question.module.css";
 export default function QuestionComponent(props) {
+  console.log(props)
   return (
     <div className={st.mainBody}>
       <div className={st.ansNum}>
