@@ -16,7 +16,7 @@ export default function QuestionDetails() {
         <Box>
             {data.images.length ===0 && <div style={{backgroundColor:"rosybrown", textAlign:'center' , paddingTop:'40%' , width:'100%' , height:'400px'}}>{data.message}</div>}
             {data.images.length ===1 && <img src={data.images[0]} alt="" />}
-            {data.images.length ===2 && <Grid container>
+            {data.images.length ===2 && <Grid container sx={{overflow:'hidden' , height : '400px'}}>
                 <Grid item xs={6}><img src={data.images[0]} alt="" /></Grid>
                 <Grid item xs={6}><img src={data.images[1]} alt="" /></Grid>
                 </Grid>}
