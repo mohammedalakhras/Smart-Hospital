@@ -1,105 +1,136 @@
 import {
-    Grid,
-    TextField,
-    MenuItem,
-    Button,
-    Typography,
-    Box,
-    Paper,
-    Avatar,
-  } from "@mui/material";
-  import EditIcon from "@mui/icons-material/Edit";
-  import DeleteIcon from "@mui/icons-material/Delete";
-  import { useEffect, useState } from "react";
+  Grid,
+  TextField,
+  MenuItem,
+  Button,
+  Typography,
+  Box,
+  Paper,
+  Avatar,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import CancelIcon from "@mui/icons-material/Cancel";
+import DoneIcon from "@mui/icons-material/Done";
+import { useEffect, useState } from "react";
+
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs, { Dayjs } from "dayjs";
+import changeStausFromDoctor from "../../functions/Appointments/ChangeStatusFromDoctor";
+
+export default function AppointmentCard(props) {
+  const [edit, setEdit] = useState(false);
+  const [editRotateAngle, setEditRotateAngle] = useState(0);
+
+  // Edited appointment states
+  const [selectedYear, setSelectedYear] = useState("2024");
+  const [selectedMonth, setSelectedMonth] = useState("1");
+  const [selectedDay, setSelectedDay] = useState("1");
+  const [selectedTime, setSelectedTime] = useState(dayjs()); // Start with a Dayjs object
+  const [notPending, setnotPending] = useState(props.data.status !== "pinding");
+  const [Accept, setAccept] = useState(props.data.status === "accept");
+  const [reject, setreject] = useState(props.data.status === "reject");
+  const [finshed, setfinshed] = useState(props.data.status === "finshed");
+  const [status, setStatus] = useState('');
   
-  import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-  import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-  import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-  import dayjs, { Dayjs } from 'dayjs';
+  const [msg, setMsg] = useState("");
+
+  const daysInMonth = (month) => {
+    switch (month) {
+      case 2:
+        return 28;
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        return 30;
+      default:
+        return 31;
+    }
+  };
+
+  useEffect(() => {
+
+    if (props.data.status === "reject") {
+      setStatus(
+        <p style={{ color: "red", fontWeight: "bold" }}>تم الرفض</p>
+      );
+    } else if (props.data.status === "finshed") {
+      setStatus(
+        <p style={{ color: "green", fontWeight: "bold" }}>تمت الزيارة</p>
+      );
+    } else if (props.data.status === "accept") {
+      setStatus(
+        <p style={{ color: "blue", fontWeight: "bold" }}>تمت قبول الموعد من قبل الطبيب</p>
+      );
+    } else if (props.data.status === "pinding") {
+      setStatus(
+        <p style={{ color: "orange", fontWeight: "bold" }}>معلق، لم يتم تحديد الموعد من قبل الطبيب</p>
+      );
+    }
+    
   
-  export default function AppointmentCard(props) {
-    const [edit, setEdit] = useState(false);
-    const [editRotateAngle, setEditRotateAngle] = useState(0);
-  
-    // Edited appointment states
-    const [selectedYear, setSelectedYear] = useState("2024");
-    const [selectedMonth, setSelectedMonth] = useState("1");
-    const [selectedDay, setSelectedDay] = useState("1");
-    const [selectedTime, setSelectedTime] = useState(dayjs()); // Start with a Dayjs object
-    const [notPending, setnotPending] = useState(props.data.status!=='pinding');
-  
-    const daysInMonth = (month) => {
-      switch (month) {
-        case 2:
-          return 28;
-        case 4:
-        case 6:
-        case 9:
-        case 11:
-          return 30;
-        default:
-          return 31;
-      }
-    };
-  
-    useEffect(() => {
-      console.log("props.data", props.data);
-    }, []);
-  
-    return (
-      <div style={{ direction: "rtl" }}>
-        <Paper sx={{ padding: 2, borderRadius: 4, maxWidth: "800px", margin: "auto" }}>
-          <Grid container spacing={2} sx={{ marginTop: "1%", fontSize: "16px" }}>
-            <Grid item xs={12} md={2} sx={{ textAlign: "right" }}>
-              <Box mt={2}>
-                <Avatar
-                  alt="Doctor"
-                  src="https://via.placeholder.com/150"
-                  sx={{ width: 120, height: 120, margin: "auto" }}
-                />
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={4} sx={{ textAlign: "right" }}>
-              <Typography variant="body1" sx={{ fontSize: "20px" }}>
-                اسم المريض :{props.data.pation.full_name}
-              </Typography>
-              <Typography variant="body1" gutterBottom sx={{ fontSize: "20px" }}>
-                حالة الموعد:
-              </Typography>
-              <Typography
-                variant="contained"
-                sx={{
-                  backgroundColor: "#90EE90",
-                  mb: 1,
-                  border: "3px #A0FAC0 solid",
-                  borderRadius: "5px",
-                  fontSize: "20px",
-                }}
-              >
-                {props.data.status}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                sx={{ fontSize: "20px" }}
-              >
-                التاريخ:{" "}
-                {props.data.date == null ? "لم يحدد بعد" : props.data.date}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                sx={{ fontSize: "20px" }}
-              >
-                الوقت :{" "}
-                {props.data.time == null ? "لم يحدد بعد" : props.data.time}
-              </Typography>
-            </Grid>
-  
-            <Grid item xs={11} md={5}>
-              {
-              props.data.status=="pinding" &&
-               (
+
+  }, []);
+
+  return (
+    <div style={{ direction: "rtl" }}>
+      <Paper
+        sx={{ padding: 2, borderRadius: 4, maxWidth: "800px", margin: "auto" }}
+      >
+        <Grid container spacing={2} sx={{ marginTop: "1%", fontSize: "16px" }}>
+          <Grid item xs={12} md={2} sx={{ textAlign: "right" }}>
+            <Box mt={2}>
+              <Avatar
+                alt="Doctor"
+                // src="https://via.placeholder.com/150"
+                src={props.data.pation.profile}
+                sx={{ width: 120, height: 120, margin: "auto" }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4} sx={{ textAlign: "right" }}>
+            <Typography variant="body1" sx={{ fontSize: "20px" }}>
+              اسم المريض :{props.data.pation.full_name}
+            </Typography>
+            <Typography variant="body1" gutterBottom sx={{ fontSize: "20px" }}>
+              حالة الموعد:
+            </Typography>
+            <Typography
+              variant="contained"
+              // sx={{
+              //   backgroundColor: "#90EE90",
+              //   mb: 1,
+              //   border: "3px #A0FAC0 solid",
+              //   borderRadius: "5px",
+              //   fontSize: "20px",
+              // }}
+            >
+              {status}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              sx={{ fontSize: "20px" }}
+            >
+              التاريخ:{" "}
+              {props.data.date == null ? "لم يحدد بعد" : props.data.date}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              sx={{ fontSize: "20px" }}
+            >
+              الوقت :{" "}
+              {props.data.time == null ? "لم يحدد بعد" : props.data.time}
+            </Typography>
+          </Grid>
+
+          <Grid item xs={11} md={5}>
+            {
+              // props.data.status == "pinding" &&
+              (!Accept && !finshed && !reject) && (
                 <div>
                   <Typography variant="h6" mb={2} sx={{ fontSize: "20px" }}>
                     تغيير موعد الحجز
@@ -182,8 +213,24 @@ import {
                           console.log("D:", selectedDay);
                           console.log("M:", selectedMonth);
                           console.log("Y:", selectedYear);
-                          console.log("T:", selectedTime.format('HH:mm')); // format time output
-                        
+                          console.log("T:", selectedTime.format("HH:mm")); // format time output
+
+                          changeStausFromDoctor(
+                            props.data.id,
+                            selectedYear +
+                              "-" +
+                              selectedMonth +
+                              "-" +
+                              selectedDay,
+                            selectedTime.format("HH:mm"),
+                            "accept"
+                          )
+                            .then((e) => {
+                              setMsg(e.data.msg);
+                            })
+                            .catch((e) => {
+                              setMsg(e.data.msg);
+                            });
                         }}
                       >
                         تحديد موعد
@@ -191,52 +238,71 @@ import {
                     </Grid>
                   </Grid>
                 </div>
-              )}
-            </Grid>
-            <Grid item xs={1} md={1}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: "5px",
-                  paddingLeft: "100%",
-                }}
-              >
-                {/* {notPending && (
-                  <button
-                    style={{
-                      borderRadius: "50%",
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      rotate: -editRotateAngle + "deg",
-                    }}
-                    onClick={() => {
-                      setEdit(!edit);
-                      setEditRotateAngle(edit ? 0 : 45);
-                    }}
-                  >
-                    <EditIcon />
-                  </button>
-                )} */}
+              )
+            }
+          </Grid>
+          <Grid item xs={1} md={1}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "5px",
+                paddingLeft: "100%",
+              }}
+            >
+              {Accept && (
                 <button
                   style={{
                     borderRadius: "50%",
                     background: "none",
                     border: "none",
                     cursor: "pointer",
+                    rotate: -editRotateAngle + "deg",
                   }}
-                  onClick={() => {}}
+                  onClick={() => {
+                    changeStausFromDoctor(props.data.id, null, null, "finshed")
+                      .then((e) => {
+                        setMsg(e.data.msg);
+                      })
+                      .catch((e) => {
+                        setMsg(e.data.msg);
+                      });
+                  }}
                 >
-                  <DeleteIcon />
+                  <DoneIcon />
                 </button>
-              </Box>
-            </Grid>
+              )}
+            {(!reject && !finshed) &&  (<button
+                style={{
+                  borderRadius: "50%",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  changeStausFromDoctor(
+                    props.data.id,
+                    null,
+                    null,
+                    "reject"
+                  )
+                    .then((e) => {
+                      setMsg(e.data.msg);
+                    })
+                    .catch((e) => {
+                      setMsg(e.data.msg);
+                    });
+                }}
+              >
+                <CancelIcon />
+              </button>)}
+            </Box>
           </Grid>
-        </Paper>
-      </div>
-    );
-  }
-  
+        </Grid>
+        <p>{msg}</p>
+      </Paper>
+    </div>
+  );
+}
