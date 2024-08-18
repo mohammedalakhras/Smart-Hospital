@@ -33,9 +33,9 @@ export default function SideBarContent() {
       <Box>
         <Typography variant="h6">الحجوزات</Typography>
         <hr />
-        <Typography variant="string">الإطلاع على المواعيد </Typography>
-        <Typography component={Link} to='/find_doctor' sx={{textDecoration:'none' , color:'initial'}} variant="string">حجز مخبر</Typography><br />
-        <Typography component={Link} to='/find_doctor' sx={{textDecoration:'none' , color:'initial'}} variant="string">حجز طبيب</Typography>
+        <Typography variant="string" component={Link} to='/doctor/appointment' sx={{my:'10px' , display:'block'}}>الإطلاع على المواعيد </Typography>
+        {/* <Typography component={Link} to='/find_doctor' sx={{textDecoration:'none' , color:'initial'}} variant="string">حجز مخبر</Typography><br />
+        <Typography component={Link} to='/find_doctor' sx={{textDecoration:'none' , color:'initial'}} variant="string">حجز طبيب</Typography> */}
       </Box>
       <Box>
         <Typography variant="h6">البحث عن طبيب</Typography>
