@@ -52,7 +52,7 @@ export default function ModalScreen({isOpen,setIsOpen,setDescription,description
         >
           إرسال
         </Button>
-        <Typography>{status}</Typography>
+        <Typography width="fit-content" m="auto">{status}</Typography>
       </Box>
     </Modal>
   );

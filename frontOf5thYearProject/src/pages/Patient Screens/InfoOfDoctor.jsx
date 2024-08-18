@@ -40,7 +40,7 @@ export default function InfoOfDoctor() {
       },
       body: data,
     })
-      .then((data) => setStatus(data.statusText))
+      .then((data) =>{console.log(data); setStatus(data.status === 200 ? 'تم ارسال الطلب ' : 'حدث خطأ')})
       .catch((err) => setStatus(err));
   }
 

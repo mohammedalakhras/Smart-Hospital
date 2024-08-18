@@ -28,7 +28,6 @@ export default function SideBarContent() {
         <hr />
         <Typography variant="string" component={Link} to='/doctor/AI_Analysis'>تحليل شبكية العين </Typography>
         <Typography variant="string" component={Link} to='/doctor/chatbot' sx={{mt:'10px' , display:'block'}}> chat doctor </Typography>
-        <Typography variant="string">حذف سؤال</Typography>
       </Box>
       <Box>
         <Typography variant="h6">الحجوزات</Typography>
