@@ -37,7 +37,7 @@ export default function AppNavBar() {
   useEffect(()=>{
     getData(window.localStorage.getItem("token")).then((res) => {
       setProfile(res.data.doctor.profile)
-      dispatch(setInfo({id:res.data.doctor.id  , name:res.data.doctor.full_name}))
+      dispatch(setInfo({id:res.data.doctor.id  , name:res.data.doctor.full_name , profile:res.data.doctor.profile }))
     })
 },[])
   return (
@@ -56,7 +56,7 @@ export default function AppNavBar() {
             </Button>
           )}
           <Box className={classes.logo}>
-            <img src={profile ? profile : logo} alt="logo" />
+            <img src={logo} alt="logo" />
           </Box>
           <Box>
             <input placeholder="أبحث هنا..... " />
@@ -68,7 +68,7 @@ export default function AppNavBar() {
                 <NotificationsIcon />
               </Box> */}
               {/* <Avatar src={avaterImage} /> */}
-              <Avatar src={prof} component={Link} to='/doctor' sx={{textDecoration:'none'}}/>
+              <Avatar src={profile ? profile : prof} component={Link} to='/doctor' sx={{textDecoration:'none'}}/>
             </Stack>
           </Box>
         </Toolbar>
