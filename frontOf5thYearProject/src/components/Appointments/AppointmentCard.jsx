@@ -70,7 +70,7 @@ export default function AppointmentCard(props) {
   };
 
   return (
-    <div style={{ direction: "rtl" }}>
+    <div style={{ direction: "rtl" ,margin:'5%' }}>
       <Paper
         sx={{ padding: 2, borderRadius: 4, maxWidth: "800px", margin: "auto" }}
       >
@@ -216,6 +216,7 @@ export default function AppointmentCard(props) {
                         )
                           .then((e) => {
                             setMsg(e.data.msg);
+                            props.reload()
                           })
                           .catch((e) => {
                             setMsg(e.data.msg);
@@ -277,9 +278,10 @@ export default function AppointmentCard(props) {
                       DeleteByPatient(props.data.id)
                         .then((e) => {
                           setMsg(e.data.msg);
+                          props.reload();
                         })
                         .catch((e) => {
-                          setMsg(e.data.msg);
+                          setMsg(e.data);
                         });
                     }}
 

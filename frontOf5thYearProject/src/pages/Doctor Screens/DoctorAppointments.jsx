@@ -6,6 +6,16 @@ import { CircularProgress } from "@mui/material";
 export default function DoctorAppointments() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+   function reload() {
+    setLoading(true)
+    getAppointmentToDoctor().then((e) => {
+      console.log(e.data);
+      
+      setData(e.data);
+      setLoading(false);
+    });
+    
+  }
   useEffect(() => {
     getAppointmentToDoctor().then((e) => {
       console.log(e.data);
@@ -36,7 +46,7 @@ export default function DoctorAppointments() {
   }
   return (
     <div style={{ margin: "5%" }}>
-   {data.code=="200" && <div> {data.data.map(e=><DoctorAppointmentCard key={e.id} data={e}/>)}  </div>
+   {data.code=="200" && <div> {data.data.map(e=><DoctorAppointmentCard key={e.id} data={e} reload={reload}/>)}  </div>
    
    }
    {data.code!="200" &&   <div>Error</div>}

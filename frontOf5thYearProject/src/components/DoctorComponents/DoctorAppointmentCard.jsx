@@ -18,11 +18,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs, { Dayjs } from "dayjs";
 import changeStausFromDoctor from "../../functions/Appointments/ChangeStatusFromDoctor";
+import { useNavigate } from "react-router-dom";
 
 export default function AppointmentCard(props) {
   const [edit, setEdit] = useState(false);
   const [editRotateAngle, setEditRotateAngle] = useState(0);
-
+const nav=useNavigate();
   // Edited appointment states
   const [selectedYear, setSelectedYear] = useState("2024");
   const [selectedMonth, setSelectedMonth] = useState("1");
@@ -62,11 +63,11 @@ export default function AppointmentCard(props) {
       );
     } else if (props.data.status === "accept") {
       setStatus(
-        <p style={{ color: "blue", fontWeight: "bold" }}>تمت قبول الموعد من قبل الطبيب</p>
+        <p style={{ color: "blue", fontWeight: "bold" }}>تمت قبول الموعد من قبلك</p>
       );
     } else if (props.data.status === "pinding") {
       setStatus(
-        <p style={{ color: "orange", fontWeight: "bold" }}>معلق، لم يتم تحديد الموعد من قبل الطبيب</p>
+        <p style={{ color: "orange", fontWeight: "bold" }}>معلق، لم يتم تحديد الموعد من قبلك</p>
       );
     }
     
@@ -75,7 +76,7 @@ export default function AppointmentCard(props) {
   }, []);
 
   return (
-    <div style={{ direction: "rtl" }}>
+    <div style={{ direction: "rtl", margin:'5%' }}>
       <Paper
         sx={{ padding: 2, borderRadius: 4, maxWidth: "800px", margin: "auto" }}
       >
@@ -227,6 +228,9 @@ export default function AppointmentCard(props) {
                           )
                             .then((e) => {
                               setMsg(e.data.msg);
+                              // window.location.reload();
+                              props.reload();
+                         
                             })
                             .catch((e) => {
                               setMsg(e.data.msg);
@@ -265,6 +269,7 @@ export default function AppointmentCard(props) {
                     changeStausFromDoctor(props.data.id, null, null, "finshed")
                       .then((e) => {
                         setMsg(e.data.msg);
+                        props.reload()
                       })
                       .catch((e) => {
                         setMsg(e.data.msg);
@@ -290,6 +295,7 @@ export default function AppointmentCard(props) {
                   )
                     .then((e) => {
                       setMsg(e.data.msg);
+                      props.reload()
                     })
                     .catch((e) => {
                       setMsg(e.data.msg);
