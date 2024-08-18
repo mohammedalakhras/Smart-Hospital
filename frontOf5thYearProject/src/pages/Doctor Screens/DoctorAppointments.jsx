@@ -4,7 +4,7 @@ import getAppointmentToDoctor from "../../functions/Appointments/getAppointmentT
 import { CircularProgress } from "@mui/material";
 
 export default function DoctorAppointments() {
-  const [data, setData] = useState("");
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     getAppointmentToDoctor().then((e) => {

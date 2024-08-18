@@ -6,8 +6,8 @@ export default async function getAppointmentToPatient() {
       maxBodyLength: Infinity,
       url: 'http://127.0.0.1:8000/api/get/pation/appointments',
       headers: { 
-        'Accept': 'application/json', 
-        'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+        Accept: 'application/json', 
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     };
     

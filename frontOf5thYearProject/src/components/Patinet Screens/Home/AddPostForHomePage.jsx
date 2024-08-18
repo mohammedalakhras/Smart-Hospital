@@ -1,49 +1,20 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import st from "./AddPostForHomePage.module.css";
 import Textarea from "@mui/joy/Textarea";
-import { Button, Grid, Avatar } from "@mui/material";
+
 import ImageIcon from "@mui/icons-material/Image";
-import { useContext } from "react";
-
-import { MainContext } from "../../../pages/App";
-
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorIcon from "@mui/icons-material/Error";
 import SendPost from "../../../functions/SendPost";
-import getData from "../../../functions/getData";
-import prof from "../../../assets/image/Profile/patient.png";
+import SpecSelect from "./SpecSelect";
+import { Button } from "@mui/material";
 
 export default function AddPost() {
-  const { IsMobileValue } = useContext(MainContext);
-  const [IsMobile] = IsMobileValue;
   const [files, SetFiles] = useState([]);
-  const [TextMessage, setTextMessage] = useState("");
-
   const [valid, setValid] = useState(null);
-
-  const [avtr, setAvtr] = useState(null);
+  const [TextMessage, setTextMessage] = useState("");
   const [res, setRes] = useState("");
-  function handleUploadFile(e) {
-    SetFiles(Array.from(e.target.files));
-  }
-
-  useEffect(() => {
-
-
-    getData(window.localStorage.getItem("token"))
-      .then((r) => {
-        setAvtr(
-          r.data.pation.profile == null ? (
-            <Avatar src={prof} />
-          ) : (
-            <Avatar src={r.data.pation.profile} />
-          )
-        );
-      })
-      .catch((er) => {
-        setAvtr(<Avatar src={prof} />);
-      });
-  }, [files]);
+  const [Spec, setSpec] = useState([]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -51,7 +22,8 @@ export default function AddPost() {
     const resp = await SendPost(
       window.localStorage.getItem("token"),
       TextMessage,
-      files
+      files,
+      Spec
     );
     setRes(resp);
     if (resp.status == 200) setValid(true);
@@ -61,34 +33,47 @@ export default function AddPost() {
     console.log("resp", resp);
   }
 
+  function handleUploadFile(e) {
+    SetFiles(Array.from(e.target.files));
+    console.log(files);
+  }
+
+  const handleSpecSelect = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSpec(typeof value === "string" ? value.split(",") : value);
+    console.log("Spec", Spec);
+  };
+
+  useEffect(() => {
+    console.log("Files:", files);
+  }, []);
+
   return (
     <div className={st.container}>
-      <Grid container>
-        <Grid item xs={1}>
-          {avtr}
-        </Grid>
-        <Grid item xs={11}>
-          <Textarea
-            placeholder="اطرح سؤالك"
-            required
-            sx={{
-              width: IsMobile ? "70%" : "90%",
-              height: "30px",
-              marginRight: IsMobile ? "30px " : "0px",
-              //   margin: "auto",
-              background: "rgba(217, 217, 217, 0.15)",
-              border: "1px solid #000000",
-              borderRadius: "20px",
-            }}
-            value={TextMessage}
-            onChange={(e) => {
-              setTextMessage(e.target.value);
-              console.log(TextMessage);
-            }}
-          />
-        </Grid>
-      </Grid>
-      <hr />
+      <h2 className={st.head}>أضف سؤالك هنا</h2>
+
+      <SpecSelect handle={handleSpecSelect} var={Spec} />
+
+      <Textarea
+        placeholder="اكتب المشكلة التي تعاني منها و تود الاستفسار عنها"
+        required
+        sx={{
+          width: "90%",
+          height: "200px",
+          margin: "auto",
+          background: "rgba(217, 217, 217, 0.15)",
+          border: "1px solid #000000",
+          borderRadius: "20px",
+          marginTop: "20px",
+        }}
+        value={TextMessage}
+        onChange={(e) => {
+          setTextMessage(e.target.value);
+          console.log(TextMessage);
+        }}
+      />
       <Button
         variant="text"
         component="label"
@@ -129,8 +114,8 @@ export default function AddPost() {
         <Button
           sx={{
             background: "#F45D48",
-            width: "15%",
-            height: "30px",
+            width: "20%",
+            height: "50px",
             marginBottom: "3%",
           }}
           onClick={handleSubmit}
