@@ -17,6 +17,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs from "dayjs";
 import UpdateAppointment from "../../functions/Appointments/UpdateAppointment";
+import DeleteByPatient from "../../functions/Appointments/DeleteByPatinet";
 
 export default function AppointmentCard(props) {
   const [edit, setEdit] = useState(false);
@@ -271,8 +272,18 @@ export default function AppointmentCard(props) {
                   onClick={() => {
 
 
-                    //WAIT API FOR DELETE
-                  }}
+                    
+                      setMsg("");
+                      DeleteByPatient(props.data.id)
+                        .then((e) => {
+                          setMsg(e.data.msg);
+                        })
+                        .catch((e) => {
+                          setMsg(e.data.msg);
+                        });
+                    }}
+
+                
                 >
                   <DeleteIcon />
                 </button>
