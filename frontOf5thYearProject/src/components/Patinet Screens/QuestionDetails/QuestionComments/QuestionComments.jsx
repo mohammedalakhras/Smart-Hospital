@@ -51,11 +51,11 @@ export default function QuestionComments() {
     <Box p={4}>
       {
         comments.length === 0 && (
-          <Box sx={{ position: "relative" , height:'100%' }}>
+          <Box sx={{ position: "relative" , my:'20px' , textAlign :'center' , height:'100%' }}>
           <Chip
             color="error"
             label=" لا يوجد تعليقات بعد  "
-            sx={{ position: "absolute", top: "200px", right: "45%" }}
+            sx={{  }}
           />
         </Box>
         )
