@@ -15,6 +15,7 @@ export default function CommonQuestions() {
       .then((data) => data.json())
       .then((data) => setDataToShow(data.qustions));
   }, []);
+  console.log(dataToShow)
   return (
     <div className={st.container}>
       <div className={st.content}>

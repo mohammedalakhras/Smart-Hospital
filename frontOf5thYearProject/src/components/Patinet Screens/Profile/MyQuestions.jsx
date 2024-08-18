@@ -52,8 +52,8 @@ export default function MyQuestions(props) {
   return (
     <div className={st.container}>
       <div className={st.content}>
-        <h2 className={st.head}>الأسئلة الخاصة بك</h2>
-        <div className={st.queses}>{datares.lenght > 0 ? datares : <NoQuestion />}</div>
+        <h2 className={st.head} id="myQuestion">{type==='doctor' ? 'الأسئلة التي رددت عليها' : 'الأسئلة الخاصة بك'}</h2>
+        <div className={st.queses}>{datares.length > 0 ? datares : <NoQuestion />}</div>
       </div>
     </div>
   );

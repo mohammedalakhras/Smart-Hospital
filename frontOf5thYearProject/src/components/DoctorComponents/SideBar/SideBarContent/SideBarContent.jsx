@@ -21,13 +21,13 @@ export default function SideBarContent() {
         </span>
       )}
       <Box>
-        <Typography variant="h6" component={Link} to='/' sx={{textDecoration:'none'}}>الرئيسية</Typography>
+        <Typography variant="h6" component={Link} to='/doctor' sx={{textDecoration:'none'}}>الرئيسية</Typography>
       </Box>
       <Box>
-        <Typography variant="h6">توابعها</Typography>
+        <Typography variant="h6">خدمات الذكاء الصنعي</Typography>
         <hr />
-        <Typography variant="string">الإطلاع على الأسئلة </Typography>
-        <Typography variant="string">إضافة سؤال </Typography>
+        <Typography variant="string" component={Link} to='/doctor/AI_Analysis'>تحليل شبكية العين </Typography>
+        <Typography variant="string" component={Link} to='/doctor/chatbot' sx={{mt:'10px' , display:'block'}}> chat doctor </Typography>
         <Typography variant="string">حذف سؤال</Typography>
       </Box>
       <Box>
