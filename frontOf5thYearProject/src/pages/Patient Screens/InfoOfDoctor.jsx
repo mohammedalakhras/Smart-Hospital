@@ -16,9 +16,11 @@ import ModalScreen from "../../components/Patinet Screens/infoOfDoctor/ModalScre
 
 export default function InfoOfDoctor() {
   const [isOpen, setIsOpen] = useState(false);
-  const [description , setDescription] = useState('');
+  const [description, setDescription] = useState("");
   const nav = useNavigate();
   const { selectedDoctor } = useSelector((state) => state);
+  const token = localStorage["token"];
+  console.log(selectedDoctor.id);
   useEffect(() => {
     if (selectedDoctor.id == -1) {
       nav("/find_doctor");
@@ -27,15 +29,18 @@ export default function InfoOfDoctor() {
 
   function handleButtonClick() {
     const data = new FormData();
-    data.append('doctor_id' , selectedDoctor.id)
-    console.log(selectedDoctor.id)
-    fetch('http://127.0.0.1:8000/api/appointments',{
-      method: 'Post',
-      header:{
-        Authorization : `Bearer ${localStorage['token']}` 
+    data.append("doctor_id",  selectedDoctor.id);
+    data.append("ReqInfo",description);
+    fetch("http://127.0.0.1:8000/api/appointments", {
+      method: "Post",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body : data
-    }).then(data => console.log(data))
+      body: data,
+    })
+      .then((data) => alert(data.statusText))
+      .catch((err) => alert(err));
   }
 
   if (selectedDoctor.id == -1) {
@@ -83,8 +88,8 @@ export default function InfoOfDoctor() {
             backgroundColor: "var(--secondary)",
             color: "white",
             "&:hover": {
-                bgcolor: "var(--secondary)",
-              },
+              bgcolor: "var(--secondary)",
+            },
           }}
           onClick={() => {
             setIsOpen(true);
@@ -94,7 +99,13 @@ export default function InfoOfDoctor() {
         </Button>
         <br />
       </Box>
-      <ModalScreen handleButtonClick={handleButtonClick} isOpen={isOpen} setIsOpen={setIsOpen} description={description} setDescription={setDescription}/>
+      <ModalScreen
+        handleButtonClick={handleButtonClick}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        description={description}
+        setDescription={setDescription}
+      />
     </Box>
   );
 }

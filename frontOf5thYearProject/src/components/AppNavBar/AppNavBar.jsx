@@ -1,13 +1,15 @@
 //mui components
 import { Box, AppBar, Toolbar, Avatar, Stack, Button } from "@mui/material";
 
+// import hook
+import { useState } from "react";
+
 //import router components
 import { Link } from "react-router-dom";
 //style css file
 import classes from "./AppNavBar.module.css";
 
 //icon
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MenuIcon from "@mui/icons-material/Menu";
 
 //image
@@ -33,13 +35,14 @@ export default function AppNavBar() {
   const { IsMobileValue, isOpenValue } = useContext(MainContext);
   const [, setIsSideBarOpen] = isOpenValue;
   const [isMobile] = IsMobileValue;
-
+  const [profile , setProfile ] = useState()
   useEffect(()=>{
     getData(window.localStorage.getItem("token")).then((res) => {
       console.log(res.data.pation.id)
       console.log(res.data)
-      
-      dispatch(setInfo({id:res.data.pation.id}))
+      setProfile(res.data.pation.profile)
+      dispatch(setInfo({id:res.data.pation.id  , name:res.data.pation.full_name , profile:res.data.pation.profile }))
+
     })
 },[])
   return (
@@ -65,12 +68,9 @@ export default function AppNavBar() {
           </Box>
           <Box>
             <Stack direction="row" className={classes.AvaterContainer}>
-              <Box>
-                <span>3</span>
-                <NotificationsIcon />
-              </Box>
+              
               {/* <Avatar src={avaterImage} /> */}
-              <Avatar src={prof} component={Link} to='/profile' sx={{textDecoration:'none'}}/>
+              <Avatar src={profile? profile :prof} component={Link} to='/profile' sx={{textDecoration:'none'}}/>
             </Stack>
           </Box>
         </Toolbar>
