@@ -17,6 +17,7 @@ import ModalScreen from "../../components/Patinet Screens/infoOfDoctor/ModalScre
 export default function InfoOfDoctor() {
   const [isOpen, setIsOpen] = useState(false);
   const [description, setDescription] = useState("");
+  const [status  , setStatus] = useState("");
   const nav = useNavigate();
   const { selectedDoctor } = useSelector((state) => state);
   const token = localStorage["token"];
@@ -39,8 +40,8 @@ export default function InfoOfDoctor() {
       },
       body: data,
     })
-      .then((data) => alert(data.statusText))
-      .catch((err) => alert(err));
+      .then((data) =>{console.log(data); setStatus(data.status === 200 ? 'تم ارسال الطلب ' : 'حدث خطأ')})
+      .catch((err) => setStatus(err));
   }
 
   if (selectedDoctor.id == -1) {
@@ -105,6 +106,7 @@ export default function InfoOfDoctor() {
         setIsOpen={setIsOpen}
         description={description}
         setDescription={setDescription}
+        status={status}
       />
     </Box>
   );
