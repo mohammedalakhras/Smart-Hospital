@@ -1,8 +1,8 @@
 import axios from "axios";
-import React from "react";
+
 
 export default async function getSpec() {
-  return ( await axios
+ const res= await axios
     .get("http://127.0.0.1:8000/api/specializations/all")
     .then((r) => {
 
@@ -11,5 +11,7 @@ export default async function getSpec() {
     })
     .catch((e) => {
       return e;
-    }));
+    });
+
+    return res
 }
