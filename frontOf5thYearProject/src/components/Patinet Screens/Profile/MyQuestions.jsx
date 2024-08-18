@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import st from "./MyQuestions.module.css";
 import QuestionComponent from "../QuestionComponent";
 import GetQuestion from "../../../functions/GetQuestion";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress  , Chip , Box} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function MyQuestions(props) {
@@ -24,7 +24,7 @@ export default function MyQuestions(props) {
         props.data.data.data.map((k, i) => {
           return (
             <>
-            {!type === "doctor" &&<div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
+            {!(type == "doctor") &&<div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
               <QuestionComponent data={k} />{" "}
             </div>}
             {type === "doctor" && <div key={k.id} className={st.ques} onClick={()=>{navigator(`/doctor/question_details/${k.id}`)}} >
@@ -52,9 +52,20 @@ export default function MyQuestions(props) {
   return (
     <div className={st.container}>
       <div className={st.content}>
-        <h2 className={st.head}>الأسئلة الخاصة بك</h2>
-        <div className={st.queses}>{datares}</div>
+        <h2 className={st.head} id="myQuestion">{type==='doctor' ? 'الأسئلة التي رددت عليها' : 'الأسئلة الخاصة بك'}</h2>
+        <div className={st.queses}>{datares.length > 0 ? datares : <NoQuestion />}</div>
       </div>
     </div>
   );
+}
+
+function NoQuestion(){
+  return (
+    <Box sx={{marginRight : '10%'}}>
+          <Chip
+            color="error"
+            label="لا يوجد أسئلة بعد"
+          />
+        </Box>
+  )
 }

@@ -38,6 +38,7 @@ export default function EditForm(props) {
   const [city, setcity] = useState(1);
   const [prof, setProf] = useState(null);
   const [cov, setCov] = useState(null);
+  const [ssn , setSsn ] = useState('')
   const [msg, setMsg] = useState("");
   const [moreThantry, setTry] = useState(false);
 
@@ -55,6 +56,7 @@ export default function EditForm(props) {
     setChronicDiseases(props.data.chornic)
     setProf(props.data.profile);
     setCov(props.data.cover);
+    setSsn(props.data.SSN)
   }, []);
 
   useEffect(() => {
@@ -94,7 +96,7 @@ export default function EditForm(props) {
     } else {
       setError((prev)=>{return { ...prev,phone: null}});
     }
-  }, [name, fname, mname, phone]);
+  }, [name, fname, mname, phone , ssn]);
 
   const handleFileChange = (event, id) => {
     const file = event.target.files[0];
@@ -143,7 +145,8 @@ export default function EditForm(props) {
         phone,
         chronicDiseases,
         prof,
-        cov
+        cov,
+        
       ).then((e) => {
         if (e != null) {
           if (e.data != null) {
@@ -387,37 +390,8 @@ export default function EditForm(props) {
               <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                 {/* <div> */}
                 {/* <Box sx={{ flexGrow: 1, textAlign: "center" }}> */}
-                <div className={st.element}>
-                  <InputLabel
-                    sx={{
-                      fontFamily: "Inter",
-                      fontStyle: "normal",
-                      fontWeight: "500",
-                      fontSize: "1rem",
-                      lineHeight: "24px",
-                      color: "#84A1FF",
-                    }}
-                    variant="standard"
-                    htmlFor="email"
-                  >
-                    الأمراض المزمنة
-                  </InputLabel>
-                  <br />
-                  <TextField
-                    className={st.field}
-                    required
-                    id="fullname"
-                    placeholder="أدخل الأمراض المزمنة"
-                    variant="standard"
-                    value={chronicDiseases}
-                    onChange={(e) => {
-                      setChronicDiseases(e.target.value);
-                    }}
-                  />
-                  {moreThantry && <p className={st.error}>{errors.chronic}</p>}
-                </div>
 
-                {/* <div className={st.element}>
+                <div className={st.element}>
                 <InputLabel
                   sx={{
                     fontFamily: "Inter",
@@ -430,21 +404,21 @@ export default function EditForm(props) {
                   variant="standard"
                   htmlFor="email"
                 >
-                  الاسم الكامل
+                   الرقم الوطني
                 </InputLabel>
                 <br />
                 <TextField
                   className={st.field}
                   required
-                  id="fullname"
-                  placeholder="جون سميث"
+                  id="ssn"
+                  placeholder=" 01000000"
                   variant="standard"
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setSsn(e.target.value);
                   }}
                 />
-                {moreThantry &&    <p className={st.error}>{errors.name}</p>}
-              </div> */}
+                {/* {moreThantry &&    <p className={st.error}>{errors.name}</p>} */}
+              </div>
 
                 <div className={st.element}>
                   <InputLabel

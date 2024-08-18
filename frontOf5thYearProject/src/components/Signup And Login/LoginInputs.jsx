@@ -15,22 +15,28 @@ export default function LoginInputs() {
   const [errors, setError] = useState({});
 
   useEffect(() => {
-    if (!email) {
-      errors.email = "الحقل مطلوب";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-      setError({ ...errors, email: "الايميل غير صالح" });
-    } else {
-      setError({ ...errors, email: null });
-    }
+    setError((prevErrors) => {
+      const updatedErrors = { ...prevErrors };
 
-    if (!pass) {
-      errors.pass = "الحقل مطلوب";
-    } else if (!/^(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*#?&]).*$/i.test(pass)) {
-      setError({ ...errors, pass: "كلمة المرور غير صالحة" });
-    } else {
-      setError({ ...errors, pass: null });
-    }
-  }, [email, pass, counter,counter2]);
+      if (!email) {
+        updatedErrors.email = "الحقل مطلوب";
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+        updatedErrors.email = "الايميل غير صالح";
+      } else {
+        updatedErrors.email = null;
+      }
+
+      if (!pass) {
+        updatedErrors.pass = "الحقل مطلوب";
+      } else if (!/^(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*#?&]).*$/i.test(pass)) {
+        updatedErrors.pass = "كلمة المرور غير صالحة";
+      } else {
+        updatedErrors.pass = null;
+      }
+
+      return updatedErrors;
+    });
+  }, [email, pass, counter, counter2]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -47,10 +53,9 @@ export default function LoginInputs() {
 
           window.localStorage.setItem("token", token);
           localStorage.setItem("type", type);
-          if(type ==='doctor'){
-            navigate('/doctor')
-          }else{
-
+          if (type === "doctor") {
+            navigate("/doctor");
+          } else {
             navigate("/profile");
           }
         })
@@ -104,7 +109,7 @@ export default function LoginInputs() {
               variant="standard"
               onChange={(e) => {
                 setEmail(e.target.value);
-                setCounter2(p=>p+1);
+                setCounter2((p) => p + 1);
               }}
             />
             <p className={st.error}>{counter > 0 && errors.email}</p>
@@ -133,8 +138,7 @@ export default function LoginInputs() {
               variant="standard"
               onChange={(e) => {
                 setPass(e.target.value);
-                setCounter2(p=>p+1);
-
+                setCounter2((p) => p + 1);
               }}
             />
             <p className={st.error}>{counter > 0 && errors.pass}</p>

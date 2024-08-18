@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import st from "./ProfileAndCover.module.css";
 import { Box, Grid, Button } from "@mui/material/";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import patient from "../../../../assets/image/Profile/patient.png";
-
+import patient from "../../../assets/image/Profile/patient.png";
+import { useNavigate } from "react-router-dom";
 export default function ProfileAndCover(props) {
+  const nav = useNavigate();
   useEffect(() => {
     setdata(props.data);
   }, [props.data]);
@@ -41,19 +42,16 @@ export default function ProfileAndCover(props) {
                     </Grid>
                     <Grid item xs={1} sm={1} md={1} lg={1} xl={1}></Grid>
                     <Grid item xs={5} sm={5} md={5} lg={5} xl={5}>
-                      <p className={st.ptitle}>تاريخ الولادة</p>
-                      <p className={st.pvalue}>{data.Bdate}</p>
+                      <p className={st.ptitle}>المعلومات </p>
+                      <p className={st.pvalue}>{data.info ? data.info : 'غير مدخل بعد'}</p>
                     </Grid>
                     <Grid item xs={5} sm={5} md={5} lg={5} xl={5}>
                       <p className={st.ptitle}>الهاتف</p>
-                      <p className={st.pvalue}>{data.mobile}</p>
+                      <p className={st.pvalue}>{data.mobile ? data.mobile : 'غير مدخل بعد'}</p>
                     </Grid>
                     <Grid item xs={1} sm={1} md={1} lg={1} xl={1}></Grid>
 
-                    <Grid item xs={5} sm={5} md={5} lg={5} xl={5}>
-                      <p className={st.ptitle}>الأمراض المزمنة</p>
-                      <p className={st.pvalue}>{data.dis}</p>
-                    </Grid>
+                    
                   </Grid>
                 </Box>
               </div>
@@ -67,8 +65,8 @@ export default function ProfileAndCover(props) {
                     style={{
                       background: "#f45d48",
                       bordeRadius: "5px",
-                      
                     }}
+                    onClick={()=>nav('/doctor/edit profile')}
                   >
                     <ModeEditIcon sx={{ color: "#FFFFFF" }} />
                     <p> أكمال-تعديل المعلومات </p>
