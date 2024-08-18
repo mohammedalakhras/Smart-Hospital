@@ -35,6 +35,8 @@ import TESTAPI from "./pages/TESTAPI.jsx";
 import TESTCHAT from "./pages/TESTCHAT.jsx";
 import Appointments from "./pages/Patient Screens/Appointments.jsx";
 import DoctorAppointments from './pages/Doctor Screens/DoctorAppointments.jsx'
+import AIAnalysisForDoctor from "./pages/Doctor Screens/AiAnalysisForDoctor.jsx";
+import ChatBotForDoctor from "./pages/Doctor Screens/ChatBotForDoctor.jsx";
 
 const router = createBrowserRouter([
   {
@@ -63,7 +65,7 @@ const router = createBrowserRouter([
       { path: "/AI_Analysis", element: <AIAnalysis /> },
       { path: '/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
       { path: '/appointment', element: <Appointments /> },
-
+      
       //doctor 
       
       { path: "/TESTAPI", element: <TESTAPI /> },
@@ -78,14 +80,16 @@ const router = createBrowserRouter([
       { path: "/signUp", element: <SignUpInputs /> },
     ],
   },
-
+  
   {
     path:'/doctor' , element:<DoctorLayout /> , children: [
       {path:'/doctor' , element:<DoctorProfile /> ,loader: getTokenFromLocalStorage,},
       { path: '/doctor/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
       { path: '/doctor/edit profile', element: <EditProfileForDoctor />},
       { path: '/doctor/appointment', element: <DoctorAppointments /> , },
-
+      { path: "/doctor/AI_Analysis", element: <AIAnalysisForDoctor /> },
+      { path: "/doctor/chatbot", element: <ChatBotForDoctor /> },
+      
 
     ]
   },

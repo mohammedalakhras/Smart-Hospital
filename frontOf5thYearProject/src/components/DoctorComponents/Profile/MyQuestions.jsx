@@ -42,11 +42,11 @@ export default function MyQuestions(props) {
       </div>
     );
   }
-
+  console.log(datares)
   return (
     <div className={st.container}>
       <div className={st.content}>
-        <h2 className={st.head}>الأسئلة الخاصة بك</h2>
+        <h2 className={st.head} id='myQuestion'>الأسئلة الخاصة بك</h2>
         <div className={st.queses}>{datares ? datares : "لا يوجد أسئلة بعد"}</div>
       </div>
     </div>

@@ -16,7 +16,11 @@ class UpdateStatus
     {
         $appointment= Appointment::where("doctor_id",auth()->user()->id)->where("id",$event->request->appointment_id)->get()[0];
         if($appointment->count()>0){
+            if($event->request->status =="reject" || $event->request->status=="finshed")
+            $appointment->delete();
+            else
             $appointment->update($event->request->except('appointment_id'));
+            
             return $this->returnSucess(200,"تم تفير حالة الموعد ");
         }else{
             return $this->returnError(404,"الموعد غير موجود ");

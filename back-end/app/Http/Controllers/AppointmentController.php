@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Events\UpdateStatusAppointment;
 use App\Http\Controllers\Controller;
@@ -30,15 +29,26 @@ class AppointmentController extends Controller
         }
     }
 
+
+
     public function update(UpdateAppointmentRequest $request,$id){
         $appointment=Appointment::where("pation_id",auth()->user()->id)->where('id',$id)->get();
-        if($appointment->count()>0){
+        if($appointment->count()>0){   
             $appointment[0]->update($request->all());
+            $appointment[0]->update(["status"=>"pinding"]);
             return $this->returnSucess(200,"تم التعديل بنجاح");
         }else{
             return $this->returnError('422'," هذا الموعد غير موجود");
         }
     }
+    public function destroy($id){
+        
+        if(Appointment::where("id",$id)->where("pation_id",auth()->user()->id)->delete())
+        return $this->returnSucess(200,"تم حذف الموعد بنجاح ");
+        else
+        return $this->returnError(404,"هذا الموعد غير موجود");
+    }
+
     public function getAppointmentPAtion(){
         $id=auth()->user()->id;
         $appointments=Appointment::with("Doctor")->where('pation_id',$id)->get();
@@ -58,5 +68,4 @@ class AppointmentController extends Controller
         return $this->returnSucess(200,"تم تعديل الحالة");
         }
 }
-
 //55 Row Coded  From Baraa Berkdar

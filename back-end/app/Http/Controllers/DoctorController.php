@@ -50,7 +50,7 @@ class DoctorController extends Controller
                 // Uplode To Serve 
                 $image_name = $this->saveImages([$request->cover_image], "Doctor")[0];
                 $doctor->image()->where('type', 2)->updateOrCreate(['image_name' => $image_name, "type" => "2"]);
-                $this->deleteImages($old_cover_image, 'Pation');
+                $this->deleteImages($old_cover_image, 'Doctor');
             }
             return $this->returnSucess('200', "تم تعديل البيانات بنجاح");
         });
@@ -84,7 +84,9 @@ class DoctorController extends Controller
     public function getInformation()
     {
         $doctor_id = auth()->user()->id;
-        $doctor = Doctor::find($doctor_id);
+        
+        $doctor = Doctor::with("specialazation:name,id")->where('id',$doctor_id)->get();
+        
         return $this->returnData("doctor", $doctor);
     }
 }

@@ -38,6 +38,7 @@ export default function EditForm(props) {
   const [city, setcity] = useState(1);
   const [prof, setProf] = useState(null);
   const [cov, setCov] = useState(null);
+  const [ssn , setSsn ] = useState('')
   const [msg, setMsg] = useState("");
   const [moreThantry, setTry] = useState(false);
 
@@ -50,11 +51,12 @@ export default function EditForm(props) {
     setFname(props.data.father);
     setMname(props.data.mother);
     setPhone(props.data.mobile);
-
+    setDate(dayjs(props.data.Bdate));
     setcity(props.data.city_id);
-
+    setChronicDiseases(props.data.chornic)
     setProf(props.data.profile);
     setCov(props.data.cover);
+    setSsn(props.data.SSN)
   }, []);
 
   useEffect(() => {
@@ -94,7 +96,7 @@ export default function EditForm(props) {
     } else {
       setError((prev)=>{return { ...prev,phone: null}});
     }
-  }, [name, fname, mname, phone]);
+  }, [name, fname, mname, phone , ssn]);
 
   const handleFileChange = (event, id) => {
     const file = event.target.files[0];
@@ -143,7 +145,8 @@ export default function EditForm(props) {
         phone,
         chronicDiseases,
         prof,
-        cov
+        cov,
+        
       ).then((e) => {
         if (e != null) {
           if (e.data != null) {
@@ -388,8 +391,7 @@ export default function EditForm(props) {
                 {/* <div> */}
                 {/* <Box sx={{ flexGrow: 1, textAlign: "center" }}> */}
 
-
-                {/* <div className={st.element}>
+                <div className={st.element}>
                 <InputLabel
                   sx={{
                     fontFamily: "Inter",
@@ -402,21 +404,21 @@ export default function EditForm(props) {
                   variant="standard"
                   htmlFor="email"
                 >
-                  الاسم الكامل
+                   الرقم الوطني
                 </InputLabel>
                 <br />
                 <TextField
                   className={st.field}
                   required
-                  id="fullname"
-                  placeholder="جون سميث"
+                  id="ssn"
+                  placeholder=" 01000000"
                   variant="standard"
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setSsn(e.target.value);
                   }}
                 />
-                {moreThantry &&    <p className={st.error}>{errors.name}</p>}
-              </div> */}
+                {/* {moreThantry &&    <p className={st.error}>{errors.name}</p>} */}
+              </div>
 
                 <div className={st.element}>
                   <InputLabel
@@ -434,7 +436,31 @@ export default function EditForm(props) {
                     تاريخ الميلاد
                   </InputLabel>
                   <br />
-                  
+                  <div style={{ display: "block", alignContent: "center" }}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      {/* <DemoContainer components={["DatePicker"]}   */}
+                      <DatePicker
+                        key="date"
+                        label="تاريخ الميلاد"
+                        format="DD/MM/YYYY"
+                        sx={{ direction: "rtl" }}
+                        value={date}
+                        onChange={(newvalue) => {
+                          setDate(newvalue);
+                          console.log(
+                            newvalue.$D,
+                            "/",
+                            newvalue.$M,
+                            "/",
+                            newvalue.$y,
+                            "\n",
+                            newvalue
+                          );
+                        }}
+                      />
+                      {/* </DemoContainer> */}
+                    </LocalizationProvider>
+                  </div>
                   {/* <p className={st.error}>{errors.date}</p> */}
                 </div>
 
