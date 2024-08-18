@@ -17,7 +17,7 @@ class Doctor extends  Authenticatable implements JWTSubject
     protected $table = 'doctors';
     public $timestamps = true;
     public $guarded = [];
-    public $hidden = ['password', 'created_at', 'updated_at','SSN','Bdate','activated','blocked','city_id','spec_id','father','mother'];
+    public $hidden = ['password', 'created_at', 'updated_at','Bdate','activated','blocked'];
     protected $appends = ['profile', 'cover', 'city'];
 
     public function has_appointment()

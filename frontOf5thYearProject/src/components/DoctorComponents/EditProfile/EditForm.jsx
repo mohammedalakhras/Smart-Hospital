@@ -10,7 +10,6 @@ import {
 } from "@mui/material/";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -25,38 +24,54 @@ import stProf from "./ProfAndCovEdit.module.css";
 import patient from "../../../assets/image/Profile/patient.png";
 import cover from "../../../assets/image/Profile/cover.svg";
 import EditIcon from "@mui/icons-material/Edit";
+import getSpec from "../../../functions/getSpec";
 
 export default function EditForm(props) {
   const [name, setName] = useState("");
   const [fname, setFname] = useState("");
   const [mname, setMname] = useState("");
   const [phone, setPhone] = useState("");
-  const [chronicDiseases, setChronicDiseases] = useState("");
   const [date, setDate] = useState(dayjs("2001-01-01"));
   const [errors, setError] = useState({});
   const [cities, setCities] = useState([]);
   const [city, setcity] = useState(1);
   const [prof, setProf] = useState(null);
   const [cov, setCov] = useState(null);
-  const [ssn , setSsn ] = useState('')
+  const [ssn , setSsn ] = useState('');
+  const [moblie , setMobile ] = useState('');
+  const [info,setInfo]=useState('');
+  const [External,setExternal]=useState('');
+  const [specs,setSpecs]=useState('');
+  const [spec_id,setSpec_id]=useState('');
+
+
+
   const [msg, setMsg] = useState("");
   const [moreThantry, setTry] = useState(false);
 
   useEffect(() => {
     getCities().then((e) => setCities(e.data.data));
-    console.log(cities);
+    getSpec().then((e) => setSpecs(e.data.data));
+
+    console.log("CITIES",cities);
+    console.log("SPECS",specs);
+    
     console.log("Props", props);
 
     setName(props.data.full_name);
     setFname(props.data.father);
     setMname(props.data.mother);
-    setPhone(props.data.mobile);
+    setPhone(props.data.Telephone);
+    setMobile(props.data.mobile);
+    setExternal(props.data.External)
     setDate(dayjs(props.data.Bdate));
     setcity(props.data.city_id);
-    setChronicDiseases(props.data.chornic)
+    setSpec_id(props.data.spec_id)
     setProf(props.data.profile);
     setCov(props.data.cover);
     setSsn(props.data.SSN)
+
+    log("ALL DATA",name,fname,mname,mother,Telephone,moblie,External,date,city,spec_id,prof,cov,ssn)
   }, []);
 
   useEffect(() => {
@@ -126,7 +141,7 @@ export default function EditForm(props) {
     let formatedDate = date.$y + "-" + Number(date.$M + 1) + "-" + date.$D;
     // console.log("date", formatedDate);
     // console.log("phone", phone);
-    console.log("checDiseaase",chronicDiseases);
+
     
     if (
       errors.name == null &&
