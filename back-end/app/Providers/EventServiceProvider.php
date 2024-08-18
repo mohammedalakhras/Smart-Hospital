@@ -22,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         UpdateStatusAppointment::class=>[
-            SendEmail::class,
+            // SendEmail::class,
             UpdateStatus::class
         ],
     ];
