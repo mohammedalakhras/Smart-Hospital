@@ -43,36 +43,44 @@ export default function EditForm(props) {
   const [info, setInfo] = useState("");
   const [External, setExternal] = useState("");
   const [specs, setSpecs] = useState([]);
-  const [spec_id, setSpec_id] = useState();
-  
+  const [specID, setspecID] = useState();
+
   const [msg, setMsg] = useState("");
   const [moreThantry, setTry] = useState(false);
 
   useEffect(() => {
-    getCities().then((e) => setCities(e.data.data));
-    getSpec().then((e) => setSpecs(e.data.data));
+    const fetchData = async () => {
+      try {
+        await getCities().then((e) => setCities(e.data.data));
+        await getSpec().then((e) => setSpecs(e.data.data));
 
-    console.log("CITIES", cities);
-    console.log("SPECS", specs);
+        // قم بتعيين القيم من props مباشرة بعد التأكد من وجود البيانات
+        if (props.data && props.data.length > 0) {
+          const userData = props.data[0];
+          setName(userData.full_name);
+          setFname(userData.father);
+          setMname(userData.mother);
+          setPhone(userData.Telephone);
+          setMobile(userData.mobile);
+          setExternal(userData.External);
+          setDate(dayjs(userData.Bdate));
+          setcity(userData.city_id);
+          setspecID(userData.specialazation.id);
+          console.log("userData.specialazation.id", userData.specialazation.id);
 
-    console.log("Props", props.data[0]);
+          setProf(userData.profile);
+          setCov(userData.cover);
+          setSsn(userData.SSN);
+        }
 
-    setName(props.data[0].full_name);
-    setFname(props.data[0].father);
-    setMname(props.data[0].mother);
-    setPhone(props.data[0].Telephone);
-    setMobile(props.data[0].mobile);
-    setExternal(props.data[0].External);
-    setDate(dayjs(props.data[0].Bdate));
-    setcity(props.data[0].city_id);
-    setSpec_id(props.data[0].spec_id);
-    if(props.data[0].profile==null)
-    setProf(props.data[0].profile);
-    if(props.data[0].cover==null)
-    setCov(props.data[0].cover);
-    setSsn(props.data[0].SSN);
+        console.log("CITIES", cities);
+        console.log("SPECS", specs);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-    
+    fetchData();
   }, []);
 
   // useEffect(() => {
@@ -158,8 +166,6 @@ export default function EditForm(props) {
   };
 
   function handleSubmit() {
-
-    
     setTry(true);
     setMsg("");
     // console.log("name", name);
@@ -189,7 +195,7 @@ export default function EditForm(props) {
         moblie,
         External,
         city,
-        spec_id,
+        specID,
         prof,
         cov
       ).then((e) => {
@@ -213,7 +219,9 @@ export default function EditForm(props) {
           <div
             className={stProf.cover}
             style={{
-              backgroundImage: `url(${props.data[0].cover == null ? cover : cov})`,
+              backgroundImage: `url(${
+                props.data[0].cover == null ? cover : cov
+              })`,
             }}
           >
             <input
@@ -264,7 +272,9 @@ export default function EditForm(props) {
                   <Box sx={{ flexGrow: 1, textAlign: "center" }}>
                     <Grid container spacing={1}>
                       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <h2 className={stProf.name}>{props.data[0].full_name}</h2>
+                        <h2 className={stProf.name}>
+                          {props.data[0].full_name}
+                        </h2>
                       </Grid>
                     </Grid>
                   </Box>
@@ -429,7 +439,6 @@ export default function EditForm(props) {
                   {moreThantry && <p className={st.error}>{errors.phone}</p>}
                 </div>
 
-
                 <div className={st.element}>
                   <InputLabel
                     sx={{
@@ -492,15 +501,13 @@ export default function EditForm(props) {
                   {moreThantry && <p className={st.error}>{errors.phone}</p>}
                 </div>
 
-      
-
                 {/* </Box> */}
                 {/* </div> */}
               </Grid>
               <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                 {/* <div> */}
                 {/* <Box sx={{ flexGrow: 1, textAlign: "center" }}> */}
-          
+
                 <div className={st.element}>
                   <InputLabel
                     sx={{
@@ -653,28 +660,25 @@ export default function EditForm(props) {
                       color: "#84A1FF",
                     }}
                     variant="standard"
-                    htmlFor="email"
+                    htmlFor="demo-simple-select-label"
                   >
                     الاختصاص
                   </InputLabel>
                   <br />
                   <Select
                     labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={spec_id}
-                    label="Age"
+                    id="specselect"
+                    value={specID || ""}
+                    label="spec"
                     onChange={(e) => {
-                      setSpec_id(e.target.value);
+                      setspecID(e.target.value);
                     }}
                   >
-                    {specs.map((e) => (
+                    {specs.map((e, i) => (
                       <MenuItem key={e.id} value={e.id}>
                         {e.name}
                       </MenuItem>
                     ))}
-                    {/* <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem> */}
                   </Select>
                   {/* <p className={st.error}>{errors.city}</p> */}
                 </div>
