@@ -66,7 +66,7 @@ const router = createBrowserRouter([
       { path: "/chatbot", element: <Chatbot /> },
       { path: "/AI_Analysis", element: <AIAnalysis /> },
       { path: '/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
-      { path: '/appointmen t', element: <Appointments /> },
+      { path: '/appointment', element: <Appointments /> },
       { path: '/BrainTumor', element: <BrainTumor /> },
       { path: '/ChestXray', element: <ChestXray /> },
       
