@@ -57,7 +57,7 @@ export default function ProfileAndCover(props) {
 
                     <Grid item xs={5} sm={5} md={5} lg={5} xl={5}>
                       <p className={st.ptitle}>الأمراض المزمنة</p>
-                      <p className={st.pvalue}>{data.chornic}</p>
+                      <p className={st.pvalue}>{data.chornic? data.chornic:"لايوجد"}</p>
                     </Grid>
                   </Grid>
                 </Box>

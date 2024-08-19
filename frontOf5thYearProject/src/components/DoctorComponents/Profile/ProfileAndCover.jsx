@@ -3,6 +3,7 @@ import st from "./ProfileAndCover.module.css";
 import { Box, Grid, Button } from "@mui/material/";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import patient from "../../../assets/image/Profile/patient.png";
+import cover from "../../../assets/image/Profile/cover.svg";
 import { useNavigate } from "react-router-dom";
 export default function ProfileAndCover(props) {
   const nav = useNavigate();
@@ -17,7 +18,13 @@ export default function ProfileAndCover(props) {
     <div>
       {" "}
       <div className={st.container}>
-        <div className={st.cover}></div>
+        <div className={st.cover}
+          style={{
+            backgroundImage: `url(${
+              data.cover == null ? cover : data.cover
+            })`,
+          }}
+        ></div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid
             container

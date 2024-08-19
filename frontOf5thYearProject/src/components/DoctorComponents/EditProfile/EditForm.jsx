@@ -65,6 +65,7 @@ export default function EditForm(props) {
           setExternal(userData.External);
           setDate(dayjs(userData.Bdate));
           setcity(userData.city_id);
+          setInfo(userData.info)
           setspecID(userData.specialazation.id);
           console.log("userData.specialazation.id", userData.specialazation.id);
 

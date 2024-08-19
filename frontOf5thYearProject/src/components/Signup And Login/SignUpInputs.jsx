@@ -116,7 +116,6 @@ export default function SignUpInputs(props) {
               value={name}
               onChange={HandelName}
               className={st.field}
-              required
               id="name"
               placeholder="جون سميث"
               variant="standard"
@@ -135,7 +134,7 @@ export default function SignUpInputs(props) {
                 color: "#84A1FF",
               }}
               type="email"
-              required
+              
               variant="standard"
               htmlFor="email"
             >

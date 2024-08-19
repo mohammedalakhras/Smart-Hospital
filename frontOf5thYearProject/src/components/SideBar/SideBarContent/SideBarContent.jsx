@@ -27,7 +27,7 @@ export default function SideBarContent() {
         <Typography variant="h6">خدمات الذكاء الصنعي</Typography>
         <hr />
         <Typography variant="string" component={Link} to='AI_Analysis'>تحليل شبكية العين </Typography>
-        <Typography variant="string" component={Link} to='chatbot' sx={{mt:'10px' , display:'block'}}> chat doctor </Typography>
+        <Typography variant="string" component={Link} to='chatbot' sx={{mt:'10px' , display:'block'}}> ChatDoctor </Typography>
         
       </Box>
       <Box>

@@ -46,7 +46,8 @@ export default function DoctorAppointments() {
   }
   return (
     <div style={{ margin: "5%" }}>
-   {data.code=="200" && <div> {data.data.map(e=><DoctorAppointmentCard key={e.id} data={e} reload={reload}/>)}  </div>
+   {data.code=="200" && <div> {(data.data.length==0)?<p style={{ textAlign: "center", color: "gray", fontSize: "18px", padding: "20px" }}>لا يوجد مواعيد حاليا</p>:
+   data.data.map(e=><DoctorAppointmentCard key={e.id} data={e} reload={reload}/>)}  </div>
    
    }
    {data.code!="200" &&   <div>Error</div>}
