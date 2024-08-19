@@ -3,7 +3,7 @@
 //import mui compopnent
 import { Modal, Typography, Box, TextField, Button } from "@mui/material";
 // eslint-disable-next-line react/prop-types
-export default function ModalScreen({isOpen,setIsOpen,setDescription,description,handleButtonClick}) {
+export default function ModalScreen({isOpen,setIsOpen,setDescription,description,handleButtonClick , status}) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -52,6 +52,7 @@ export default function ModalScreen({isOpen,setIsOpen,setDescription,description
         >
           إرسال
         </Button>
+        <Typography width="fit-content" m="auto">{status}</Typography>
       </Box>
     </Modal>
   );

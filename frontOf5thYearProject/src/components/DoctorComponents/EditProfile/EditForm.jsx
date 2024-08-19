@@ -10,7 +10,6 @@ import {
 } from "@mui/material/";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -25,78 +24,120 @@ import stProf from "./ProfAndCovEdit.module.css";
 import patient from "../../../assets/image/Profile/patient.png";
 import cover from "../../../assets/image/Profile/cover.svg";
 import EditIcon from "@mui/icons-material/Edit";
+import getSpec from "../../../functions/getSpec";
+import UpdateDoctorProfile from "../../../functions/UpdateDoctroProfile";
 
 export default function EditForm(props) {
   const [name, setName] = useState("");
   const [fname, setFname] = useState("");
   const [mname, setMname] = useState("");
   const [phone, setPhone] = useState("");
-  const [chronicDiseases, setChronicDiseases] = useState("");
   const [date, setDate] = useState(dayjs("2001-01-01"));
   const [errors, setError] = useState({});
   const [cities, setCities] = useState([]);
   const [city, setcity] = useState(1);
   const [prof, setProf] = useState(null);
   const [cov, setCov] = useState(null);
-  const [ssn , setSsn ] = useState('')
+  const [ssn, setSsn] = useState("");
+  const [moblie, setMobile] = useState("");
+  const [info, setInfo] = useState("");
+  const [External, setExternal] = useState("");
+  const [specs, setSpecs] = useState([]);
+  const [spec_id, setSpec_id] = useState();
+  
   const [msg, setMsg] = useState("");
   const [moreThantry, setTry] = useState(false);
 
   useEffect(() => {
     getCities().then((e) => setCities(e.data.data));
-    console.log(cities);
-    console.log("Props", props);
+    getSpec().then((e) => setSpecs(e.data.data));
 
-    setName(props.data.full_name);
-    setFname(props.data.father);
-    setMname(props.data.mother);
-    setPhone(props.data.mobile);
-    setDate(dayjs(props.data.Bdate));
-    setcity(props.data.city_id);
-    setChronicDiseases(props.data.chornic)
-    setProf(props.data.profile);
-    setCov(props.data.cover);
-    setSsn(props.data.SSN)
+    console.log("CITIES", cities);
+    console.log("SPECS", specs);
+
+    console.log("Props", props.data[0]);
+
+    setName(props.data[0].full_name);
+    setFname(props.data[0].father);
+    setMname(props.data[0].mother);
+    setPhone(props.data[0].Telephone);
+    setMobile(props.data[0].mobile);
+    setExternal(props.data[0].External);
+    setDate(dayjs(props.data[0].Bdate));
+    setcity(props.data[0].city_id);
+    setSpec_id(props.data[0].spec_id);
+    if(props.data[0].profile==null)
+    setProf(props.data[0].profile);
+    if(props.data[0].cover==null)
+    setCov(props.data[0].cover);
+    setSsn(props.data[0].SSN);
+
+    
   }, []);
 
-  useEffect(() => {
-    console.log(name, fname, mname, errors);
+  // useEffect(() => {
 
-    if (!name) {
-      // setError({ ...errors, fullname: "الحقل مطلوب" });
-      setError((prev)=>{return { ...prev, fullname: "الحقل مطلوب" }});
-      // errors.fullname = "الحقل مطلوب";
-    } else if (!/^[\p{L}\s]+$/u.test(name)) {
-      setError((prev)=>{return { ...prev, fullname: "الاسم غير صالح" }});
-    } else {
-      setError((prev)=>{return { ...prev, fullname: null }});
-    }
+  //   console.log(name, fname, mname, errors);
 
-    if (!fname) {
-      setError((prev)=>{return { ...prev, fname: "الحقل مطلوب" }});
-    } else if (!/^[\p{L}\s]+$/u.test(fname)) {
-      setError((prev)=>{return { ...prev, fname: "الاسم غير صالح" }});
-    } else {
-      setError((prev)=>{return { ...prev, fname: null }});
-    }
+  //   if (!name) {
+  //     // setError({ ...errors, fullname: "الحقل مطلوب" });
+  //     setError((prev) => {
+  //       return { ...prev, fullname: "الحقل مطلوب" };
+  //     });
+  //     // errors.fullname = "الحقل مطلوب";
+  //   } else if (!/^[\p{L}\s]+$/u.test(name)) {
+  //     setError((prev) => {
+  //       return { ...prev, fullname: "الاسم غير صالح" };
+  //     });
+  //   } else {
+  //     setError((prev) => {
+  //       return { ...prev, fullname: null };
+  //     });
+  //   }
 
-    if (!mname) {
-      setError((prev)=>{return { ...prev, mname: "الحقل مطلوب"} });
-    } else if (!/^[\p{L}\s]+$/u.test(mname)) {
-      setError((prev)=>{return { ...prev, mname: "الاسم غير صالح" }});
-    } else {
-      setError((prev)=>{return { ...prev, mname: null }});
-    }
-    console.log(phone);
+  //   if (!fname) {
+  //     setError((prev) => {
+  //       return { ...prev, fname: "الحقل مطلوب" };
+  //     });
+  //   } else if (!/^[\p{L}\s]+$/u.test(fname)) {
+  //     setError((prev) => {
+  //       return { ...prev, fname: "الاسم غير صالح" };
+  //     });
+  //   } else {
+  //     setError((prev) => {
+  //       return { ...prev, fname: null };
+  //     });
+  //   }
 
-    if (!phone) {
-      setError((prev)=>{return { ...prev,phone: "الحقل مطلوب"}});
-    } else if (!/^[\+]{0,1}[0-9]{8,18}$/u.test(phone)) {
-      setError((prev)=>{return { ...prev,phone: "رقم الهاتف غير صالح"}});
-    } else {
-      setError((prev)=>{return { ...prev,phone: null}});
-    }
-  }, [name, fname, mname, phone , ssn]);
+  //   if (!mname) {
+  //     setError((prev) => {
+  //       return { ...prev, mname: "الحقل مطلوب" };
+  //     });
+  //   } else if (!/^[\p{L}\s]+$/u.test(mname)) {
+  //     setError((prev) => {
+  //       return { ...prev, mname: "الاسم غير صالح" };
+  //     });
+  //   } else {
+  //     setError((prev) => {
+  //       return { ...prev, mname: null };
+  //     });
+  //   }
+  //   console.log(phone);
+
+  //   if (!phone) {
+  //     setError((prev) => {
+  //       return { ...prev, phone: "الحقل مطلوب" };
+  //     });
+  //   } else if (!/^[\+]{0,1}[0-9]{8,18}$/u.test(phone)) {
+  //     setError((prev) => {
+  //       return { ...prev, phone: "رقم الهاتف غير صالح" };
+  //     });
+  //   } else {
+  //     setError((prev) => {
+  //       return { ...prev, phone: null };
+  //     });
+  //   }
+  // }, [name, fname, mname, phone, ssn]);
 
   const handleFileChange = (event, id) => {
     const file = event.target.files[0];
@@ -117,6 +158,8 @@ export default function EditForm(props) {
   };
 
   function handleSubmit() {
+
+    
     setTry(true);
     setMsg("");
     // console.log("name", name);
@@ -126,8 +169,7 @@ export default function EditForm(props) {
     let formatedDate = date.$y + "-" + Number(date.$M + 1) + "-" + date.$D;
     // console.log("date", formatedDate);
     // console.log("phone", phone);
-    console.log("checDiseaase",chronicDiseases);
-    
+
     if (
       errors.name == null &&
       errors.fname == null &&
@@ -136,17 +178,20 @@ export default function EditForm(props) {
     ) {
       console.log("Condition TRUE", errors);
 
-      updateProfile(
+      UpdateDoctorProfile(
         name,
         fname,
         mname,
-        city,
+        ssn,
         formatedDate,
+        info,
         phone,
-        chronicDiseases,
+        moblie,
+        External,
+        city,
+        spec_id,
         prof,
-        cov,
-        
+        cov
       ).then((e) => {
         if (e != null) {
           if (e.data != null) {
@@ -168,7 +213,7 @@ export default function EditForm(props) {
           <div
             className={stProf.cover}
             style={{
-              backgroundImage: `url(${props.data.cover == null ? cover : cov})`,
+              backgroundImage: `url(${props.data[0].cover == null ? cover : cov})`,
             }}
           >
             <input
@@ -196,7 +241,7 @@ export default function EditForm(props) {
                   className={stProf.ProfileImage}
                   style={{
                     backgroundImage: `url(${
-                      props.data.profile == null ? patient : prof
+                      props.data[0].profile == null ? patient : prof
                     })`,
                   }}
                 >
@@ -219,7 +264,7 @@ export default function EditForm(props) {
                   <Box sx={{ flexGrow: 1, textAlign: "center" }}>
                     <Grid container spacing={1}>
                       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <h2 className={stProf.name}>{props.data.full_name}</h2>
+                        <h2 className={stProf.name}>{props.data[0].full_name}</h2>
                       </Grid>
                     </Grid>
                   </Box>
@@ -366,13 +411,45 @@ export default function EditForm(props) {
                     variant="standard"
                     htmlFor="email"
                   >
-                    رقم الهاتف
+                    رقم الموبايل
                   </InputLabel>
                   <br />
                   <TextField
                     className={st.field}
                     required
                     id="moblie"
+                    placeholder="+963999999999"
+                    sx={{ direction: "ltr" }}
+                    variant="standard"
+                    value={moblie}
+                    onChange={(e) => {
+                      setMobile(e.target.value);
+                    }}
+                  />
+                  {moreThantry && <p className={st.error}>{errors.phone}</p>}
+                </div>
+
+
+                <div className={st.element}>
+                  <InputLabel
+                    sx={{
+                      fontFamily: "Inter",
+                      fontStyle: "normal",
+                      fontWeight: "500",
+                      fontSize: "1rem",
+                      lineHeight: "24px",
+                      color: "#84A1FF",
+                    }}
+                    variant="standard"
+                    htmlFor="email"
+                  >
+                    رقم الهاتف
+                  </InputLabel>
+                  <br />
+                  <TextField
+                    className={st.field}
+                    required
+                    id="phone"
                     placeholder="+963999999999"
                     sx={{ direction: "ltr" }}
                     variant="standard"
@@ -384,41 +461,105 @@ export default function EditForm(props) {
                   {moreThantry && <p className={st.error}>{errors.phone}</p>}
                 </div>
 
+                <div className={st.element}>
+                  <InputLabel
+                    sx={{
+                      fontFamily: "Inter",
+                      fontStyle: "normal",
+                      fontWeight: "500",
+                      fontSize: "1rem",
+                      lineHeight: "24px",
+                      color: "#84A1FF",
+                    }}
+                    variant="standard"
+                    htmlFor="email"
+                  >
+                    رقم المعاينات الخارجية
+                  </InputLabel>
+                  <br />
+                  <TextField
+                    className={st.field}
+                    required
+                    id="ex"
+                    placeholder="+963999999999"
+                    sx={{ direction: "ltr" }}
+                    variant="standard"
+                    value={External}
+                    onChange={(e) => {
+                      setExternal(e.target.value);
+                    }}
+                  />
+                  {moreThantry && <p className={st.error}>{errors.phone}</p>}
+                </div>
+
+      
+
                 {/* </Box> */}
                 {/* </div> */}
               </Grid>
               <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                 {/* <div> */}
                 {/* <Box sx={{ flexGrow: 1, textAlign: "center" }}> */}
+          
+                <div className={st.element}>
+                  <InputLabel
+                    sx={{
+                      fontFamily: "Inter",
+                      fontStyle: "normal",
+                      fontWeight: "500",
+                      fontSize: "1rem",
+                      lineHeight: "24px",
+                      color: "#84A1FF",
+                    }}
+                    variant="standard"
+                    htmlFor="email"
+                  >
+                    معلومات عن الطبيب
+                  </InputLabel>
+                  <br />
+                  <TextField
+                    className={st.field}
+                    required
+                    id="info"
+                    placeholder="اخصائي في الجراحة من جامعة باريس"
+                    variant="standard"
+                    value={info}
+                    onChange={(e) => {
+                      setInfo(e.target.value);
+                    }}
+                  />
+                  {/* {moreThantry && <p className={st.error}>{errors.phone}</p>} */}
+                </div>
 
                 <div className={st.element}>
-                <InputLabel
-                  sx={{
-                    fontFamily: "Inter",
-                    fontStyle: "normal",
-                    fontWeight: "500",
-                    fontSize: "1rem",
-                    lineHeight: "24px",
-                    color: "#84A1FF",
-                  }}
-                  variant="standard"
-                  htmlFor="email"
-                >
-                   الرقم الوطني
-                </InputLabel>
-                <br />
-                <TextField
-                  className={st.field}
-                  required
-                  id="ssn"
-                  placeholder=" 01000000"
-                  variant="standard"
-                  onChange={(e) => {
-                    setSsn(e.target.value);
-                  }}
-                />
-                {/* {moreThantry &&    <p className={st.error}>{errors.name}</p>} */}
-              </div>
+                  <InputLabel
+                    sx={{
+                      fontFamily: "Inter",
+                      fontStyle: "normal",
+                      fontWeight: "500",
+                      fontSize: "1rem",
+                      lineHeight: "24px",
+                      color: "#84A1FF",
+                    }}
+                    variant="standard"
+                    htmlFor="email"
+                  >
+                    الرقم الوطني
+                  </InputLabel>
+                  <br />
+                  <TextField
+                    className={st.field}
+                    required
+                    id="ssn"
+                    placeholder=" 01000000"
+                    variant="standard"
+                    value={ssn}
+                    onChange={(e) => {
+                      setSsn(e.target.value);
+                    }}
+                  />
+                  {/* {moreThantry &&    <p className={st.error}>{errors.name}</p>} */}
+                </div>
 
                 <div className={st.element}>
                   <InputLabel
@@ -490,6 +631,43 @@ export default function EditForm(props) {
                     }}
                   >
                     {cities.map((e) => (
+                      <MenuItem key={e.id} value={e.id}>
+                        {e.name}
+                      </MenuItem>
+                    ))}
+                    {/* <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem> */}
+                  </Select>
+                  {/* <p className={st.error}>{errors.city}</p> */}
+                </div>
+
+                <div className={st.element}>
+                  <InputLabel
+                    sx={{
+                      fontFamily: "Inter",
+                      fontStyle: "normal",
+                      fontWeight: "500",
+                      fontSize: "1rem",
+                      lineHeight: "24px",
+                      color: "#84A1FF",
+                    }}
+                    variant="standard"
+                    htmlFor="email"
+                  >
+                    الاختصاص
+                  </InputLabel>
+                  <br />
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={spec_id}
+                    label="Age"
+                    onChange={(e) => {
+                      setSpec_id(e.target.value);
+                    }}
+                  >
+                    {specs.map((e) => (
                       <MenuItem key={e.id} value={e.id}>
                         {e.name}
                       </MenuItem>

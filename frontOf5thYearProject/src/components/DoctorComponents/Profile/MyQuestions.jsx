@@ -23,7 +23,7 @@ export default function MyQuestions(props) {
         props.data.data.data.map((k, i) => {
           return (
             <div key={k.id} className={st.ques} onClick={()=>{navigator(`/question_details/${k.id}`)}} >
-              <QuestionComponent data={k} />{" "}
+              <QuestionComponent data={k} />
             </div>
           );
         })

@@ -10,12 +10,14 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import dayjs from 'dayjs';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs from "dayjs";
+import UpdateAppointment from "../../functions/Appointments/UpdateAppointment";
+import DeleteByPatient from "../../functions/Appointments/DeleteByPatinet";
 
 export default function AppointmentCard(props) {
   const [edit, setEdit] = useState(false);
@@ -26,8 +28,33 @@ export default function AppointmentCard(props) {
   const [selectedMonth, setSelectedMonth] = useState("1");
   const [selectedDay, setSelectedDay] = useState("1");
   const [selectedTime, setSelectedTime] = useState(dayjs()); // Initialize as Dayjs object
-  const [notPending, setnotPending] = useState(props.data.status!=='pinding');
+  const [notPending, setnotPending] = useState(props.data.status !== "pinding");
+  const [reject, setReject] = useState(props.data.status === "reject");
+  const [finshed, setfinshed] = useState(props.data.status === "finshed");
+  const [msg, setMsg] = useState("");
+  const [status, setStatus] = useState("");
 
+
+ 
+  useEffect(()=>{
+     if (props.data.status === "reject") {
+    setStatus(
+      <p style={{ color: "red", fontWeight: "bold" }}>تم الرفض</p>
+    );
+  } else if (props.data.status === "finshed") {
+    setStatus(
+      <p style={{ color: "green", fontWeight: "bold" }}>تمت الزيارة</p>
+    );
+  } else if (props.data.status === "accept") {
+    setStatus(
+      <p style={{ color: "blue", fontWeight: "bold" }}>تمت قبول الموعد من قبل الطبيب</p>
+    );
+  } else if (props.data.status === "pinding") {
+    setStatus(
+      <p style={{ color: "orange", fontWeight: "bold" }}>معلق، لم يتم تحديد الموعد من قبل الطبيب</p>
+    );
+  }
+  },[])
   const daysInMonth = (month) => {
     switch (month) {
       case 2:
@@ -43,7 +70,7 @@ export default function AppointmentCard(props) {
   };
 
   return (
-    <div style={{ direction: "rtl" }}>
+    <div style={{ direction: "rtl" ,margin:'5%' }}>
       <Paper
         sx={{ padding: 2, borderRadius: 4, maxWidth: "800px", margin: "auto" }}
       >
@@ -52,7 +79,8 @@ export default function AppointmentCard(props) {
             <Box mt={2}>
               <Avatar
                 alt="Doctor"
-                src="https://via.placeholder.com/150"
+                // src="https://via.placeholder.com/150"
+                src={props.data.doctor.profile}
                 sx={{ width: 120, height: 120, margin: "auto" }}
               />
             </Box>
@@ -66,15 +94,15 @@ export default function AppointmentCard(props) {
             </Typography>
             <Typography
               variant="contained"
-              sx={{
-                backgroundColor: "#90EE90",
-                mb: 1,
-                border: "3px #A0FAC0 solid",
-                borderRadius: "5px",
-                fontSize: "20px",
-              }}
+              // sx={{
+              //   backgroundColor: "#90EE90",
+              //   mb: 1,
+              //   border: "3px #A0FAC0 solid",
+              //   borderRadius: "5px",
+              //   fontSize: "20px",
+              // }}
             >
-              {props.data.status}
+              {status}
             </Typography>
             <Typography
               variant="body2"
@@ -170,16 +198,31 @@ export default function AppointmentCard(props) {
                     </TextField>
                   </Grid> */}
                   <Grid item xs={12}>
-                    <Button variant="contained" color="error" fullWidth
-                    
-                    onClick={() => {
-                      console.log("D:", selectedDay);
-                      console.log("M:", selectedMonth);
-                      console.log("Y:", selectedYear);
-                      console.log("T:", selectedTime.format('HH:mm')); // format time output
-                      console.log("PENDING",notPending,props.data.status!=='pinding');
-                      
-                    }}>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      fullWidth
+                      onClick={() => {
+                        setMsg("");
+                        UpdateAppointment(
+                          props.data.id,
+                          props.data.doctor_id,
+                          selectedYear +
+                            "-" +
+                            selectedMonth +
+                            "-" +
+                            selectedDay,
+                          selectedTime.format("HH:mm")
+                        )
+                          .then((e) => {
+                            setMsg(e.data.msg);
+                            props.reload()
+                          })
+                          .catch((e) => {
+                            setMsg(e.data.msg);
+                          });
+                      }}
+                    >
                       إعادة الطلب
                     </Button>
                   </Grid>
@@ -198,9 +241,10 @@ export default function AppointmentCard(props) {
                 paddingLeft: "100%",
               }}
             >
-              
-                
-                  {notPending &&   (  <button
+              {
+                // notPending &&
+                !reject && !finshed && (
+                  <button
                     style={{
                       borderRadius: "50%",
                       background: "none",
@@ -214,25 +258,42 @@ export default function AppointmentCard(props) {
                     }}
                   >
                     <EditIcon />
-                  </button>)
-                  }
+                  </button>
+                )
+              }
+
+              {!finshed && (
+                <button
+                  style={{
+                    borderRadius: "50%",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+
+
+                    
+                      setMsg("");
+                      DeleteByPatient(props.data.id)
+                        .then((e) => {
+                          setMsg(e.data.msg);
+                          props.reload();
+                        })
+                        .catch((e) => {
+                          setMsg(e.data);
+                        });
+                    }}
+
                 
-                
-              
-              <button
-                style={{
-                  borderRadius: "50%",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                onClick={() => {}}
-              >
-                <DeleteIcon />
-              </button>
+                >
+                  <DeleteIcon />
+                </button>
+              )}
             </Box>
           </Grid>
         </Grid>
+        <p>{msg}</p>
       </Paper>
     </div>
   );

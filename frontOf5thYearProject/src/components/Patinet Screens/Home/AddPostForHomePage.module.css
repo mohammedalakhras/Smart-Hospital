@@ -1,102 +1,86 @@
 .container {
-    background-color: #ffffff;
-    border-radius: 20px;
-    margin-bottom: 50px;
-    width: 100%;
-    height: auto;
-    padding-top: 30px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  margin-bottom: 50px;
+  width: 100%;
+  height: auto;
+}
+.head {
+  width: 238.43px;
+  height: 54px;
+  margin-right: 10%;
+  padding-top: 5%;
+
+  font-family: "Al-Jazeera-Arabic";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 54px;
+}
+.uploadImage {
+  display: "flex";
+  gap: "5px";
+  font-family: "Al-Jazeera-Arabic";
+  font-style: normal;
+  font-weight: 70;
+  font-size: 16px;
+  line-height: 27px;
+}
+.uploadedimagescontainer {
+  margin: 5% 10% 5% 10%;
+}
+.item {
+  text-align: left;
+  direction: ltr;
+  display: flex;
+  gap: 2px;
+}
+.button {
+  border-radius: 5px;
+  margin: auto;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button p {
+  font-family: "Al-Jazeera-Arabic";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 41px;
+  text-align: right;
+
+  color: #ffffff;
+}
+.button :hover {
+  p {
+    color: #aaa4a4;
   }
-  .container hr{
-    width: 80%;
-  }
-  .container > div:first-child{
-    padding: 0px 10px;
-    margin: auto;
-    width: 80%;
-  }
-  @media (max-width:800px) {
-    .container > div:first-child > div:last-child{
-        width: 70% !important;
-    }
-  }
-  .head {
-    width: 238.43px;
-    height: 54px;
-    margin-right: 10%;
-    padding-top: 5%;
-  
-    font-family: "Al-Jazeera-Arabic";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 54px;
-  }
-  .uploadImage {
-    display: "flex";
-    gap: "5px";
-    font-family: "Al-Jazeera-Arabic";
-    font-style: normal;
-    font-weight: 70;
-    font-size: 16px;
-    line-height: 27px;
-  }
-  .uploadedimagescontainer {
-    margin: 5% 10% 5% 10%;
-  }
-  .item {
-    text-align: left;
-    direction: ltr;
-    display: flex;
-    gap: 2px;
-  }
-  .button {
-    border-radius: 5px;
-    margin: auto;
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .button p {
-    font-family: "Al-Jazeera-Arabic";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 41px;
-    text-align: right;
-  
-    color: #ffffff;
-  }
-  .button :hover {
-    p {
-      color: #aaa4a4;
-    }
-  }
-  
-  .succ{
-    color: #2E7D32;
-    font-size: 1.2rem;
-    padding: 1rem;
-    border: 1px solid #2E7D32;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  
-  }
-  .err{
-  
-    color: red;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 1rem;
-    border: 1px solid red;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-  
-  
-  }
-  
+}
+
+.msg {
+  padding-bottom: 20px;
+}
+.succ {
+  color: #2e7d32;
+  font-size: 1.2rem;
+  padding: 1rem;
+  border: 1px solid #2e7d32;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.err {
+  color: red;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem;
+  border: 1px solid red;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
