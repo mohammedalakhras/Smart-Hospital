@@ -22,7 +22,8 @@ import InfoOfDoctor from "./pages/Patient Screens/InfoOfDoctor.jsx";
 import QuestionDetails from "./pages/Patient Screens/QuestionDetails.jsx";
 import Chatbot from "./pages/Chatbot.jsx";
 import AIAnalysis from "./pages/AIAnalysis.jsx";
-
+import BrainTumor from "./pages/Patient Screens/BrainTumorDoctor.jsx";
+import ChestXray from "./pages/Patient Screens/ChestX-ray.jsx"
 //doctor Route
 import DoctorLayout from "./pages/Doctor Screens/DoctorLayout.jsx";
 import DoctorProfile from "./pages/Doctor Screens/Profile.jsx";
@@ -37,7 +38,8 @@ import Appointments from "./pages/Patient Screens/Appointments.jsx";
 import DoctorAppointments from './pages/Doctor Screens/DoctorAppointments.jsx'
 import AIAnalysisForDoctor from "./pages/Doctor Screens/AiAnalysisForDoctor.jsx";
 import ChatBotForDoctor from "./pages/Doctor Screens/ChatBotForDoctor.jsx";
-
+import BrainTumorDoctor from "./pages/Doctor Screens/BrainTumorDoctor.jsx";
+import ChestXrayDoctor from "./pages/Doctor Screens/ChestX-ray.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,7 +66,9 @@ const router = createBrowserRouter([
       { path: "/chatbot", element: <Chatbot /> },
       { path: "/AI_Analysis", element: <AIAnalysis /> },
       { path: '/question_details/:id', element: <QuestionDetails /> , loader:fetchQuestionDetails},
-      { path: '/appointment', element: <Appointments /> },
+      { path: '/appointmen t', element: <Appointments /> },
+      { path: '/BrainTumor', element: <BrainTumor /> },
+      { path: '/ChestXray', element: <ChestXray /> },
       
       //doctor 
       
@@ -89,6 +93,8 @@ const router = createBrowserRouter([
       { path: '/doctor/appointment', element: <DoctorAppointments /> , },
       { path: "/doctor/AI_Analysis", element: <AIAnalysisForDoctor /> },
       { path: "/doctor/chatbot", element: <ChatBotForDoctor /> },
+      { path: "/doctor/BrainTumor", element: <BrainTumorDoctor /> },
+      { path: "/doctor/ChestXray", element: <ChestXrayDoctor /> },
       
 
     ]
