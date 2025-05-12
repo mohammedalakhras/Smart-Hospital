@@ -71,9 +71,9 @@ export default function ProfileAndCover(props) {
                     <Grid item xs={5} sm={5} md={5} lg={5} xl={5}>
                       <p className={st.ptitle}>الاختصاص</p>
                       <p className={st.pvalue}>
-                        {data.specialazation.name
+                        {(data.specialazation!=null)?data.specialazation.name
                           ? data.specialazation.name
-                          : "غير مدخل بعد"}
+                          : "غير مدخل بعد":""}
                       </p>
                     </Grid>
                   </Grid>
